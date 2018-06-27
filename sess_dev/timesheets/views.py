@@ -4,6 +4,9 @@ from django.views import generic
 
 # Create your views here.
 from .models import TimeRecords,TimeMenus
+from .models import ProjectName
+
+proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 
 def index(request):
     """
@@ -16,7 +19,7 @@ def index(request):
     return render(
         request,
         'index.html',
-        context={'time_menus':time_menus},
+        context={'proj_name':proj_name,'time_menus':time_menus},
     )
 
 def timesheetview(request):
@@ -26,6 +29,6 @@ def timesheetview(request):
     return render(
         request,
         'index.html',
-        context={'time_entries':time_entries},
+        context={'proj_name':proj_name,'time_entries':time_entries},
     )
     
