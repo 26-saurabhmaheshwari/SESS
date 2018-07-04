@@ -1,0 +1,9 @@
+{% if time_menus %}
+    <ul>
+    {% for time_menu in time_menus %}
+        <li><a href="{% url time_menu.menu_url %}">{{ time_menu.menu_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Time Menus are available.</p>
+{% endif %}

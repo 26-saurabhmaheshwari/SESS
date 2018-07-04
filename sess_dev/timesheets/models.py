@@ -20,6 +20,7 @@ class TimeMenus(models.Model):
     menu_id = models.IntegerField(verbose_name = 'Menu ID',help_text="Enter The Menu ID")
     menu_name = models.CharField(max_length=200,verbose_name = 'Menu Name',help_text="Menu Name")
     menu_desc = models.CharField(max_length=200,verbose_name = ' Menu Description',help_text="Menu details")
+    menu_url = models.CharField(max_length=200,verbose_name = ' Menu URL',help_text="Menu URL")
 
     class Meta:
         verbose_name = 'Time Menus'

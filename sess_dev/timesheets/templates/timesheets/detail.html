@@ -1,0 +1,23 @@
+{% if time_records %}
+<table>
+    <tr>
+        <th>Employee ID</th>
+        <th>Time Sheet Date</th>
+        <th>Efforts </th>
+        <th>Description</th>
+        </tr>
+    <ul>
+    {% for time_record in time_records %}
+        <tr>
+        <!-- <td><a href="{% url 'timeEntryList' %}">{{ time_record.id }}</a></td> -->
+        <td>{{ time_record.emp_id }}</td>
+        <td>{{ time_record.ts_date }}</td>
+        <td>{{ time_record.ts_effort }}</td>
+        <td>{{ time_record.ts_desc }}</td>
+        </tr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Time Entries are available.</p>
+</table>
+{% endif %}
