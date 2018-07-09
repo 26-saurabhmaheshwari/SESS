@@ -1,0 +1,6 @@
+<h4>Thanks for Creating Time Sheets</h4>
+<table>
+    {% for d in date_list %}
+        {{d|date:"SHORT_DATE_FORMAT"}}<br><br>
+    {% endfor %}
+</table>

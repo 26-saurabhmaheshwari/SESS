@@ -1,0 +1,18 @@
+<form method="post">
+  {% csrf_token %}
+  {{ formset.management_form }}
+      <table>
+        <tr>
+            <br><br>
+            <td>Date</td><td>Hours Worked</td><td>Task Description</td>
+        </tr>
+        {% for form in formset %}
+            <tr>   
+            {% for field in form %}
+                <td>{{field}}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+   </table>
+  <input type="submit" value="Submit order" class="btn btn-primary">    
+</form>
