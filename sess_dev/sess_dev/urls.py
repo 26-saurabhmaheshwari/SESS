@@ -13,6 +13,14 @@ urlpatterns += [
     path('timesheets/', include('timesheets.urls')),
 ]
 
+# Added for Employee and Home page
+from . import views
+urlpatterns += [
+    path('employee/', include('ems.urls')),
+    path('', views.index, name='index'),
+]
+
+
 #Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
 urlpatterns += [

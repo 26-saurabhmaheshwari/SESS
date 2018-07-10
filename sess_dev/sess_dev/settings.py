@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'appraisal.apps.AppraisalConfig',
     'leaves.apps.LeavesConfig',
     'timesheets.apps.TimesheetsConfig',
+    'ems'
 ]
 
 MIDDLEWARE = [

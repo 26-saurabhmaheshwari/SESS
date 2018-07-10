@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
+        <div class="container" style="margin:2%">
+{% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-success">
+            <strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+          </div>
+    
+    {% endfor %}
+
+{% endif %}
+
+<h2> Details of  : {{ object.first_name}}</h2>
+
+
+<table style="width:100%;">
+        <tr>
+          <th style="border: 1px solid black; padding: 5px;">Employee no</th>
+          <th style=" border: 1px solid black; padding: 5px;">Employee Name</th>
+          <th style="border: 1px solid black; padding: 5px;"> Gender</th>
+          <th style="border: 1px solid black; padding: 5px;"> Hire Date</th>
+          <th style="border: 1px solid black; padding: 5px;"> Salary</th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;">{{ object.emp_no}}</td>
+          <td style=" border: 1px solid black;">{{ object.first_name}} {{ object.last_name}}  </td>
+          <td style=" border: 1px solid black;">{{ object.gender}}</td>
+          <td style=" border: 1px solid black;">{{ object.hire_date}}</td>
+          <td style=" border: 1px solid black;"> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
+          
+        </tr>
+      </table>
+      </div>
+</body>
+</html>
