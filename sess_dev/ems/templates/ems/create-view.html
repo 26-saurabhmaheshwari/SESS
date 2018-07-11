@@ -13,7 +13,10 @@
 
 <form action="." method="POST">
         {% csrf_token %}
-    {{ form.as_p }}
+        <table class="">
+             {{ form.as_table }}   
+        </table>
+    
     
     
     <button type="submit"  value="Create"  class="btn btn-outline-primary">Create New</button></a>
