@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
+
+  <div class="container" style="margin:2%">
+    
+<h2>Time Records for the Current Month</h2>
+
+<a href="/timesheets/export/" >
+    <button type="button" class="btn btn-outline-primary">
+    <img alt="Export to Excel" src="{% static "timesheets/exportexcel.png" %}" >
+    </button>
+</a>
+<p></p>
+<table style="width:100%;" class="table table-bordered">
+                <tr> <th > Date</th> <th> Efforts</th> <th> Description</th> <th> Action</th> </tr>
+
+                {% for time_record in time_records %} 
+                <tr>
+                    <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td>{{ time_record.ts_effort }}</td>
+                    <td>{{ time_record.ts_desc }}</td>
+                    <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                  
+                </tr> 
+                {% endfor  %}
+              </table>   
+
+            </div>  
+</body>
+</html>

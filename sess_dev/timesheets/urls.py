@@ -5,6 +5,8 @@ urlpatterns = [
     path('', views.timeSheetMenu, name='timeSheetMenu'),
     path('view/', views.timeEntryList, name='timeEntryList'),
     path('create/', views.timeEntryCreate, name='timeEntryCreate'),
-    path('update/', views.timeEntryUpdate, name='timeEntryUpdate'),
-    path('delete/', views.timeEntryDelete, name='timeEntryDelete'),
+    path('<int:id>/edit/', views.timeEntryUpdate, name='timeEntryUpdate'),
+    path('<int:id>/delete/', views.timeEntryDelete, name='timeEntryDelete'),
+    path('export/', views.timeEntryExport, name='timeEntryExport'),
+    
 ]
