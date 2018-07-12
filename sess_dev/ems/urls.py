@@ -17,9 +17,13 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+#from django.views.generic import AboutView
+from ems.views import AboutView, YAboutView
 
 urlpatterns = [
     path('', views.EmployeeListView, name='list'),
+    path('about/', AboutView.as_view()),
+    path('y/', YAboutView.as_view()),
     path('create/', views.EmployeeCreateView, name='create'),
     path('<int:emp_no>/', views.EmployeeDetailView, name='detail'),
     path('<int:emp_no>/edit/', views.EmployeeUpdateView, name='update'),

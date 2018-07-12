@@ -3,11 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
-
 from .forms import EmployeeForm
 from django.db.models import Q
 from .models import Employee, Salaries
 
+
+
+from django.views.generic import TemplateView
+from django.views import View
+    
+
+class AboutView(View):
+    x = "This is X view"
+    def get(self, request):
+         return HttpResponse(self.x)
+    
+class YAboutView(AboutView):
+     x = "Morning to ya"
+     
+     def get(self, request):
+         return HttpResponse(self.x)
+    
+    
 
 def index(request):
     return HttpResponse("Hello, This is the Home page of the Employee")
