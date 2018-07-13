@@ -37,11 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'empprofile.apps.EmpprofileConfig',
-    'appraisal.apps.AppraisalConfig',
-    'leaves.apps.LeavesConfig',
-    'timesheets.apps.TimesheetsConfig',
-    'ems'
+    'timesheets',
+    'ems',
 ]
 
 MIDDLEWARE = [

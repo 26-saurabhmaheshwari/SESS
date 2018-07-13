@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse 
 
 # Create your models here.
 
@@ -7,8 +8,8 @@ class Employee(models.Model):
         ('M', 'Male'),
         ('F', 'Female'),
     )
-
     emp_no = models.IntegerField(primary_key=True)
+    emp_id = models.IntegerField(verbose_name = 'Employee ID')
     birth_date = models.DateField(verbose_name = 'Employee DOB',)
     first_name = models.CharField(max_length=14, verbose_name = 'Employee First Name',)
     last_name = models.CharField(max_length=16, verbose_name = 'Employee Last Name',)
@@ -18,6 +19,12 @@ class Employee(models.Model):
     def __str__(self):
        # return 'first_name=%s, last_name=%s' % (self.first_name, self.last_name)
        return self.first_name
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a detail record for this book.
+        """
+        return reverse('employee-detail', args=[str(self.emp_no)])
 
     class Meta:
         db_table = 'employees'

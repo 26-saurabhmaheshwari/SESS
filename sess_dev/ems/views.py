@@ -6,28 +6,50 @@ from django.shortcuts import render, get_object_or_404
 from .forms import EmployeeForm
 from django.db.models import Q
 from .models import Employee, Salaries
-
-
+from timesheets.models import TimeRecords,TimeMenus
+from django.views import generic
 
 from django.views.generic import TemplateView
 from django.views import View
-    
-
-class AboutView(View):
-    x = "This is X view"
-    def get(self, request):
-         return HttpResponse(self.x)
-    
-class YAboutView(AboutView):
-     x = "Morning to ya"
-     
-     def get(self, request):
-         return HttpResponse(self.x)
-    
-    
+import datetime
+from datetime import timedelta
+today = datetime.datetime.now()  
+# from ;lib
 
 def index(request):
-    return HttpResponse("Hello, This is the Home page of the Employee")
+    """
+    View function for home page of site.
+    """
+    # Generate counts of some of the main objects
+    num_employee= Employee.objects.all().count()
+    emp_id=Employee.objects.all().filter('emp_id')
+    title="Employee Home"
+   
+    # Render the HTML template index.html with the data in the context variable
+    return render(
+        request,
+        'index.html',
+        context={'num_emp':num_employee, 'title': title},
+    )
+
+## Class based view 
+class EmployeeListView(generic.ListView):
+    model = Employee
+
+class EmployeeDetailView(generic.DetailView):
+    model = Employee
+    
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeDetailView, self).get_context_data(**kwargs)
+        
+        context['tags'] = TimeRecords.objects.all().filter(emp_id = 2001)
+        return context
+
+
+
+
+
+    
 
 # Create
 
@@ -38,6 +60,9 @@ def index(request):
 # Delete
 
 # List
+
+# Function Based view
+
 
 # Create New Employee
 def EmployeeCreateView(request):
@@ -85,7 +110,7 @@ def EmployeeDeleteView(request, emp_no=None):
     return render(request, template, context )
 
 
-def EmployeeDetailView(request, emp_no=None):
+def EmployeeDetailView1(request, emp_no=None):
     print(emp_no)
     #obj= Employee.objects.get(emp_no=1)
     emp = get_object_or_404(Employee, emp_no=emp_no)
@@ -98,7 +123,7 @@ def EmployeeDetailView(request, emp_no=None):
     template = "ems/detail-view.html"
     return render(request, template, context )
 
-def EmployeeListView(request):
+def EmployeeListView1(request):
     query = request.GET.get("q", None)
     qs = Employee.objects.all()
     if query is not None:

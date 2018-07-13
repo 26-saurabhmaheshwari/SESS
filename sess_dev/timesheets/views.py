@@ -5,14 +5,15 @@ from django.shortcuts import get_list_or_404, render
 from .forms import CreateTimeSheetForm
 from django.forms import formset_factory
 
-# Create your views here.
+# Create your views here. from sess_dev.timesheets.models import TimeRecords,TimeMenus
 from .models import TimeRecords,TimeMenus
 from .models import ProjectName
 
 import datetime
 from datetime import timedelta
 
-proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
+proj_name = "Project Name"
+#proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 today = datetime.datetime.now()
 
 def daterange():

@@ -18,14 +18,17 @@ Including another URLconf
 from django.urls import path
 from . import views
 #from django.views.generic import AboutView
-from ems.views import AboutView, YAboutView
+# from ems.views import AboutView, YAboutView
 
 urlpatterns = [
-    path('', views.EmployeeListView, name='list'),
-    path('about/', AboutView.as_view()),
-    path('y/', YAboutView.as_view()),
+    #path('', views.EmployeeListView, name='list'),
+   # path('', views.index, name='index'),
+    path('', views.EmployeeListView.as_view(), name='employee'),
+    path('<int:pk>', views.EmployeeDetailView.as_view(), name='employee-detail'),
+
+    path('list/', views.EmployeeListView1, name='list'),
     path('create/', views.EmployeeCreateView, name='create'),
-    path('<int:emp_no>/', views.EmployeeDetailView, name='detail'),
+    path('<int:emp_no>/', views.EmployeeDetailView1, name='detail'),
     path('<int:emp_no>/edit/', views.EmployeeUpdateView, name='update'),
     path('<int:emp_no>/delete/', views.EmployeeDeleteView, name='delete'),
 ]
