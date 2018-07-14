@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base_generic.html" %}
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
-    
-<h1>Update {{form.first_name}}</h1>
-<div class="row" style="margin:2%">
+{% block content %}
 
-
-<form action="." method="POST">
+<h3>Update the User </h3>
+<form action="." method="POST" style="margin:2%">
         {% csrf_token %}
         <table class="">
                 {{ form.as_table }}   
@@ -19,3 +11,4 @@
     
     <button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>
 </form>
+{% endblock %}

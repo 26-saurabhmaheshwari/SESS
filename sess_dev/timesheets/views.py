@@ -8,14 +8,15 @@ from django.contrib import messages
 import xlwt
 
 
-# Create your views here.
+# Create your views here. from sess_dev.timesheets.models import TimeRecords,TimeMenus
 from .models import TimeRecords,TimeMenus
 from .models import ProjectName
 
 import datetime
 from datetime import timedelta
 
-proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
+proj_name = "Project Name"
+#proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 today = datetime.datetime.now()
 
 def daterange():
@@ -49,7 +50,7 @@ def timeEntryCreate(request):
         if formset.is_valid():
             for form in formset:
                 create_form = form.save(commit=False)
-                create_form.emp_id = '1214' # because ts_date is excluded
+                create_form.emp_id = '2001' # because ts_date is excluded
                 create_form.save()
             #return render(request, 'timesheets/result.html', {'date_list':date_list})
             messages.success(request, "Time Sheet Created Successfully")

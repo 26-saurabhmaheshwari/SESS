@@ -1,0 +1,50 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container" style="margin:2%">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span></a>.
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-10">
+                <h3>Search employee</h3>
+                <form action="/employee/">
+                   <input type="text" name="q" placeholder="Search Employee by Name Sr name or employee_no">
+                   <button type="submit" class="btn btn-outline-primary">Search</button></a>
+               </form>
+
+        </div>
+        <div class="col-sm-2">
+                <a href="create/" ><button type="button" class="btn btn-outline-primary">Create New</button></a>
+
+        </div>
+    </div>
+    <div style="margin-top:5%">
+            
+        {% if employee_list %}
+        <h3>List of Employee</h3>
+        <table style="width:100%;" class="table table-bordered">
+            <tr><th >Employee no</th><th >Employee Name</th><th > Gender</th><th > Hire Date</th><th> Title</th><th> Action</th> </tr>
+                
+            {% for emp in employee_list %}
+            <tr>
+                <td>{{ emp.emp_no}}</td>
+                <td > <a href='{{emp.emp_no}}'>{{ emp.first_name}} {{ emp.last_name}}  </a></td>
+                <td >{{ emp.gender}}</td>
+                <td >{{ emp.hire_date}}</td>
+                <td >{{ salr.salary}}</td>
+                <td ><a href="{{emp.emp_no}}/edit">Edit</a> or <a href="{{emp.emp_no}}/delete/">Delete</a></td>
+            </tr> 
+            {% endfor  %}
+        </table>
+        {% else %}
+        <p>There are no employee.</p>
+        {% endif %}   
+    </div>  
+</div>  
+
+{% endblock %}

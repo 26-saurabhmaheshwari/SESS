@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
+from . import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
@@ -17,7 +19,8 @@ urlpatterns += [
 from . import views
 urlpatterns += [
     path('employee/', include('ems.urls')),
-    path('', views.index, name='index'),
+    path('', views.IndexView.as_view(), name='index'),
+   # path('', views.index, name='index'),
 ]
 
 
@@ -32,3 +35,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+from django.contrib.auth import views as auth_views
+
+urlpatterns += [
+    path('login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    path('logout/', auth_views.logout,{'template_name': 'logged_out.html'},  name='logout'),
+]
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]

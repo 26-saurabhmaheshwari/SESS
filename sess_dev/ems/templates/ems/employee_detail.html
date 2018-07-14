@@ -1,0 +1,53 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if messages %}{% for message in messages %}
+    <div class="alert alert-success"><strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+    </div>    {% endfor %}
+{% endif %}
+
+<div class="container" style="margin:2%">
+  <h3>Details of : {{ employee.first_name }} {{ employee.last_name }}</h3>
+  <table style="width:100%; margin-top:20px;" class="table table-bordered">
+      <tr>
+        <th>Employee no</th>
+        <th>Employee Name</th>
+        <th> Gender</th>
+        <th> Hire Date</th>
+        <th> Salary</th>
+      </tr>
+      <tr>
+        <td>{{ employee.emp_no}}</td>
+        <td >{{ employee.first_name}} {{ object.last_name}}  </td>
+        <td>{{ employee.gender}}</td>
+        <td>{{ employee.hire_date}}</td>
+        <td> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
+        
+      </tr>
+  </table>
+  <h3>Detils logs</h3>
+  <table style="width:100%; margin-top:20px;" class="table table-bordered">
+      <tr> <th>Date </th> <th>Hour </th><th> Details</th><th> Update</th></tr>       
+    
+  {% if tags %}    
+  {% for time_record in tags %} 
+
+  <tr>
+      <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
+      <td>{{ time_record.ts_effort }}</td>
+      <td>{{ time_record.ts_desc }}</td>
+      <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                  
+  </tr> 
+  {% endfor  %}
+  {% endif %}
+</table>
+
+  {% for ts in book.bookinstance_set.all %}
+                              <hr>
+                              <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+                              {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
+                              <p><strong>Imprint:</strong> {{copy.imprint}}</p>
+                              <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+                              {% endfor %}
+</div>  
+{% endblock %}

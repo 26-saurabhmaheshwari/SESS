@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>{{ title }}</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+   <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/lib/calendar2/semantic.ui.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/lib/calendar2/pignose.calendar.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/lib/owl.theme.default.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/lib/owl.carousel.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>  
+<body class="fix-header fix-sidebar">
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"  id="logox">
+                        <!-- Logo icon -->
+                        
+                        <b><img src="{% static 'images/logo2.png' %}" alt="homepage" class="dark-logo" height="48" width="132" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text 
+                        <span><img src="{% static 'images/snp_lga.png' %}" alt="homepage" class="dark-logo" height="42" width="72"/></span>
+                            -->
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                      
+                    </ul>
+                    <!-- User profile and search -->
+                    <ul class="navbar-nav my-lg-0"> <!-- Comment -->
+                        
+                        <!-- End Comment -->
+                        
+                        <!-- Profile -->
+                        {% if user.is_authenticated %}
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <span class="heartbit"></span>   <i class="ti-user"></i> {{ user.get_username }}
+                                
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                <ul class="dropdown-user">
+                                    <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                                   
+                                    <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                                    <li><a href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{% url 'login'%}?next={{request.path}}">
+                                     <i class="fa fa-sign-in"></i> Login
+                                    <div class="notify"> <span class="heartbit"></span> <span class="point"></span></div>
+                                </a>
+                                
+                            </li>
+         
+                      {% endif %} 
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End header header -->
+        <!-- Left Sidebar  -->
+        <div class="left-sidebar">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                       
+                        <ul id="sidebarnav" class="in">
+                            <li class="nav-devider"></li>
+                            <li class="nav-label">Main</li>
+                            <li class="x">
+                                <a href="{% url 'index' %}" >
+                                    <i class="fas fa-home"></i> 
+                                    <span class="hide-menu">Home </span></a>
+                                </li>
+                            <li class="x"><a href="{% url 'books' %}" >
+                                    <i class="fas fa-book-open"></i> 
+                                    <span class="hide-menu">All Books </span></a>
+                            </li>
+                            
+                            <li class="x"> 
+                                    <a  href="{% url 'author' %}" >
+                                        <i class="fas fa-pencil-alt"></i> 
+                                        <span class="hide-menu">All Authors </span>
+                                    </a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-label">Users</li>
+                            <li class="x"><a href="{% url 'my-borrowed' %}">
+                                <i class="fas fa-hand-holding"></i>
+                                <span class="hide-menu">My Borrowed </span> </a></li>
+                         
+                            {% endif %} 
+
+                            {% if perms.catalog.can_mark_returned %}
+                            <li class="nav-label">Staff</li>
+                            <li class="x"><a href="{% url 'all-borrowed' %}">
+                                <i class="fas fa-hand-holding"></i>
+                                <span class="hide-menu">All Borrowed </span> </a></li>
+                         
+                            {% endif %} 
+                            
+                      
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+                <!-- End Sidebar scroll-->
+        </div>
+        <!-- End Left Sidebar  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Dashboard</h3> </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                        
+                    <div class="col-12">
+                            {% block profile %}{% endblock %}
+                            {% block formrd %}{% endblock %}
+                        <div class="card">
+                            <div class="card-body"> 
+                                    
+                                    {% block content %}{% endblock %}
+                                    {% block pagination %}
+                                      {% if is_paginated %}
+                                      <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                              <li class="page-item ">
+                                                    {% if page_obj.has_previous %}
+                                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"" class="page-link" href="#" tabindex="-1">Previous</a>
+                                                {% endif %}
+                                              </li>
+                                              {% for pg in page_obj.paginator.page_range %}
+                                              {% if page_obj.number == pg %}
+                                                 <li class="page-item active"><a class="page-link active" href="?page={{ pg }}">{{ pg }}</a></li>
+                                             {% else %}
+                                                <li class="page-item "><a class="page-link" href="?page={{ pg }}">{{ pg }}</a></li>
+                                                
+                                                {% endif %}
+                                              {% endfor %}
+                                              
+
+                                              {% if page_obj.has_next %}
+                                                <li class="page-item">
+                                                   <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                                </li>
+                                                {% else %}
+                                                <li class="page-item disabled">
+                                                    <a class="page-link">next</a>
+                                                </li> 
+                                            {% endif %}
+                                            </ul>
+                                          </nav>
+
+                                          <div class="pagination">
+                                              <span class="page-links">
+                                                  {% if page_obj.has_previous %}
+                                                      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                                                  {% endif %}
+                                                  <span class="page-current">
+                                                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                  </span>
+                                                  {% if page_obj.has_next %}
+                                                      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                                  {% endif %}
+                                              </span>
+                                          </div>
+                                      {% endif %}
+                                    {% endblock %}  
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a> 
+      <div class="collapse navbar-collapse" >
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#">Home 
+           
+           <a class="nav-item nav-link" href="#">Employee 
+
+           </span></a> <a class="nav-item nav-link" href="/timesheets/">Sheets 
+            </a></div>
+        </div>
+    </nav>
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="">All Employee</a></li>
+          <li><a href="create/">Create</a></li>
+      </ul>
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,6 +1,11 @@
 from django.shortcuts import render
-
+from django.views import View
 from django.http import HttpResponse
+from django.views import generic
+
+from django.views.generic import TemplateView
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 def index(request):
@@ -17,3 +22,8 @@ def index(request):
     print(response.cookies)
     return response
 
+class IndexView(View):
+    template_name = "home.html"
+    def get(self, request):
+        return render(request, self.template_name)
+    

@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'empprofile.apps.EmpprofileConfig',
-    'appraisal.apps.AppraisalConfig',
-    'leaves.apps.LeavesConfig',
-    'timesheets.apps.TimesheetsConfig',
-    'ems'
+    'crispy_forms',
+    'timesheets',
+    'ems',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +57,8 @@ ROOT_URLCONF = 'sess_dev.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+
+        'DIRS': ['./templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,3 +125,7 @@ STATIC_URL = '/static/'
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

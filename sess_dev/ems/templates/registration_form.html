@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Create New Employee</h1>
+
+<div class="row" style="margin:2%">
+        <form action="." method="POST"> {% csrf_token %}
+                <table class="">
+                {{ form.as_table }}   
+                </table>
+                <button type="submit"  value="Create"  class="btn btn-outline-primary">Create New</button></a>
+        </form>
+</div>
+
+{% endblock %}
