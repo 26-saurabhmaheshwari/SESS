@@ -1,48 +1,21 @@
 from django.contrib import admin
 from django.urls import path
-
+from django.conf.urls import include
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
-
-# Use include() to add paths from the catalog application 
-from django.conf.urls import include
-from django.urls import path
-
-urlpatterns += [
     path('timesheets/', include('timesheets.urls')),
-]
-
-# Added for Employee and Home page
-from . import views
-urlpatterns += [
-    path('employee/', include('ems.urls')),
-    path('', views.IndexView.as_view(), name='index'),
-   # path('', views.index, name='index'),
-]
-
-
-#Add URL maps to redirect the base URL to our application
-from django.views.generic import RedirectView
-urlpatterns += [
-    path('', RedirectView.as_view(url='/timesheets/')),
-]
-
-# Use static() to add url mapping to serve static files during development (only)
-from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
-from django.contrib.auth import views as auth_views
-
-urlpatterns += [
-    path('login/', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    path('employee/', include('ems.urls'), name="em"),
+    path('', auth_views.login,  name='login'),
+    path('dashboard/', views.Dashboard, name='dashboard'),
+    path('login/', auth_views.login,  name='login'),
     path('logout/', auth_views.logout,{'template_name': 'logged_out.html'},  name='logout'),
-]
-urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
