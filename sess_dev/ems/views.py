@@ -105,7 +105,7 @@ class UserFormView(View):
 
 # Create New Employee
 def EmployeeCreateView(request):
-    form = EmployeeForm(request.POST or None)
+    form = UserForm(request.POST or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
@@ -117,7 +117,7 @@ def EmployeeCreateView(request):
     context = {
         'form' : form
     }
-    template = "ems/create-view.html"
+    template = "ems/employee_create.html"
     return render(request, template, context )
 
 

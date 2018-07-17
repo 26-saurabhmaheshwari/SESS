@@ -42,7 +42,7 @@
                 <nav class="navbar navbar-expand-lg top-navbar navbar-expand-md  navbar-light ">
                         <a class="navbar-brand" href="#">
                             <div class="navbar-header">
-                                <a class="navbar-brand" href="{% url 'index' %}"  id="logox">
+                                <a class="navbar-brand" href="{% url 'dashboard' %}"  id="logox">
                                     <!-- Logo icon -->
                                     
                                     <b><img src="{% static 'images/logo2.png' %}" alt="homepage" class="dark-logo" height="48" width="132" /></b>
@@ -60,7 +60,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                              <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                              <a class="nav-link" href="{% url 'dashboard' %}">Home <span class="sr-only">(current)</span></a>
                             </li>
                            
                             <li class="nav-item">
@@ -140,24 +140,24 @@
                             <li class="nav-devider"></li>
                             <li class="nav-label">Main</li>
                             <li class="x">
-                                <a href="{% url 'index' %}" >
+                                <a href="{% url 'dashboard' %}" >
                                     <i class="fas fa-home"></i> 
                                     <span class="hide-menu">Home </span></a>
                                 </li>
-                            <li class="x"><a href="{% url 'index' %}" >
+                            <li class="x"><a href="{% url 'dashboard' %}" >
                                     <i class="fas fa-book-open"></i> 
                                     <span class="hide-menu">All Books </span></a>
                             </li>
                             
                             <li class="x"> 
-                                    <a  href="{% url 'index' %}" >
+                                    <a  href="{% url 'dashboard' %}" >
                                         <i class="fas fa-pencil-alt"></i> 
                                         <span class="hide-menu">All Authors </span>
                                     </a>
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-label">Users</li>
-                            <li class="x"><a href="{% url 'index' %}">
+                            <li class="x"><a href="{% url 'dashboard' %}">
                                 <i class="fas fa-hand-holding"></i>
                                 <span class="hide-menu">My Borrowed </span> </a></li>
                          
@@ -165,7 +165,7 @@
 
                             {% if perms.catalog.can_mark_returned %}
                             <li class="nav-label">Staff</li>
-                            <li class="x"><a href="{% url 'index' %}">
+                            <li class="x"><a href="{% url 'dashboard' %}">
                                 <i class="fas fa-hand-holding"></i>
                                 <span class="hide-menu">All Borrowed </span> </a></li>
                          
@@ -203,7 +203,7 @@
                                             <ul class="pagination justify-content-center">
                                               <li class="page-item ">
                                                     {% if page_obj.has_previous %}
-                                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"" class="page-link" href="#" tabindex="-1">Previous</a>
+                                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="page-link" href="#" tabindex="-1">Previous</a>
                                                 {% endif %}
                                               </li>
                                               {% for pg in page_obj.paginator.page_range %}
