@@ -1,94 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  {% block title %}<title>Local Library</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">-->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  
-      <!-- Custom CSS -->
+{% extends "base_generic.html" %}
 
-   
-  <!-- Add additional CSS in static file -->
-  {% load static %}
-  
-  <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
-  
-  <link rel="stylesheet" href="{% static 'css/lib/calendar2/semantic.ui.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/lib/calendar2/pignose.calendar.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/lib/owl.theme.default.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/lib/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% block content %}
 
-</head>
-
-<body class="fix-header fix-sidebar"  id="rdb1">
-
-
-
-    
-    <div id="main-wrapper">
-    
-        <div class="header">
-         
-        </div>
-        <div >
-        <div class="page-wrapper" id="rdb1">
-           
-            <!-- Container fluid  -->
-           
-                <!-- Start Page Content -->
-              
-                <div class="row">
-                  <div class="col-lg-6"></div>
-                    <div class="col-lg-6">
-                        <div class="login-form card">
-                            <form method="post" action="{% url 'login' %}">
-                                {% csrf_token %}
-                                
-                                <div>
-                                  
-                                    <!-- username input field-->
-                                    <div class="form-group">
-                                        <label for="{{ form.username.id_for_label }}" >Username</label> 
-                                        <input id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}"  type="text"  class="form-control">
-                                    
-                                </div>
-                                <!-- password input field-->
-                                <div class="form-group">
-                                    <label for="{{ form.password.id_for_label }}" >Password</label>
-                                    <input id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" required type="password" class="form-control">
-                                </div>
-                                
-                                <div>
-                                  <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
-                                  <input type="hidden" name="next" value="{{ next }}" />
-                                </div>
-                                </form>
-                    </div>
-                    </div>
-                    <div class="card">
-                      <h3 class="text-center">OR </h3>
-                      <div class="text-cente">  <span>Hey ! Click sign Up to register  </span>
-                       <a href="{% url 'register' %}" > <button type="button"  value="Sign Up"  class="btn btn-outline-primary">Sign Up</button></a>
-</div>
-                   
-                    
-                
-                 </div>  
-                      
-                    
-            
-                </div> 
-            </div>
-            
       
+
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% else %}
+    <p>You have to login to view this page</p>
+    {% endif %}
+{% endif %}
+
+<h3>Please login </h3>
+
+      <div class="login-form card">
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    
+    <div>
+      
+        <!-- username input field-->
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}" >Username</label> 
+            <input id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}"  type="text"  class="form-control">
         
+    </div>
+    <!-- password input field-->
+    <div class="form-group">
+        <label for="{{ form.password.id_for_label }}" >Password</label>
+        <input id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" required type="password" class="form-control">
+    </div>
+    
+    <div>
+      <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+    </form>
+    
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    
+      </div>
+  
+
+{% endblock %}
