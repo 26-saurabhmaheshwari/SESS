@@ -17,7 +17,7 @@
     </button>
 </a>
 <p></p>
-<table style="width:100%;" class="table table-bordered">
+<!-- <table style="width:100%;" class="table table-bordered">
                 <tr> <th > Date</th> <th> Efforts</th> <th> Description</th> <th> Action</th> </tr>
 
                 {% for time_record in time_records %} 
@@ -31,5 +31,24 @@
               </table>   
 
             </div>  
+        -->
+            <div>
+                {% for record in current_records %}
+                    <p>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</p>
+                {% endfor %}
+            
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="week" value="next-week">
+                    <button type="submit">next week</button>
+                </form>
+            
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="week" value="last-week">
+                    <button type="submit">last week</button>
+                </form>
+            
+            </div>
 </body>
 </html>

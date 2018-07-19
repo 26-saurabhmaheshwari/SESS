@@ -16,6 +16,9 @@ class TimeRecords(models.Model):
 
     def __str__(self):
         return self.ts_desc
+    
+    def get_week(self):
+        return self.ts_date.isocalendar()[1]
 
 class TimeMenus(models.Model):
     menu_id = models.IntegerField(verbose_name = 'Menu ID',help_text="Enter The Menu ID")

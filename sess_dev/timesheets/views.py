@@ -6,6 +6,8 @@ from .forms import CreateTimeSheetForm
 from django.forms import formset_factory
 from django.contrib import messages
 import xlwt
+from django.utils import timezone
+
 
 
 # Create your views here. from sess_dev.timesheets.models import TimeRecords,TimeMenus
@@ -34,10 +36,34 @@ def timeSheetMenu(request):
     time_menus=TimeMenus.objects.all()
     context={'proj_name':proj_name,'time_menus':time_menus}
     return render(request,'timesheets/index.html', context)
-
+'''
 def timeEntryList(request):
     time_records=TimeRecords.objects.filter(ts_date__year=today.year, ts_date__month=today.month)
     context = {'time_records': time_records}
+    return render(request, 'timesheets/list.html', context)
+'''
+
+def timeEntryList(request):
+    
+    context = dict()
+
+    time_records = TimeRecords.objects.all()
+    current_week = timezone.now().isocalendar()[1]
+    current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
+
+    if request.method == 'POST':
+        week = request.POST['week']
+
+        if week == 'next-week':
+            current_records = [time_record for time_record in time_records if
+                               time_record.get_week() == current_week + 1]
+
+        if week == 'last-week':
+            current_records = [time_record for time_record in time_records if
+                               time_record.get_week() == current_week - 1]
+
+    context['current_records'] = current_records
+
     return render(request, 'timesheets/list.html', context)
 
 def timeEntryCreate(request):
