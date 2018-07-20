@@ -36,19 +36,28 @@
                 {% for record in current_records %}
                     <p>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</p>
                 {% endfor %}
+                <p>{{ c_week }}</p>
             
                 <form action="" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="week" value="next-week">
+                    <input type="hidden" name="week_no" value="{{ c_week }}">
                     <button type="submit">next week</button>
                 </form>
             
                   <form action="" method="post">
                     {% csrf_token %}
+                    <input type="hidden" name="week_no" value="{{ c_week }}">
                     <input type="hidden" name="week" value="last-week">
                     <button type="submit">last week</button>
                 </form>
-            
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">
+                                <strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span></a>.
+                            </div>
+                        {% endfor %}
+                    {% endif %}
             </div>
 </body>
 </html>

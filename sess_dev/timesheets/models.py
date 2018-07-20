@@ -15,7 +15,7 @@ class TimeRecords(models.Model):
         ordering = ["-emp_id"]
 
     def __str__(self):
-        return self.ts_desc
+        return str(self.id)
     
     def get_week(self):
         return self.ts_date.isocalendar()[1]

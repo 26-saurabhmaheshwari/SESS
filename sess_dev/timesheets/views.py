@@ -50,19 +50,37 @@ def timeEntryList(request):
     time_records = TimeRecords.objects.all()
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
+    c_week = current_week
 
     if request.method == 'POST':
         week = request.POST['week']
 
         if week == 'next-week':
+            week_no = request.POST.get('week_no')
+            week_no = int(week_no)
             current_records = [time_record for time_record in time_records if
-                               time_record.get_week() == current_week + 1]
+                               time_record.get_week() == week_no + 1]
+            try:
+                gotdata = current_records[0]
+                c_week = current_records[0].get_week()
+            except IndexError:
+                gotdata = 'null'
 
         if week == 'last-week':
+            week_no = request.POST.get('week_no')
+            week_no = int(week_no)
             current_records = [time_record for time_record in time_records if
-                               time_record.get_week() == current_week - 1]
+                               time_record.get_week() == week_no - 1]
+            try:
+                gotdata = current_records[0]
+                c_week = current_records[0].get_week()
+            except IndexError:
+                gotdata = 'null'
+
 
     context['current_records'] = current_records
+    context['c_week'] = c_week
+
 
     return render(request, 'timesheets/list.html', context)
 
