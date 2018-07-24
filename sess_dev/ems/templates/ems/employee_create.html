@@ -9,7 +9,16 @@
                 <div class="col-lg-6 login-content card " id='rdb1'>
                         <div class="login-form ">
                                         <h4>Employee Registration Form</h4>
-                                <form method="POST" action=".">{% csrf_token %}
+                                        <form action="." method="POST" style="margin:2%">
+        {% csrf_token %}
+        <table class="">
+                {{ form.as_table }}   
+           </table>
+    
+    <button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>
+</form>
+
+                                <!-- <form method="POST" action=".">{% csrf_token %}
                                         <div>
                                                 <div class="form-group">
                                                         <div class="checkbox checkbox-success">
@@ -17,6 +26,10 @@
                                                                 <input id="{{ form.is_staff.id_for_label }}"  name="{{ form.is_staff.html_name }}"  type="checkbox" >
                                                          </div>
                                                  </div>
+                                                 <div class="form-group">
+                                                        <label for="{{ form.username.id_for_label }}" >Enter User Name : </label>
+                                                        <input id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}"  type="text"  class="form-control input-rounded">
+                                                </div>
                                                 <div class="form-group">
                                                         <label for="{{ form.first_name.id_for_label }}" >Enter First Name : </label>
                                                         <input id="{{ form.first_name.id_for_label }}"  name="{{ form.first_name.html_name }}"  type="text"  class="form-control input-rounded">
@@ -54,8 +67,8 @@
         
                                                         <input type="hidden" name="next" value="{{ next }}" />
                                                       </div>
-                                                </form>
-                                          </div>
+                                </form> -->
+                        </div>
                 </div>
 
         </div>

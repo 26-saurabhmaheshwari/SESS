@@ -146,6 +146,18 @@ def timeEntryDelete(request, id):
     template = "timesheets/delete.html"
     return render(request, template, context )
 
+def timeEntryApprove(request, id):
+    obj = get_object_or_404(TimeRecords, id=id) 
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, "Time Entry Approve")
+        return HttpResponseRedirect("/timesheets/view")
+    context = {
+        "id" : obj,
+    }
+    template = "timesheets/approve.html"
+    return render(request, template, context )
+
 def timeEntryExport(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="timeEntryExport.xls"'

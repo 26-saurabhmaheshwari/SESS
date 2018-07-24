@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:id>/edit/', views.timeEntryUpdate, name='timeEntryUpdate'),
     path('<int:id>/delete/', views.timeEntryDelete, name='timeEntryDelete'),
     path('export/', views.timeEntryExport, name='timeEntryExport'),
+    path('approve/', views.timeEntryApprove, name='timeEntryApprove'),
     
 ]

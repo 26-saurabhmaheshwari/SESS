@@ -1,3 +1,51 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container" style="margin:2%">
+ 
+    <div style="margin-top:5%">
+            <h1>Submit Sheets </h1>          
+<form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table style="width:100%;" class="table table-bordered">  
+              <tr>
+                  <br><br>
+                  <th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th>
+              </tr>
+              {% for form in formset %}
+                  <tr>   
+                  {% for field in form %}
+                      <td>{{field}}</td>
+                  {% endfor %}
+                  </tr>
+              {% endfor %}
+         </table>
+         <br>
+        <input type="submit" value="Submit order" class="btn btn-outline-primary">    
+      </form>
+     </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>

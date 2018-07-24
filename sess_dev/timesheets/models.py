@@ -3,10 +3,13 @@ from django.db import models
 # Create your models here.
 
 class TimeRecords(models.Model):
+    TIMESHEET_STATUS = ( ('A', 'APPROVED'), ('P', 'PENDING'), ('R', 'REJECTED') )
+
     emp_id = models.IntegerField(verbose_name = 'Employee ID')
     ts_date = models.DateField(null=False, blank=False,verbose_name = 'Time Sheet Date')
     ts_effort = models.PositiveIntegerField(default=8,verbose_name = 'Hours worked')
     ts_desc = models.CharField(max_length=200,verbose_name = 'Time Description')
+    ts_status = models.CharField(max_length=1,choices=TIMESHEET_STATUS,default='P',verbose_name = 'Time Entry Status')
 
     class Meta:
         verbose_name = 'Time Records'

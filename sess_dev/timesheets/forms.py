@@ -10,6 +10,7 @@ class CreateTimeSheetForm(forms.ModelForm):
     class Meta:
         model = TimeRecords
         fields = '__all__'
+        exclude = ['ts_status']
         labels = {
         "ts_desc": "Task Description"
             }

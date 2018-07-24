@@ -8,7 +8,7 @@ from crispy_forms.layout import Submit, Layout, Div, Field, HTML, MultiWidgetFie
 
 class EmployeeForm(ModelForm):
     class Meta:
-        model = Employee
+        model = User
         fields = '__all__'
         #fields = ['first_name','last_name']
 
@@ -17,13 +17,13 @@ class EmployeeForm(ModelForm):
 
 
 class UserForm(ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    #password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
         #fields = ['username','email', 'password']
        # fields = '__all__'
 
-        fields = ['first_name', 'last_name', 'email', 'password', 'is_staff', 'is_active', 'date_joined']
+        fields = ['username','first_name', 'last_name', 'email', 'password', 'is_staff', 'is_active', 'date_joined']
 
 

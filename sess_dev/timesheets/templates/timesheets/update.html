@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
-    
+
+{% extends "base_generic.html" %}
+
+{% block content %} 
+<a href="/timesheets/view"><button class="btn btn-outline-dark " type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
+        Back to List </button></a>
+<div class="container" style="margin:2%">
+               
+    <div style="margin-top:5%">
+            
+        
 <h1>Update {{form.first_name}}</h1>
 <div class="row" style="margin:2%">
 
@@ -17,4 +20,23 @@
                 {{ form.as_table }}   
            </table>
     
-<button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>
+<button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>  
+     
+</div>  
+</div>  
+
+{% endblock %}
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
+ 

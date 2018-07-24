@@ -30,6 +30,6 @@ urlpatterns = [
     path('list/', views.EmployeeListView1, name='list'),
     path('create/', views.EmployeeCreateView, name='create'),
     path('<int:emp_no>/', views.EmployeeDetailView1, name='detail'),
-    path('<int:emp_no>/edit/', views.EmployeeUpdateView, name='update'),
-    path('<int:emp_no>/delete/', views.EmployeeDeleteView, name='delete'),
+    path('<int:id>/edit/', views.EmployeeUpdateView, name='update'),
+    path('<int:id>/delete/', views.EmployeeDeleteView, name='delete'),
 ]
