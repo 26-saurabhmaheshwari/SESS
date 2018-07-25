@@ -27,12 +27,15 @@ class EmployeeListView(generic.ListView):
     template_name = "ems/employee_list.html"
 
     def get_queryset(self):
-        try:
-            first_name = self.request.GET.get('q')
-        except :
-            first_name = ''
-        if (first_name != ''):
-            object_list = self.model.objects.filter(first_name__icontains = first_name)
+        if self.request.GET.get('q'):
+            try:
+                first_name = self.request.GET.get('q')
+            except :
+                first_name = ''
+            if (first_name != ''):
+                object_list = self.model.objects.filter(first_name__icontains = first_name)
+            else:
+                object_list = self.model.objects.all()
         else:
             object_list = self.model.objects.all()
         return object_list
