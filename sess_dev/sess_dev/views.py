@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.views import generic
-from ems.forms import EmployeeForm, UserForm
-
 from django.views.generic import TemplateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit

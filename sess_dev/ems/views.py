@@ -1,25 +1,13 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-
-from django.db.models import Q
 from django.views import generic,View
 from django.views.generic import TemplateView
+from .forms import UserForm
+from timesheets.models import TimeRecords
 
-from .models import Employee, Salaries
-from .forms import EmployeeForm, UserForm
-
-from timesheets.models import TimeRecords,TimeMenus
-
-import datetime
-from datetime import timedelta
-
-## Variables Declaration  ##
-
-today = datetime.datetime.now()  
 
 ## Class based view 
 class EmployeeListView(generic.ListView):
@@ -51,6 +39,7 @@ class EmployeeDetailView(generic.DetailView):
         context['tags'] = TimeRecords.objects.all().filter(emp_id = 2001)
         return context
 
+# For Login
 class UserFormView(View):
     form_class = UserForm
     template_name = "ems/registration_form.html"
@@ -84,8 +73,6 @@ def EmployeeCreateView(request):
         print("after")
         obj = form.save(commit=False)
         obj.save()
-        messages.success(request, "Crerated new user")
-        #return HttpResponseRedirect("/employee/{num}".format(num=obj.emp_no))
         return redirect('/employee/')        
 
     context = {
@@ -97,14 +84,13 @@ def EmployeeCreateView(request):
 # update Employee
 def EmployeeUpdateView(request, id):
     obj = get_object_or_404(User, id=id)
-    form = EmployeeForm(request.POST or None, instance=obj)
+    form = UserForm(request.POST or None, instance=obj)
     context = {
         'form' : form
     }
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
-        messages.success(request, "Updated Employee")
         return HttpResponseRedirect("/employee/{num}".format(num=obj.id))
 
     template = "ems/update-view.html"
@@ -116,7 +102,6 @@ def EmployeeDeleteView(request, id=None):
     emp = get_object_or_404(User, id=id) 
     if request.method == "POST":
         emp.delete()
-        #messages.success(request, "Employee Deleted")
         return HttpResponseRedirect("/employee/")
     context = {
         "emp" : emp,
@@ -125,46 +110,5 @@ def EmployeeDeleteView(request, id=None):
     return render(request, template, context )
 
 
-def EmployeeDetailView1(request, emp_no=None):
-    print(emp_no)
-    #obj= Employee.objects.get(emp_no=1)
-    emp = get_object_or_404(Employee, emp_no=emp_no)
-    sal = Salaries.objects.all()
-    
-    context = {
-        "object" : emp,
-        "salr" : sal
-    }
-    template = "ems/detail-view.html"
-    return render(request, template, context )
 
-def EmployeeListView1(request):
-    query = request.GET.get("q", None)
-    qs = Employee.objects.all()
-    if query is not None:
-        qs=qs.filter(
-            Q(first_name__icontains=query)|
-            Q(last_name__icontains=query)|
-            Q(hire_date__icontains=query))
 
-    context = {
-        "object_list" : qs,
-    }
-    template = "ems/list-view.html"
-    return render(request, template, context )
-
-@login_required(login_url='/login/')
-def LoginRequiredView(request):
-    print(request.user)
-    qs = Employee.objects.all()
-    context = {
-        "object_list" : qs,
-    }
-
-    if request.user.is_authenticated:
-        template = "ems/list-view.html"
-    else:
-        print("Not Logged In")
-        template = "ems/list-view-public.html"
-   
-    return render(request, template, context )
