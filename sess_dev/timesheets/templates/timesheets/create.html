@@ -17,9 +17,11 @@
                                     
                               <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
                             </div>
+                            
                             <div class="col-3">
                                     <input type="hidden" name="week" value="selected">
-                                <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+
+                                <button  class="btn btn-info " type="button"> Load  <i class="fas fa-search"> </i></button>   
                             </div>
                         </div>            
                 </form>          
@@ -41,7 +43,7 @@
                 {% endfor %}
             </table>
             <br>
-            <input type="submit" value="Submit order" class="btn btn-outline-primary">    
+            <input  type="submit" value="Submit order" class="btn btn-outline-primary">    
             </form>
      </div>
 </div>

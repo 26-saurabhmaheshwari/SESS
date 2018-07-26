@@ -12,13 +12,13 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <!-- Custom CSS -->
-
+      
    
   <!-- Add additional CSS in static file -->
   {% load static %}
-  
+  <link href="{% static 'css/lib/sweetalert/sweetalert.css'%}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
   
   <link rel="stylesheet" href="{% static 'css/lib/calendar2/semantic.ui.min.css' %}">
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
+  <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -38,6 +38,7 @@
     
     <!-- Main wrapper  -->
     <div id="main-wrapper">
+        
         <!-- header header  -->
         <div class="header">
                 <nav class="navbar navbar-expand-lg top-navbar navbar-expand-md  navbar-light ">
@@ -65,7 +66,7 @@
                             </li>
                            
                             <li class="nav-item">
-                              <a class="nav-link {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'employee' %}">Employee</a>
+                              <a class="nav-link {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'employee' %}">Member</a>
                             </li>
                             <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -156,6 +157,18 @@
                                         <span class="hide-menu">All Authors </span>
                                     </a>
                             </li>
+                            <li class="x"> 
+                                    <a  href="#" >
+                                            
+                                            <span class="hide-menu sweet-wrong">Wrong </span>
+                                        </a>
+                                    <div class="card-content">
+                                            <div class="sweetalert m-t-15">
+                                                
+                                            </div>
+                                        </div>
+                            </li>
+                            
                             {% if user.is_authenticated %}
                             <li class="nav-label">Users</li>
                             <li class="x"><a href="{% url 'dashboard' %}">
@@ -191,12 +204,15 @@
                 <!-- Start Page Content -->
                 <div class="row">
                         
+                       
+                    
+                                
                     <div class="col-12">
                             {% block profile %}{% endblock %}
                             {% block formrd %}{% endblock %}
                         <div class="card">
                             <div class="card-body"> 
-                                    
+                                   
                                     {% block content %}{% endblock %}
                                     {% block pagination %}
                                       {% if is_paginated %}
@@ -227,7 +243,7 @@
                                                 </li> 
                                             {% endif %}
                                             </ul>
-                                          </nav>
+                                        </nav>
 
                                           <div class="pagination">
                                               <span class="page-links">
@@ -254,5 +270,10 @@
             </div>
             
         </div>
-        
-        
+    </div>
+   
+            {% load static %}
+            <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
+            <script src="{% static 'js/custom.min.js' %}"></script>
+        </body>>
+        </html>

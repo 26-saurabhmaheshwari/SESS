@@ -1,47 +1,70 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-{% if messages %}{% for message in messages %}
-    <div class="alert alert-success"><strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
-    </div>    {% endfor %}
-{% endif %}
+
 
 <div class="container" style="margin:2%">
-  <h3>Details of : {{ employee.first_name }} {{ employee.last_name }}</h3>
+    <div class="row">
+        <div class="col-lg-3">
+                <div class="card bg-dark">
+                    <div class="testimonial-widget-one p-17">
+                        <div class="testimonial-widget-one owl-carousel owl-theme owl-loaded owl-drag">
+                            
+                            
+                                <div class="owl-item active"><div class="item">
+                                        <div class="testimonial-content">
+                                            <img class="testimonial-author-img class="avatar"" width="50px" height="50px" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
+                                            <div class="testimonial-author">{{ object.first_name }} {{ object.last_name }}</div>
+                                            <div class="testimonial-author-position">Member from : {{ object.date_joined}} </div>
+                                            <div class="testimonial-author-position">Works at SNAP SYSTEMS </div>
+                                            <br/><div class="testimonial-text">
+                                                <i class="fa fa-quote-left"></i> Some details 
+                                                <i class="fa fa-quote-right"></i>
+                                            </div>
+                                        </div>
+                                    </div></div>
+                            </div></div></div></div>
+                           
+                  
+   <div class="col-lg-9">  
+       <div class="card bg-light">
+  <h3>Details of : {{ object.first_name }} {{ object.last_name }}</h3>
   <table style="width:100%; margin-top:20px;" class="table table-bordered">
       <tr>
-        <th>Employee no</th>
-        <th>Employee Name</th>
+        <th>Member ID</th>
+        <th>Member Name</th>
         <th> Gender</th>
-        <th> Hire Date</th>
-        <th> Salary</th>
+        <th> Joined Date</th>
+        <th> Mebership Fees</th>
       </tr>
       <tr>
-        <td>{{ employee.emp_no}}</td>
-        <td >{{ employee.first_name}} {{ object.last_name}}  </td>
-        <td>{{ employee.gender}}</td>
-        <td>{{ employee.hire_date}}</td>
+        <td>{{ object.id}}</td>
+        <td >{{ object.first_name}} {{ object.last_name}}  </td>
+        <td>{{ object.gender}}</td>
+        <td>{{ object.date_joined}}</td>
         <td> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
         
       </tr>
-  </table>
-  <h3>Detils logs</h3>
+  </table></div> </div></div>
+  <h3>Reading logs</h3>
   <table style="width:100%; margin-top:20px;" class="table table-bordered">
-      <tr> <th>Date </th> <th>Hour </th><th> Details</th><th> Update</th></tr>       
+      <tr><th>##</th> <th>Date </th> <th>Hour </th><th> Details</th></tr>       
     
   {% if tags %}    
   {% for time_record in tags %} 
 
   <tr>
+
+    <td>00.</td>
       <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
       <td>{{ time_record.ts_effort }}</td>
       <td>{{ time_record.ts_desc }}</td>
-      <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                  
+      <!-- <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                   -->
   </tr> 
   {% endfor  %}
   {% endif %}
 </table>
-
+ 
   {% for ts in book.bookinstance_set.all %}
                               <hr>
                               <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
