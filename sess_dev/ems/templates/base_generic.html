@@ -109,13 +109,13 @@
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
                                        
                                         <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                        <li><a href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                        <li><a href="{% url 'dashboard' %}"><i class="fa fa-power-off"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </li>
                             {% else %}
                             <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{% url 'login'%}?next={{request.path}}">
+                                    <a class="nav-link dropdown-toggle" href="{% url 'login'%}">
                                          <i class="fa fa-sign-in"></i> Login
                                         <div class="notify"> <span class="heartbit"></span> <span class="point"></span></div>
                                     </a>
