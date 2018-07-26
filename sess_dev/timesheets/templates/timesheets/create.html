@@ -4,26 +4,45 @@
 <div class="container" style="margin:2%">
  
     <div style="margin-top:5%">
-            <h1>Submit Sheets </h1>          
-<form method="post">
-        {% csrf_token %}
-        {{ formset.management_form }}
-        <table style="width:100%;" class="table table-bordered">  
-              <tr>
-                  <br><br>
-                  <th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th>
-              </tr>
-              {% for form in formset %}
-                  <tr>   
-                  {% for field in form %}
-                      <td>{{field}}</td>
-                  {% endfor %}
-                  </tr>
-              {% endfor %}
-         </table>
-         <br>
-        <input type="submit" value="Submit order" class="btn btn-outline-primary">    
-      </form>
+
+            <h2>Submit Sheets </h2>  
+            <form action="" method="post">
+                    {% csrf_token %}           
+                    <div>                 
+                        
+                        <div class="form-group row">
+                            
+                            <label for="example-week-input" class="col-2 col-form-label">Week</label>
+                            <div class="col-7">
+                                    
+                              <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                            </div>
+                            <div class="col-3">
+                                    <input type="hidden" name="week" value="selected">
+                                <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+                            </div>
+                        </div>            
+                </form>          
+            <form method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <table style="width:100%;" class="table borderless">  
+                <tr>
+                    <br><br>
+                    <thead>
+                    <th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th></thead>
+                </tr>
+                {% for form in formset %}
+                    <tr>   
+                    {% for field in form %}
+                        <td>{{field}}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <input type="submit" value="Submit order" class="btn btn-outline-primary">    
+            </form>
      </div>
 </div>
 

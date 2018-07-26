@@ -7,17 +7,13 @@ from django.forms import formset_factory
 from django.contrib import messages
 import xlwt
 from django.utils import timezone
-
-
-
 # Create your views here. from sess_dev.timesheets.models import TimeRecords,TimeMenus
 from .models import TimeRecords,TimeMenus
 from .models import ProjectName
-
 import datetime
 from datetime import timedelta
-
 proj_name = "Project Name"
+
 #proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 today = datetime.datetime.now()
 
@@ -36,17 +32,9 @@ def timeSheetMenu(request):
     time_menus=TimeMenus.objects.all()
     context={'proj_name':proj_name,'time_menus':time_menus}
     return render(request,'timesheets/index.html', context)
-'''
-def timeEntryList(request):
-    time_records=TimeRecords.objects.filter(ts_date__year=today.year, ts_date__month=today.month)
-    context = {'time_records': time_records}
-    return render(request, 'timesheets/list.html', context)
-'''
 
 def timeEntryList(request):
-    
     context = dict()
-
     time_records = TimeRecords.objects.all()
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
@@ -54,11 +42,23 @@ def timeEntryList(request):
     x_week = current_week
     y_week = current_week
 
-
-    
-
     if request.method == 'POST':
         week = request.POST['week']
+
+        if week == 'selected':
+            week_sel = request.POST['week-selected']
+            week_no = week_sel[6:8]
+            week_no = int(week_no)
+            current_records = [time_record for time_record in time_records if
+                               time_record.get_week() == week_no ]
+            try:
+                gotdata = current_records[0]                
+                c_week = current_records[0].get_week()
+                x_week = current_records[0].get_week()
+            except IndexError:
+                gotdata = 'null'
+                c_week = week_no 
+                x_week = ''
 
         if week == 'next-week':
             week_no = request.POST.get('week_no')
@@ -74,7 +74,7 @@ def timeEntryList(request):
                 gotdata = 'null'
                 c_week = week_no 
                 x_week = ''
-              
+        
 
         if week == 'last-week':
             week_no = request.POST.get('week_no')
@@ -92,12 +92,10 @@ def timeEntryList(request):
                 c_week = week_no 
                 y_week = ''
 
-
     context['current_records'] = current_records
     context['c_week'] = c_week
     context['x_week'] = x_week
     context['y_week'] = y_week
-
 
     return render(request, 'timesheets/list.html', context)
 
@@ -113,8 +111,6 @@ def timeEntryCreate(request):
                 create_form = form.save(commit=False)
                 create_form.emp_id = '2001' # because ts_date is excluded
                 create_form.save()
-            #return render(request, 'timesheets/result.html', {'date_list':date_list})
-            messages.success(request, "Time Sheet Created Successfully")
             return HttpResponseRedirect("/timesheets/view")
     else:
         formset = CreateTimeSheetFormSet(initial=[{'ts_date': x } for x in date_list])

@@ -15,29 +15,48 @@
     <div style="margin-top:5%">
             
         <h2>Time Records</h2>
+
+        <form action="" method="post">
+            {% csrf_token %}           
+            <div>
+              
+                
+                <div class="form-group row">
+                    
+                    <label for="example-week-input" class="col-2 col-form-label">Week</label>
+                    <div class="col-7">
+                            
+                      <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                    </div>
+                    <div class="col-3">
+                            <input type="hidden" name="week" value="selected">
+                        <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+                    </div>
+                </div>            
+        </form>  
+
+        <br>
         {% if current_records %}
         
-        <table style="width:100%;" class="table table-bordered">
-            <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
-                
+        <table style="width:100%;" class="table ">
+            <thead>
+            <tr><th >#</th><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
+                </thead>
             {% for record in current_records %}
          
          <tr>
+             <td>00.</td>
              <td>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</td>
              <td>{{ record.ts_effort}}</td>
              <td>{{ record.ts_desc}}</td>
-             <td>{{ record.get_ts_status_display}}</td>
-             <td ><a href="../{{record.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a> or
-                  <a href="../{{record.id}}/delete/">Delete</a>
+             <td> <span class="badge btn-info">{{ record.get_ts_status_display}}</span></td>
+             <td ><a href="../{{record.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a> -
+                  <a href="../{{record.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
             </td>
-
-
          </tr> 
         {% endfor %}
- 
-        </table>
-     
-     {% else %}
+         </table>
+    {% else %}
 
      <table style="width:100%;" class="table table-bordered">
             <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
@@ -57,7 +76,8 @@
 
                             <div class="col-sm">
                                     <form action="" method="post">
-                                            {% csrf_token %}                 
+                                            {% csrf_token %}           
+                                                
                                             <input type="hidden" name="week" value="last-week">  
                                             {% if   x_week and y_week  %}
                                             <input type="hidden" name="week_no" value="{{ c_week }}">                    
