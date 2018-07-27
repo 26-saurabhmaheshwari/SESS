@@ -28,6 +28,11 @@ def daterange():
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
+def days_between_ends(start_date,end_date):
+    delta = end_date - start_date         # timedelta
+    for i in range(delta.days + 1):
+        yield start_date + timedelta(i)
+
 def timeSheetMenu(request):
     time_menus=TimeMenus.objects.all()
     context={'proj_name':proj_name,'time_menus':time_menus}
@@ -75,7 +80,6 @@ def timeEntryList(request):
                 c_week = week_no 
                 x_week = ''
         
-
         if week == 'last-week':
             week_no = request.POST.get('week_no')
             week_no = int(week_no)
@@ -100,21 +104,47 @@ def timeEntryList(request):
     return render(request, 'timesheets/list.html', context)
 
 def timeEntryCreate(request):
-    date_gen=daterange()
-    date_list = list(date_gen)
-    date_today=datetime.date.today()
+    #date_gen=daterange()
+    #date_list = list(date_gen)
+    #date_today=datetime.date.today()
     CreateTimeSheetFormSet = formset_factory(CreateTimeSheetForm, extra=0, max_num=20)
     if request.method == 'POST':
-        formset = CreateTimeSheetFormSet(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                create_form = form.save(commit=False)
-                create_form.emp_id = '2001' # because ts_date is excluded
-                create_form.save()
-            return HttpResponseRedirect("/timesheets/view")
+        form_no = request.POST['form_no']
+
+        if form_no == 'one': 
+            start_date=request.POST['start_date']
+            end_date=request.POST['end_date']
+            start_date=datetime.datetime.strptime(start_date, '%m/%d/%Y').date()
+            end_date=datetime.datetime.strptime(end_date, '%m/%d/%Y').date()
+            date_gen=days_between_ends(start_date,end_date)
+            date_list = list(date_gen)
+            formset = CreateTimeSheetFormSet(initial=[{'ts_date': x } for x in date_list])
+            return render(request, 'timesheets/create.html', {'formset': formset })
+
+      
+        if form_no == 'two':
+            formset = CreateTimeSheetFormSet(request.POST)
+            if formset.is_valid():
+                print("formset is valid ")
+                for form in formset:
+                    print("printing forms 2")
+                    create_form = form.save(commit=False)
+                    create_form.emp_id = '2001' # because ts_date is excluded
+                    create_form.save()
+                #return render(request, 'timesheets/result.html', {'date_list':date_list})
+                messages.success(request, "Time Sheet Created Successfully")
+                return HttpResponseRedirect("/timesheets/view")
+            else:
+                print("formset is invalid for form 2")
     else:
         formset = CreateTimeSheetFormSet(initial=[{'ts_date': x } for x in date_list])
     return render(request, 'timesheets/create.html', {'formset': formset })
+
+
+
+
+
+
 
 def timeEntryUpdate(request, id):
     obj = get_object_or_404(TimeRecords, id=id)

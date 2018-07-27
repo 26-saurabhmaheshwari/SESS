@@ -1,16 +1,60 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Some Heading</h1>
+<h1>Library Systems</h1>
 
-  <p>Welcome to <em>Employee Management System</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+  <p>Welcome to <em>Library Management System</em> </p>
 
-<h2>Dynamic content</h2>
+<h2>{{ emp.first_name }}'s Dashboards</h2>
 
-  <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Employee:</strong> {{ num_emp }}</li>
-    
-  </ul>
+<div class="container" style="margin:2%">
+  <div class="row">
+      <div class="col-lg-3">
+        <div class="card bg-dark">
+          <div class="testimonial-widget-one p-17">
+            <div class="testimonial-widget-one owl-carousel owl-theme owl-loaded owl-drag">
+              <div class="owl-item active">
+                <div class="item">
+                  <div class="testimonial-content">
+                    <img class="testimonial-author-img class="avatar"" width="50px" height="50px" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
+                    <div class="testimonial-author">{{ emp.first_name }} {{ emp.last_name }}</div>
+                    <div class="testimonial-author-position">Member from : {{ emp.date_joined}} </div>
+                    <div class="testimonial-author-position">Works at SNAP SYSTEMS </div>
+                    <br/>
+                    <div class="testimonial-text">
+                      <i class="fa fa-quote-left"></i> Some details 
+                      <i class="fa fa-quote-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+                         
+                
+ <div class="col-lg-9">  
+     <div class="card bg-light">
+<h3>Details of : {{ emp.first_name }} {{ emp.last_name }}</h3>
+<table style="width:100%; margin-top:20px;" class="table table-bordered">
+    <tr>
+      <th>Member ID</th>
+      <th>Member Name</th>
+      <th> Gender</th>
+      <th> Joined Date</th>
+      <th> Mebership Fees</th>
+    </tr>
+    <tr>
+      <td>{{ emp.id}}</td>
+      <td >{{ emp.first_name}} {{ emp.last_name}}  </td>
+      <td>{{ emp.gender}}</td>
+      <td>{{ emp.date_joined}}</td>
+      <td> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
+      
+    </tr>
+</table></div> </div>
+  </div>
+
 
 {% endblock %}

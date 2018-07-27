@@ -2,37 +2,26 @@
 
 {% block content %}
 <div class="container" style="margin:2%">
- 
-    <div style="margin-top:5%">
-
-            <h2>Submit Sheets </h2>  
+     <div style="margin-top:5%">
+            <h2>Submit Sheets </h2>      
+            
+            
+            
             <form action="" method="post">
-                    {% csrf_token %}           
-                    <div>                 
-                        
-                        <div class="form-group row">
-                            
-                            <label for="example-week-input" class="col-2 col-form-label">Week</label>
-                            <div class="col-7">
-                                    
-                              <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
-                            </div>
-                            
-                            <div class="col-3">
-                                    <input type="hidden" name="week" value="selected">
+                {% csrf_token %}
+                    <label for="from">From</label> <input type="text" id="from" name="start_date">
+                    <label for="to">to</label> <input type="text" id="to" name="end_date">                   
+                    <input type="hidden" name="form_no" value="one">
+                    <button  class="btn btn-info " type="submit"> Load  <i class="fas fa-search"> </i></button>   
+            </form>
 
-                                <button  class="btn btn-info " type="button"> Load  <i class="fas fa-search"> </i></button>   
-                            </div>
-                        </div>            
-                </form>          
-            <form method="post">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            <table style="width:100%;" class="table borderless">  
-                <tr>
-                    <br><br>
-                    <thead>
-                    <th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th></thead>
+<form action="" method="post">
+{% csrf_token %}
+{{ formset.management_form }}
+    <table style="width:100%;" class="table borderless">  
+        <tr>
+            <br><br>
+                <thead><th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th></thead>
                 </tr>
                 {% for form in formset %}
                     <tr>   
@@ -43,10 +32,23 @@
                 {% endfor %}
             </table>
             <br>
+            <input type="hidden" name="form_no" value="two">
             <input  type="submit" value="Submit order" class="btn btn-outline-primary">    
             </form>
      </div>
 </div>
+
+<script>
+        $(function() {
+          $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:2012",
+            // You can put more options here.
+      
+          });
+        });
+        </script>
 
 {% endblock %}
 
@@ -58,41 +60,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-</head>
-<body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
-       
-<form method="post">
-  {% csrf_token %}
-  {{ formset.management_form }}
-  <table style="width:100%;" class="table table-bordered">
-
-          
-        <tr>
-            <br><br>
-            <th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th>
-        </tr>
-        {% for form in formset %}
-            <tr>   
-            {% for field in form %}
-                <td>{{field}}</td>
-            {% endfor %}
-            </tr>
-        {% endfor %}
-   </table>
-  <input type="submit" value="Submit order" class="btn btn-primary">    
-</form>
