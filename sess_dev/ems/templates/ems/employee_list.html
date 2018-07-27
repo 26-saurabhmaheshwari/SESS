@@ -2,31 +2,37 @@
 
 {% block content %}
 <div class="container" style="margin:2%">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-info">
-                <strong>Success!</strong> <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span></a>.
-            </div>
-        {% endfor %}
-    {% endif %}
     <div class="row">
         <div class="col-sm-10">
-                <h3>Search employee</h3>
-                <form action="/employee/">
-                   <input type="text" name="q" placeholder="Search Employee by Name Sr name or employee_no">
-                   <button type="submit" class="btn btn-outline-primary">Search</button></a>
-               </form>
+              
 
         </div>
         <div class="col-sm-2">
-                <a href="create/" ><button type="button" class="btn btn-outline-primary">Create New</button></a>
+                <a href="create/" ><button type="button" class="btn btn-outline-info">Create New</button></a>
 
         </div>
     </div>
     <div style="margin-top:5%">
             
         {% if user_list %}
-        <h3>List of Employee</h3>
+        <div class="row">
+                <div class="col-sm-6">
+                        <h3>List of Employee</h3>
+                </div>
+                <div class="col-sm-6">
+                        <form action="/employee/">                    
+                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id=""> <h4>Search employee </h4></span>
+                                    </div>
+                                    <input type="text" name="q" placeholder="By First Name  " class="form-control">
+                                    <button type="submit" class="btn btn-outline-primary" class="form-control">Search</button>                          
+                                </div>                   
+                       </form>
+                       
+                </div>
+        </div>
+       <br>
         <table style="width:100%;" class="table table-bordered">
             <tr><th >No</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Action</th> </tr>
                 

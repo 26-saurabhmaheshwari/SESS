@@ -1,40 +1,65 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
 <div class="container" style="margin:2%">
      <div style="margin-top:5%">
+         
             <h2>Submit Sheets </h2>      
             
             
             
             <form action="" method="post">
                 {% csrf_token %}
-                    <label for="from">From</label> <input type="text" id="from" name="start_date">
-                    <label for="to">to</label> <input type="text" id="to" name="end_date">                   
-                    <input type="hidden" name="form_no" value="one">
-                    <button  class="btn btn-info " type="submit"> Load  <i class="fas fa-search"> </i></button>   
+
+                <div class="form-row align-items-center">
+                        <div class="col-auto">
+                                <label class="sr-only" for="from">Start Date</label>
+                                <div class="input-group mb-2">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text">Start Date</div>
+                                  </div>
+                                  <input type="text" class="form-control" id="from" name="start_date" placeholder="Start Date">
+                                </div>
+                             </div>
+                        <div class="col-auto">
+                          <label class="sr-only" for="to">End Date</label>
+                          <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">End Date</div>
+                            </div>
+                            <input type="text" class="form-control" id="to" name="end_date" placeholder="End Date">
+                          </div>
+                        </div>
+                        
+                        <div class="col-auto">
+                          <button type="submit" class="btn btn-primary mb-2"> Load <i class="fas fa-search"> </i></button>
+                        </div>
+                </div>
+
             </form>
 
-<form action="" method="post">
-{% csrf_token %}
-{{ formset.management_form }}
-    <table style="width:100%;" class="table borderless">  
-        <tr>
-            <br><br>
-                <thead><th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th></thead>
-                </tr>
-                {% for form in formset %}
-                    <tr>   
-                    {% for field in form %}
-                        <td>{{field}}</td>
-                    {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
-            <br>
-            <input type="hidden" name="form_no" value="two">
-            <input  type="submit" value="Submit order" class="btn btn-outline-primary">    
+            <form action="" method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+                <table style="width:100%;" class="table">  
+                    <tr>
+                        <br><br>
+                            <thead><th></th><th>Date</th><th>Hours Worked</th><th>Task Description</th></thead>
+                            </tr>
+                            {% for form in formset %}
+                                <tr>   
+                                {% for field in form %}
+                                    <td>{{field}}</td>
+                                {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <br>
+                        <input type="hidden" name="form_no" value="two">
+                        <input  type="submit" value="Submit order" class="btn btn-outline-primary">    
             </form>
+
      </div>
 </div>
 

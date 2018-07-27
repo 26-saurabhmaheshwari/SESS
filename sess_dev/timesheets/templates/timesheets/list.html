@@ -52,8 +52,9 @@
              <td>{{ record.ts_effort}}</td>
              <td>{{ record.ts_desc}}</td>
              <td> <span class="badge btn-info">{{ record.get_ts_status_display}}</span></td>
-             <td ><a href="../{{record.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a> -
-                  <a href="../{{record.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
+             <td >
+                 <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
+                  <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
             </td>
          </tr> 
         {% endfor %}
