@@ -13,8 +13,8 @@
 
 ## EMS
 * [View](http://localhost:8000/employee/) --
-  1.1. bla
-  1.2. bla
+    1. bla
+    2. bla
 * [Create](http://localhost:8000/employee/) --
   1. bla
   2. bla
