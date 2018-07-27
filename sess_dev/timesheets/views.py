@@ -104,9 +104,9 @@ def timeEntryList(request):
     return render(request, 'timesheets/list.html', context)
 
 def timeEntryCreate(request):
-    #date_gen=daterange()
-    #date_list = list(date_gen)
-    #date_today=datetime.date.today()
+    date_gen=daterange()
+    date_list = list(date_gen)
+    date_today=datetime.date.today()
     CreateTimeSheetFormSet = formset_factory(CreateTimeSheetForm, extra=0, max_num=20)
     if request.method == 'POST':
         form_no = request.POST['form_no']
