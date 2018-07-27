@@ -13,10 +13,10 @@
 
 ## EMS
 * [View](http://localhost:8000/employee/) --
-    1. bla
+    1. Employee profile  
     2. bla
 * [Create](http://localhost:8000/employee/) --
-  1. bla
+  1. Other Details of Employee for detailed profiling 
   2. bla
  
 
