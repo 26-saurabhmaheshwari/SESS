@@ -25,7 +25,7 @@ class EmployeeListView(generic.ListView):
             else:
                 object_list = self.model.objects.all()
         else:
-            object_list = self.model.objects.all()
+            object_list = self.model.objects.all().exclude(is_superuser = 1)
         return object_list
 
 class EmployeeDetailView(generic.DetailView):

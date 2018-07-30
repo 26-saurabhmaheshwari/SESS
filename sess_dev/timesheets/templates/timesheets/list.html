@@ -24,18 +24,29 @@
               
                 
                 <div class="form-group row">
-                    
-                    <label for="example-week-input" class="col-2 col-form-label">Week</label>
-                    <div class="col-7">
-                            
-                      <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+
+
+
+
+
+                    <div class="col-7" >
+
+                                <label class="sr-only" for="from"> Week</label>
+                                <div class="input-group mb-2">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text"> Week</div>
+                                  </div>
+                                  <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                                </div>
                     </div>
+
                     <div class="col-3">
                             <input type="hidden" name="week" value="selected">
                         <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
                     </div>
-                </div>            
-        </form>  
+                    </div>
+         
+        </form>  </div>
 
         <br>
         {% if current_records %}

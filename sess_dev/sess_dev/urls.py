@@ -11,9 +11,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('timesheets/', include('timesheets.urls')),
     path('employee/', include('ems.urls'), name="em"),
-    path('', views.Dashboard, name='dashboard'),
+    path('', views.Dashboard, name='home'),
     path('dashboard/', views.Dashboard, name='dashboard'),
-    path('login/', auth_views.login,  name='login'),
+    path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout,{'template_name': 'logged_out.html'},  name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
