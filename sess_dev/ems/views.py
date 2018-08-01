@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -7,12 +7,15 @@ from django.views import generic,View
 from django.views.generic import TemplateView
 from .forms import UserForm
 from timesheets.models import TimeRecords
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
+
 
 
 ## Class based view 
-class EmployeeListView(generic.ListView):
+class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = "ems/employee_list.html"
+    login_url = '/login/'
 
     def get_queryset(self):
         if self.request.GET.get('q'):
@@ -28,14 +31,19 @@ class EmployeeListView(generic.ListView):
             object_list = self.model.objects.all().exclude(is_superuser = 1)
         return object_list
 
-class EmployeeDetailView(generic.DetailView):
+
+# class EmployeeDetailView(UserPassesTestMixin, generic.DetailView):
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = "ems/employee_detail.html"
-
+    login_url = '/login/'
+  
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
         context['tags'] = TimeRecords.objects.all().filter(emp_id = 2001)
         return context
+    # def test_func(self):
+    #     return self.request.user.email.endswith('@example.com')
 
 # # For Login
 # class UserFormView(View):
@@ -78,6 +86,13 @@ def EmployeeDeleteView(request, id=None):
     template = "ems/delete-view.html"
     return render(request, template, context )
 
+
+@login_required(login_url='/login/')
+def Profile(request):
+    template = "ems/profile.html"
+    emp = get_object_or_404(User, username='rparihar') 
+    context = { "emp" : emp }
+    return render(request, template, context )
 
 
 

@@ -1,65 +1,84 @@
 {% extends "base_generic.html" %}
 
+{% block title %}
+<title>Members</title>
+{% endblock %}
+{% block formrd %}
+
+<main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white"> list of Members</h3>
+        </div>
+        </main>
+{% endblock %}
+
 {% block content %}
-<div class="container" style="margin:2%">
+<div class="container">
+    {% if perms %}
+        
+    {% if user_list %}
     <div class="row">
-        <div class="col-sm-10">
-              
+            <div class="col-sm-6">
+                   <form action="/employee/">                    
+                        <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id=""> <h4>Search employee </h4></span>
+                                </div>
+                                <input type="text" name="q" placeholder="By First Name  " class="form-control">
+                                <button type="submit" class="btn btn-outline-primary" class="form-control">Search</button>                          
+                            </div>                   
+                   </form>
+            </div>
+            <div class="col-sm-4">
+          </div>
+            <div class="col-sm-2">
+                    <a href="create/" ><button type="button" class="btn btn-outline-info">Create New</button></a>
 
-        </div>
-        <div class="col-sm-2">
-                <a href="create/" ><button type="button" class="btn btn-outline-info">Create New</button></a>
-
-        </div>
+                   
+            </div>
     </div>
-    <div style="margin-top:5%">
+   <br>
+    <table style="width:100%;" class="table table-bordered">
+        <tr><th >No</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Edit</th> <th> Delete</th> </tr>
             
-        {% if user_list %}
-        <div class="row">
-                <div class="col-sm-6">
-                        <h3>List of Employee</h3>
-                </div>
-                <div class="col-sm-6">
-                        <form action="/employee/">                    
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id=""> <h4>Search employee </h4></span>
-                                    </div>
-                                    <input type="text" name="q" placeholder="By First Name  " class="form-control">
-                                    <button type="submit" class="btn btn-outline-primary" class="form-control">Search</button>                          
-                                </div>                   
-                       </form>
-                       
-                </div>
-        </div>
-       <br>
-        <table style="width:100%;" class="table table-bordered">
-            <tr><th >No</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Edit</th> <th> Delete</th> </tr>
-                
-            {% for emp in user_list %}
-            <tr>
-                <td>{{ emp.id}}</td>
-                <td>{{ emp.id}}</td>
-                <td >{{ emp.username}}</td>
-                <td > <a href='{{emp.id}}'>{{ emp.first_name}} {{ emp.last_name}}  </a></td>
-                <td >{{ emp.email}}</td>
-                <td >{{ emp.date_joined}}</td>
-                <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
-               
-               
-                <td ><a href="{{emp.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a>
-                </td><td>
-                <a href="{{emp.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
-              </td>
-                <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
-            </tr> 
-                    <!--{% if perms %} perms test      {% endif %} -->
+        {% for emp in user_list %}
+        <tr>
+            <td>{{ emp.id}}</td>
+            <td>{{ emp.id}}</td>
+            <td >{{ emp.username}}</td>
+            <td > <a href='{{emp.id}}'>{{ emp.first_name}} {{ emp.last_name}}  </a></td>
+            <td >{{ emp.email}}</td>
+            <td >{{ emp.date_joined}}</td>
+            <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
+           
+           
+            <td ><a href="{{emp.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a>
+            </td><td>
+            <a href="{{emp.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
+          </td>
+            <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
+        </tr> 
+                <!--{% if perms %} perms test      {% endif %} -->
 
-            {% endfor  %}
-        </table>
-        {% else %}
-        <p>There are no employee.</p>
-        {% endif %}   
+        {% endfor  %}
+    </table>
+    {% else %}
+    <p>There are no employee.</p>
+    {% endif %} 
+    {% else %}
+
+    <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
+        </div>
+        <div class="card bg-danger text-center">
+            <h4 class="m-b-0 text-white">Not Authorised <i class="fas fa-exclamation-triangle"></i></h4>
+        </div>
+    {% endif %} 
+
+
+            
+        
     </div>  
 </div>  
 

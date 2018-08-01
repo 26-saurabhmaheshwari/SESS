@@ -1,22 +1,25 @@
 {% extends "base_generic.html" %}
 
+{% block formrd %}
 
+
+
+
+{% endblock %}
 
 {% block content %}
 
 <div class="row justify-content-center" >
-             
-                <div class="col-lg-6 login-content card " id='rdb1'>
-                        <div class="login-form ">
-                                        <h4>Employee Registration Form</h4>
-                                        <form action="." method="POST" style="margin:2%">
-        {% csrf_token %}
-        <table class="">
-                {{ form.as_table }}   
-           </table>
-    
-    <button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>
-</form>
+        <div class="col-lg-6 login-content card " id='rdb1'>
+                <div class="login-form ">
+                        <h4>Employee Registration Form</h4>
+                        <form action="." method="POST" style="margin:2%">
+                                {% csrf_token %}
+                                <table class="">
+                                        {{ form.as_table }}
+                                </table>
+                                <button type="submit"  value="Update"  class="btn btn-outline-primary">Update</button></a>
+        </form>
 
                                 <!-- <form method="POST" action=".">{% csrf_token %}
                                         <div>
@@ -71,5 +74,5 @@
                         </div>
                 </div>
 
-        </div>
+</div>
 {% endblock %}

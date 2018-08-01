@@ -1,6 +1,19 @@
 {% extends "base_generic.html" %}
 
+{% block title %}
+<title>Details</title>
+{% endblock %}
+{% block formrd %}
+
+<main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white"> {{ object.first_name }} {{ object.last_name }} </h3>
+        </div>
+        </main>
+{% endblock %}
 {% block content %}
+
+{% if perms %}
 
 
 <div class="container" style="margin:2%">
@@ -47,6 +60,17 @@
   {% endfor  %}
   {% endif %}
 </table>
+
+{% else %}
+
+    <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
+        </div>
+        <div class="card bg-danger text-center">
+            <h4 class="m-b-0 text-white">Not Authorised <i class="fas fa-exclamation-triangle"></i></h4>
+        </div>
+    {% endif %} 
  
   {% for ts in book.bookinstance_set.all %}
                               <hr>

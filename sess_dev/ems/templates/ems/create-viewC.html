@@ -5,24 +5,13 @@
 <h1>Create New Employee</h1>
 
 <div class="row" style="margin:2%">
-                {% load crispy_forms_tags %}
-
-                
         <form action="." method="POST" > {% csrf_token %}
-                       
-                        <table class="">  
-                {{ form.as_table }}  
-                </table> 
-                
+                <table class="">  
+                        {{ form.as_table }}  
+                </table>
                 <button type="submit"  value="Create"  class="btn btn-outline-primary">Create New</button></a>
         </form>
-        <!-- <div class="login-form card">
-                        <form method="post" action=".">
-                            {% csrf_token %}
-                            
-                            <div>
-                              
-                                <!-- username input field-->
+   
                                 
 </div>
 
