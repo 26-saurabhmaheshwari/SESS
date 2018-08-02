@@ -10,6 +10,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('timesheets/', include('timesheets.urls')),
+    path('lms/', include('lms.urls')),
     path('employee/', include('ems.urls'), name="em"),
     path('', views.Dashboard, name='home'),
     path('dashboard/', views.Dashboard, name='dashboard'),

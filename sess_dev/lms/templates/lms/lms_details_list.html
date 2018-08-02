@@ -1,0 +1,14 @@
+<h2>Leave Details </h2>
+
+<th> <td>EMPLOYEE Id </td> <td>DATE  </td> <td>REASON </td> <td>STATUS </td> <br> </th>
+
+
+{% for object in object_list %}
+  <tr>
+    <td>{{ object.emp_id }}</td>
+    <td>{{ object.ls_date |date:"SHORT_DATE_FORMAT"}}</td>
+    <td>{{ object.ls_reason }}</td>
+    <td>{{ object.ls_status }}</td>
+    <br>
+  </tr>
+{% endfor %}
