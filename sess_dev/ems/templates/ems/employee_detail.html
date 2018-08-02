@@ -4,66 +4,58 @@
 <title>Details</title>
 {% endblock %}
 {% block formrd %}
-
+{% if perms.ems %}
 <main role="main" class="container">
         <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <h3 class=" color-white"> {{ object.first_name }} {{ object.last_name }} </h3>
         </div>
         </main>
+        {% endif %}       
 {% endblock %}
 {% block content %}
+<div class="container" >
 
-{% if perms %}
-
-
-<div class="container" style="margin:2%">
-    <div class="row">
-       
-                           
-                  
-   <div class="col-lg-12">  
-       <div class="card bg-light">
-  <h3>Details of : {{ object.first_name }} {{ object.last_name }}</h3>
-  <table style="width:100%; margin-top:20px;" class="table table-bordered">
-      <tr>
-        <th>Member ID</th>
-        <th>Member Name</th>
-        <th> Gender</th>
-        <th> Joined Date</th>
-        <th> Mebership Fees</th>
-      </tr>
-      <tr>
-        <td>{{ object.id}}</td>
-        <td >{{ object.first_name}} {{ object.last_name}}  </td>
-        <td>{{ object.gender}}</td>
-        <td>{{ object.date_joined}}</td>
-        <td> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
+    {% if perms.ems %}
+        <div class="row">
+            <div class="col-lg-12">  
+                <div class="card bg-light">
+                    <h3>Details of : {{ object.first_name }} {{ object.last_name }}</h3>
+                    <table style="width:100%; margin-top:20px;" class="table table-bordered">
+                        <tr>
+                            <th>Member ID</th><th>Member Name</th><th> Gender</th><th> Joined Date</th><th> Mebership Fees</th>
+                        </tr>
+                        <tr>
+                            <td>{{ object.id}}</td>
+                            <td >{{ object.first_name}} {{ object.last_name}}  </td>
+                            <td>{{ object.gender}}</td>
+                            <td>{{ object.date_joined}}</td>
+                            <td> {% if salr.salary is null %} NA {% else %} {{ salr.salary}}  {% endif %} </td>
+                        
+                        </tr>
+                    </table>
+                </div>
+            </div>
         
-      </tr>
-  </table></div> </div>
-</div>
-  <h3>Reading logs</h3>
-  <table style="width:100%; margin-top:20px;" class="table table-bordered">
-      <tr><th>##</th> <th>Date </th> <th>Hour </th><th> Details</th></tr>       
-    
-  {% if tags %}    
-  {% for time_record in tags %} 
-
-  <tr>
-
-    <td>00.</td>
-      <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
-      <td>{{ time_record.ts_effort }}</td>
-      <td>{{ time_record.ts_desc }}</td>
-      <!-- <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                   -->
-  </tr> 
-  {% endfor  %}
-  {% endif %}
-</table>
-
-{% else %}
-
-    <div class="alert alert-danger alert-dismissible fade show">
+            <div class="col-lg-12">
+                <h3>Reading logs</h3>
+                <table style="width:100%; margin-top:20px;" class="table table-bordered">
+                    <tr><th>##</th> <th>Date </th> <th>Hour </th><th> Details</th></tr>
+                    {% if tags %}    
+                        {% for time_record in tags %} 
+                            <tr>
+                                <td>00.</td>
+                                <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ time_record.ts_effort }}</td>
+                                <td>{{ time_record.ts_desc }}</td>
+                                <!-- <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                   -->
+                            </tr> 
+                        {% endfor  %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
         </div>

@@ -1,160 +1,110 @@
-
-
-
-
-
-
-
-
-
 {% extends "base_generic.html" %}
 
-{% block content %}
-<div class="container" style="margin:2%">
- 
-    <div style="margin-top:5%">
-          
-        <h2>Time Records</h2>
-    
-        
 
-        <form action="" method="post">
-            {% csrf_token %}           
-            <div>
-              
-                
-                <div class="form-group row">
+{% block title %}
+<title>Members</title>
+{% endblock %}
+{% block formrd %}
 
-
-
-
-
-                    <div class="col-7" >
-
-                                <label class="sr-only" for="from"> Week</label>
-                                <div class="input-group mb-2">
-                                  <div class="input-group-prepend">
-                                    <div class="input-group-text"> Week</div>
-                                  </div>
-                                  <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
-                                </div>
-                    </div>
-
-                    <div class="col-3">
-                            <input type="hidden" name="week" value="selected">
-                        <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
-                    </div>
-                    </div>
-         
-        </form>  </div>
-
-        <br>
-        {% if current_records %}
-        
-        <table style="width:100%;" class="table  ">
-            <thead>
-            <tr><th >#</th><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
-                </thead>
-            {% for record in current_records %}
-         
-         <tr>
-             <td>00.</td>
-             <td>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</td>
-             <td>{{ record.ts_effort}}</td>
-             <td>{{ record.ts_desc}}</td>
-             <td> <span class="badge btn-info">{{ record.get_ts_status_display}}</span></td>
-             <td >
-                 <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
-                  <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
-            </td>
-         </tr> 
-        {% endfor %}
-         </table>
-    {% else %}
-
-     <table style="width:100%;" class="table table-bordered">
-            <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
-              <tr></tr>  
-          </table>
-        {% endif %} 
-        
-        
-
-
-        <div>
-            <br>
-
-
-            <div class="container">
-                    <div class="row">
-
-                            <div class="col-sm">
-                                    <form action="" method="post">
-                                            {% csrf_token %}           
-                                                
-                                            <input type="hidden" name="week" value="last-week">  
-                                            {% if   x_week and y_week  %}
-                                            <input type="hidden" name="week_no" value="{{ c_week }}">                    
-                                            <button class="btn btn-outline-info" type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
-
-                                                Previous week</button>   
-                                            {% endif %}                    
-                                            {% if  not y_week and  x_week  %}
-                                            
-                                            <input type="hidden" name="week" value="next-week">
-                                            <input type="hidden" name="week_no" value="{{ c_week|add:-1 }}">    
-                                            <button class="btn btn-outline-info" type="submit">
-                                                    Next Week <i class="far fa-arrow-alt-circle-right"></i>
-
-                                                    </button>                    
-                            
-                                            {% endif %}
-                                        </form>                                  </div>
-                                  <div class="col-sm">
-                                  </div>
-
-
-                      <div class="col-sm ">
-                            <form action="" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="week" value="next-week">
-                                    {% if  not x_week and  y_week  %}
-                                    <p>No Further Records Available</p>
-                                    <input type="hidden" name="week" value="last-week">
-                                    <input type="hidden" name="week_no" value="{{ c_week|add:1 }}">    
-                                    <button class="btn btn-outline-info " type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
-
-                                         Previous week</button>
-                                    
-                                    {% endif %}                    
-                    
-                                    {% if   y_week and x_week     %}
-                                    <input type="hidden" name="week_no" value="{{ c_week }}">                    
-                                    <button type="submit" class="btn btn-outline-info">
-                                            Next Week <i class="far fa-arrow-alt-circle-right"></i>
-
-
-                                        </button>           
-                                    {% endif %}                    
-                                </form>
-                      </div>
-                    
-                    </div>
-                  </div>
-                
-            <!-- this is the form for next week  -->
-            
-
-        <br>
-         
-        <!-- this is the week for Last week -->
-              
-            
-         
+<main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white"> list of Members</h3>
         </div>
-    </div>  
-</div>  
-
+</main>
+        
+      
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Time Records</h2>
+        <form action="" method="post">{% csrf_token %}           
+            <div class="form-group row">
+                <div class="col-7" >
+                    <label class="sr-only" for="from"> Week</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"> Week</div>
+                        </div>
+                        <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                    </div>
+                </div>
+                <div class="col-3">
+                        <input type="hidden" name="week" value="selected">
+                    <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+                </div>
+            </div>
+        </form>
+        {% if current_records %}
+            <table style="width:100%;" class="table table-sm ">
+                <thead>
+                    <tr>
+                        <th >#</th><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th>
+                    </tr>
+                </thead>
+                {% for record in current_records %}
+                    <tr>
+                        <td>00.</td><td>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</td>
+                        <td>{{ record.ts_effort}}</td><td>{{ record.ts_desc}}</td>
+                        <td> <span class="badge btn-info">{{ record.get_ts_status_display}}</span></td>
+                        <td>
+                            <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
+                            <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                        </td>
+                    </tr> 
+                {% endfor %}
+            </table>
+        {% else %}
+            <table style="width:100%;" class="table table-bordered">
+                <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
+                <tr></tr>  
+            </table>
+            
+        {% endif %}
+        <hr>
+<!-- this for next week -->
+        <div class="row">
+            <div class="col-sm">
+                <form action="" method="post">{% csrf_token %}
+                    <input type="hidden" name="week" value="last-week">
+                    {% if   x_week and y_week  %}
+                        <input type="hidden" name="week_no" value="{{ c_week }}">                    
+                        <button class="btn btn-outline-info" type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
+                            Previous week
+                        </button>
+                    {% endif %}
+                        {% if  not y_week and  x_week  %}
+                            <input type="hidden" name="week" value="next-week">
+                            <input type="hidden" name="week_no" value="{{ c_week|add:-1 }}">    
+                            <button class="btn btn-outline-info" type="submit">
+                                Next Week <i class="far fa-arrow-alt-circle-right"></i>
+                            </button>                    
+                    {% endif %}
+                </form>
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm ">
+                <form action="" method="post">{% csrf_token %}
+                    <input type="hidden" name="week" value="next-week">
+                    {% if  not x_week and  y_week  %}
+                        <p>No Further Records Available</p>
+                                <input type="hidden" name="week" value="last-week">
+                                <input type="hidden" name="week_no" value="{{ c_week|add:1 }}">    
+                                <button class="btn btn-outline-info " type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
+                                    Previous week
+                                </button>
+                    {% endif %}
+                    {% if   y_week and x_week     %}
+                        <input type="hidden" name="week_no" value="{{ c_week }}">                    
+                        <button type="submit" class="btn btn-outline-info">Next Week <i class="far fa-arrow-alt-circle-right"></i>
+                        </button>           
+                    {% endif %}                    
+                </form>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
 {% endblock %}
 
 

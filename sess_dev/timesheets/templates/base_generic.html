@@ -26,8 +26,16 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
-  {% comment %} <style>
-  </style> {% endcomment %}
+  <style>
+        [data-toggle="collapse"] .fa:before {  
+            content: "\f139";
+          }
+          
+          [data-toggle="collapse"].collapsed .fa:before {
+            content: "\f13a";
+          }
+          
+  </style> 
 </head>
 
 <body class="fix-header">
