@@ -1,0 +1,24 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h2>Delete Time Entry for {{object.ls_date|date:"SHORT_DATE_FORMAT"}}</h2>
+
+<div class="row" style="margin:2%">
+    <form action="." method="POST">
+    {% csrf_token %}
+    <div class="alert alert-dark">
+        Are you Sure you want to delete Time Entry for <strong>{{object.ls_date|date:"SHORT_DATE_FORMAT"}}</strong> ?
+    </div>
+    <br>
+    <div  class="">
+            <button type="submit" value="Delete" class="btn btn-danger">Yes</button> 
+            <a href="/lms/view" >
+             <button type="button" value="canc" class="btn" >Cancel</button><br>
+            </a>
+        </div>
+</div>
+<br>
+
+{% endblock %}

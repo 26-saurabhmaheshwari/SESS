@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+
+{% block title %}
+<title>Leaves</title>
+{% endblock %}
+{% block formrd %}
+
+<main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white"> Leave Details</h3>
+        </div>
+</main>
+        
+      
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Leave Details</h2>
+        {% if object_list  %}
+            <table style="width:100%;" class="table table-sm ">
+                <thead>
+                        <th>Date</th><th>Reason </th><th> Status</th> <th> Action</th>
+                </thead>
+                {% for record in object_list %}
+                    <tr>
+                        <td>{{ record.ls_date|date:"SHORT_DATE_FORMAT"}}</td>
+                        <td>{{ record.ls_reason}}</td>>
+                        <td> <span class="badge btn-info">{{ record.get_ls_status_display}}</span></td>
+                        <td>
+                            <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
+                            <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                        </td>
+                    </tr> 
+                {% endfor %}
+            </table>
+        {% else %}
+            <table style="width:100%;" class="table table-bordered">
+                <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
+                <tr></tr>  
+            </table>
+            
+        {% endif %}
+        <hr>
+
+{% endblock %}
