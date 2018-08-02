@@ -27,3 +27,7 @@
 * [Create](http://localhost:8000/employee/) --
   1. bla
   2. bla
+  
+  ## 02-08-2018
+1. add links/dropdown for lms create/view
+2. disable edit/delete in lms list based on status (enable only if status=pending)
