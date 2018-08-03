@@ -7,6 +7,9 @@ from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm
 class lmsList(ListView):
     model = lms_details
     template_name = "lms/lms_list.html"
+    context_object_name = 'lms'       
+   # queryset = lms_details.objects.filter(emp_id = "2001") 
+   # if not commented it will return only Leaves of specifi user
 
 class lmsCreate(CreateView):
     model = lms_details
@@ -14,13 +17,11 @@ class lmsCreate(CreateView):
     success_url = reverse_lazy('lmsList')
     template_name = "lms/lms_create.html"
 
-
 class lmsUpdate(UpdateView):
     model = lms_details
     form_class = lmsUpdateForm
     template_name = "lms/lms_update.html"
     success_url = reverse_lazy('lmsList')
-
 
 class lmsDelete(DeleteView):
     model = lms_details

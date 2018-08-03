@@ -1,37 +1,56 @@
 {% extends "base_generic.html" %}
-
-
 {% block title %}
 <title>Leaves</title>
 {% endblock %}
 {% block formrd %}
 
 <main role="main" class="container">
-        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-                <h3 class=" color-white"> Leave Details</h3>
+        <div class="d-flex align-items-center  p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white display-6"> LMS </h3>
         </div>
 </main>
-        
-      
+         
 {% endblock %}
+
 {% block content %}
-    <div class="container">
-        <h2>Leave Details</h2>
-        {% if object_list  %}
-            <table style="width:100%;" class="table table-sm ">
+
+<div class="container">
+        <h5 class=""> LMS </h5>
+
+
+        
+        {% if lms  %}
+
+        <div class="row">
+                
+                <div class="col-sm-10">
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Experimental (Log time)</button>
+                        {{ lms_set.count }}
+                </div>
+                <div class="col-sm-2">
+                        <a href="{% url 'lmsCreate' %}" ><button type="button" class="btn btn-outline-info">Create New</button></a>
+
+                        
+                </div>
+        </div>
+        <br>
+            <table style="width:100%;" class="table table-sm">
                 <thead>
-                        <th>Date</th><th>Reason </th><th> Status</th> <th> Action</th>
+                    <th>Date</th> <th>Reason </th> <th> Status</th> <th> Action</th>
                 </thead>
-                {% for record in object_list %}
-                    <tr>
-                        <td>{{ record.ls_date|date:"SHORT_DATE_FORMAT"}}</td>
-                        <td>{{ record.ls_reason}}</td>>
-                        <td> <span class="badge btn-info">{{ record.get_ls_status_display}}</span></td>
-                        <td>
-                            <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
-                            <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
-                        </td>
-                    </tr> 
+                {% for record in lms %}
+                <tr>
+                    <td>{{ record.ls_date|date:"SHORT_DATE_FORMAT"}}</td><td>{{ record.ls_reason}}</td>
+                    <td>
+                        <span class="badge  badge-pill {% if record.ls_status == 'P' %}badge-secondary{% elif record.ls_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
+                            {{ record.get_ls_status_display}}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{{record.id}}/edit"> <button type="button"  {% if record.ls_status == 'P' %} class="btn btn-outline-info" {% else %}class="btn btn-outline-dark text-dark" disabled{% endif %}>Edit</button></a> -
+                        <a href="{{record.id}}/delete/"><button type="button" {% if record.ls_status == 'P' %} class="btn btn-outline-danger" {% else %}class="btn btn-outline-dark text-dark" disabled{% endif %}>Delete</button></a>
+                    </td>
+                </tr> 
                 {% endfor %}
             </table>
         {% else %}
@@ -42,5 +61,45 @@
             
         {% endif %}
         <hr>
+        <div class="container">
+
+                <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                        
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class=" modal-title"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h1 aria-hidden="true">&times;</h1>
+                                </button><br>
+                            </div>
+                          <form action="{% url 'lmsCreate' %}" method="POST" style="margin:2%">{% csrf_token %}
+                            <div class="modal-body">
+                                <h3 class="" id="1">LAF</h3>
+                        
+                            <div class="form-group">
+                                <label  for="to">Employee ID:	</label>
+                                <input type="number" class="form-control"  name="emp_id" placeholder="Enter Employee ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="from"> Leave Date:	</label>
+                                <input type="date" class="form-control" id="from2" name="ls_date" placeholder=" Date">
+                            </div>
+                            <div class="form-group">
+                                <label for="to">Reason for taking Leave:	</label>
+                                <input type="text" class="form-control"  name="ls_reason" placeholder="ls_reason">
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit"  value="Create"  class="btn btn-outline-primary">Apply</button>
+                            </div>
+          
+                          </form>
+          
+                        </div>
+          
+                        </div>
+                      </div>
+        </div>
 
 {% endblock %}

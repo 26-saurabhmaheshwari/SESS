@@ -4,6 +4,8 @@
   {% block title %}<title>Local Library</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -36,6 +38,7 @@
           }
           
   </style> 
+  
 </head>
 
 <body class="fix-header">
@@ -82,6 +85,17 @@
                                 <a class="dropdown-item" href="#">Something else here</a>
                               </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Lms
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="{% url 'lmsCreate' %}">Create</a>
+                                      <a class="dropdown-item" href="{% url 'lmsList' %}">View</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                  </li>
                             <li class="nav-item">
                               <a class="nav-link disabled" href="#">Disabled</a>
                             </li>
@@ -183,7 +197,7 @@
                             {% block dash_1 %}{% endblock %}
                         <div class="card">
                             <div class="card-body"> 
-                                   
+
                                     {% block content %}{% endblock %}
                                     {% block pagination %}
                                       {% if is_paginated %}
@@ -231,6 +245,7 @@
                                           </div>
                                       {% endif %}
                                     {% endblock %}  
+
 
 
                             </div>
@@ -300,12 +315,35 @@
 
         </script>
 
-
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Approved',     11],
+                ['Rejected',      2],
+               
+                ['Pending',    7]
+              ]);
+      
+              var options = {
+                title: 'LMS',
+                pieHole: 0.4,
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+              chart.draw(data, options);
+            }
+          </script>
             {% load static %}
             <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
-            <script src="{% static 'js/custom.min.js' %}"></script>
+            
             <script src="{% static 'js/sidebarmenu.js' %}"></script>
             <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+            <script src="{% static 'js/custom.min.js' %}"></script>
 
         </body>>
         </html>
