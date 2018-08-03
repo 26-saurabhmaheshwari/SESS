@@ -1,8 +1,65 @@
 {% extends "base_generic.html" %}
 {% block dash_1 %}
 
+<div class="row">
 
-<div id="donutchart" style="width: 900px; height: 500px;"></div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-title">
+                    <h4>LMS</h4>
+                </div>
+                <div class="card-body">
+                        <div id="donutchart" ></div>
+
+                </div>
+            </div>
+        </div>
+       
+        
+        <div class="col-6">
+            <div class="card">
+                <div class="card-title">
+                    <h4>Todo</h4>
+                </div>
+                <div class="todo-list">
+                    <div class="tdl-holder">
+                        <div class="tdl-content">
+                            <ul>
+                                <li class="color-primary">
+                                    <label>
+                                    <input type="checkbox" checked=""><i class="bg-primary"></i><span>add links/dropdown for lms create/view
+                                        </span>
+                                    <a href="#" class="ti-close"></a>
+                                </label>
+                                </li>
+                                <li class="color-success">
+                                    <label>
+                                    <input type="checkbox" checked=""><i class="bg-success"></i><span>disable edit/delete in lms list based on status (enable only if status=pending)
+                                        </span>
+                                    <a href="#" class="ti-close"></a>
+                                </label>
+                                </li>
+                                <li class="color-warning">
+                                    <label>
+                                    <input type="checkbox" ><i class="bg-warning"></i><span>Some thing </span>
+                                    <a href="#" class="ti-close"></a>
+                                </label>
+                                </li>
+                                <li class="color-danger">
+                                    <label>
+                                    <input type="checkbox" ><i class="bg-danger"></i><span>Something</span>
+                                    <a href="#" class="ti-close"></a>
+                                </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <input type="text" class="tdl-new form-control" placeholder="Type here">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
 
