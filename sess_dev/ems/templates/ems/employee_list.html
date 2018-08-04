@@ -3,14 +3,20 @@
 {% block title %}
 <title>Members</title>
 {% endblock %}
-{% block formrd %}
 
-<main role="main" class="container">
-        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-                <h3 class=" color-white"> list of Members</h3>
+{% block pgt %}
+<div class="row page-titles">
+        <div class="col-md-5 align-self-center"><h3 class="text-primary">list of Members</h3> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">EMS</li>
+                <li class="breadcrumb-item active">MeMembersnber</li>
+            </ol>
         </div>
-        </main>
-{% endblock %}
+    </div>
+    {% endblock %}
+
 
 {% block content %}
 <div class="container">

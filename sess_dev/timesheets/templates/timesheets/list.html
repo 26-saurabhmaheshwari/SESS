@@ -4,19 +4,25 @@
 {% block title %}
 <title>Members</title>
 {% endblock %}
+{% block pgt %}
+<div class="row page-titles">
+        <div class="col-md-5 align-self-center"><h3 class="text-primary">Time Records</h3> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">TSM</li>
+                <li class="breadcrumb-item active">View</li>
+            </ol>
+        </div>
+    </div>
+    {% endblock %}
+
 {% block formrd %}
 
-<main role="main" class="container">
-        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-                <h3 class=" color-white"> list of Members</h3>
-        </div>
-</main>
-        
       
 {% endblock %}
 {% block content %}
     <div class="container">
-        <h2>Time Records</h2>
         <form action="" method="post">{% csrf_token %}           
             <div class="form-group row">
                 <div class="col-7" >

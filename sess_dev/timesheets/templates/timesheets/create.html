@@ -1,11 +1,22 @@
 {% extends "base_generic.html" %}
+{% block title %}
+<title>Create </title>
+{% endblock %}
+{% block pgt %}
+<div class="row page-titles">
+        <div class="col-md-5 align-self-center"><h3 class="text-primary">Create TS</h3> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">TSM</li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </div>
+    </div>
+    {% endblock %}
+
 {% block content %}
-<div class="container" style="margin:2%">
-     <div style="margin-top:5%">
-         
-            <h2>Submit Sheets </h2>      
-            
-            <div class="container">
+ <div class="container">
 
   <!-- Modal -->
             <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
@@ -119,7 +130,7 @@
               </div>
             </div>
   
-        </div>
+          </div>
             
             <form action="" method="post">
                 {% csrf_token %}
@@ -145,25 +156,15 @@
                         </div>
                         
                         <div class="col-auto">
-                          <button type="submit" class="btn btn-primary mb-2"> Load <i class="fas fa-search"> </i></button>
+                          <button type="submit" class="btn btn-outline-primary mb-2"> Load <i class="fas fa-search"> </i></button>
+
                         </div>
-                </div>
-                      
+
+                        <div class="col-auto">
+                          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Log time (Experimental)</button>
+                        </div>
+                </div>  
             </form>
-
-              <div class="row">
-                <div class="col-9">
-
-                </div>
-                  <div class="col-3">
-                    <div class="col-auto">
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Experimental (Log time)</button>
-                          </div>
-                </div>
-
-              </div>
-
-            
 
             <form action="" method="post">
             {% csrf_token %}
@@ -186,9 +187,7 @@
                         <input  type="submit" value="Submit order" class="btn btn-outline-primary">    
             </form>
 
-     </div>
-</div>
-
+  
 <script>
         $(function() {
           $( ".datepicker" ).datepicker({

@@ -15,7 +15,7 @@
 {% block content %}
 
 <div class="container">
-        <h5 class=""> LMS </h5>
+        <h5 class="">  </h5>
 
 
         
@@ -24,14 +24,11 @@
         <div class="row">
                 
                 <div class="col-sm-10">
-                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Request </button>
+                        <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Request </button> -->
+                        <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target=".bd-example-modal-lg">Request</button>
                         {{ lms_set.count }}
                 </div>
-                <div class="col-sm-2">
-                        <a href="{% url 'lmsCreate' %}" ><button type="button" class="btn btn-outline-info">Create </button></a>
-
-                        
-                </div>
+              
         </div>
         <br>
             <table style="width:100%;" class="table table-sm">
@@ -72,9 +69,13 @@
                                 <h1 aria-hidden="true">&times;</h1>
                                 </button><br>
                             </div>
-                          <form action="{% url 'lmsCreate' %}" method="POST" style="margin:2%">{% csrf_token %}
+
+                          <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}
                             <div class="modal-body">
-                                <h3 class="" id="1">LAF</h3>
+                                    <div class="card bg-primary text-center">
+                                            <h4 class="m-b-0 text-white">Leave Application Form</h4>
+                                    
+                                    </div>
                         
                             <div class="form-group">
                                 <label  for="to">Employee ID:	</label>
