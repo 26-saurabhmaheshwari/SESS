@@ -21,7 +21,9 @@
   <!-- Custom CSS -->
   <!-- Add additional CSS in static file -->
   {% load static %}
-  <link href="{% static 'css/lib/sweetalert/sweetalert.css'%}" rel="stylesheet">
+  <link href="{% static 'css/lib/sweetalert/sweetalert.css'%}" rel="stylesheet"> 
+   <!-- <link rel="stylesheet" href="{% static 'css/argon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/argon.min.css' %}"> -->
   <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/lib/calendar2/semantic.ui.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/lib/calendar2/pignose.calendar.min.css' %}">
@@ -30,9 +32,11 @@
   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/spinners.css' %}">
+
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
   <style>
+       
         [data-toggle="collapse"] .fa:before {  
             content: "\f139";
           }
@@ -40,7 +44,7 @@
           [data-toggle="collapse"].collapsed .fa:before {
             content: "\f13a";
           }
-          
+        .rd-grd{ background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important; }   
   </style> 
   
 </head>
@@ -53,140 +57,12 @@
     <div id="main-wrapper">
 
         <div class="header">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light ">
-                <a class="navbar-brand" href="#">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="{% url 'dashboard' %}"  id="logox">
-                            <b><img src="{% static 'images/logo2.png' %}" alt="homepage" class="dark-logo" height="48" width="132" /></b>
-                                    <!--End Logo icon -->
-                                    <!-- Logo text 
-                                    <span><img src="{% static 'images/snp_lga.png' %}" alt="homepage" class="dark-logo" height="42" width="72"/></span>
-                                        -->
-                                </a>
-                            </div>
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                        </button>
-                      
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                          <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                              <a class="nav-link" href="{% url 'dashboard' %}">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                           
-                            <li class="nav-item">
-                              <a class="nav-link {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'employee' %}">Member</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sheets
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'timeEntryCreate' %}" >Create Log</a>
-                                <a class="dropdown-item" href="{% url 'timeEntryList' %}">View Log</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                              </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Lms
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a>
-                                      <a class="dropdown-item" href="{% url 'lmsList' %}">View</a>
-                                      <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                  </li>
-                            <li class="nav-item">
-                              <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                        </ul>
-                        </div>
-                      
-                    <div class="navbar-collapse">
-                        <ul class="navbar-nav mr-auto mt-md-0">
-                          
-                        </ul>
-                        <ul class="navbar-nav my-lg-0"> 
-                            
-                            {% if user.is_authenticated %}
-                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                     <span class="heartbit"></span>   <i class="ti-user"></i> {{ user.get_username }}
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right animated zoomIn">
-                                    <ul class="dropdown-user">
-                                        <li><a href="{% url 'profile' %}"><i class="ti-user"></i> Profile</a></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                        <li><a href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-power-off"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            {% else %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{% url 'login' %}?next={{request.path}}">
-                                        <i class="fa fa-sign-in"></i> Login
-                                    <div class="notify"> <span class="heartbit"></span> <span class="point"></span></div>
-                                </a>
-                            </li>
-                          {% endif %} 
-                        </ul>
-                    </div>
-            </nav>
+                {% include 'navbar.html' %}
+            
         </div>
-        <!-- End header header -->
-
-        <!-- Left Sidebar  -->
-        <div class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <nav class="sidebar-nav"><!-- Sidebar navigation-->
-                    {% block sidebar %}
-                        <ul id="sidebarnav" class="in">
-                            <li class="nav-devider"></li>
-                            <li class="nav-label">Main</li>
-                            <li class="x">
-                                <a href="{% url 'dashboard' %}" ><i class="fas fa-home"></i><span class="hide-menu">Home </span></a>
-                            </li>
-                            <li class="x">
-                                <a href="{% url 'dashboard' %}"><i class="fas fa-book-open"></i><span class="hide-menu">All Books </span></a>
-                            </li>
-                            <li class="x"> 
-                                <a  href="{% url 'dashboard' %}" ><i class="fas fa-pencil-alt"></i><span class="hide-menu">All Authors </span></a>
-                            </li>
-                            <li class="x">
-                                <a href="#"><span class="hide-menu sweet-wrong">Wrong </span></a>
-                                <div class="card-content">
-                                    <div class="sweetalert m-t-15">
-                                    </div>  
-                                </div>
-                            </li>
-                            
-                        {% if user.is_authenticated %}
-                            <li class="nav-label">Users</li>
-                            <li class="x">
-                                <a href="{% url 'dashboard' %}"><i class="fas fa-hand-holding"></i><span class="hide-menu">My Borrowed </span> </a>
-                            </li>
-                        {% endif %} 
-
-                        {% if perms.catalog.can_mark_returned %}
-                            <li class="nav-label">Staff</li>
-                            <li class="x">
-                                <a href="{% url 'dashboard' %}">
-                                    <i class="fas fa-hand-holding"></i><span class="hide-menu">All Borrowed </span>
-                                </a>
-                            </li>
-                        {% endif %} 
-                        </ul> 
-                    {% endblock %} <!-- End of Side Bar Block -->
-                </nav>
-            </div>
-        </div>
-        <!-- End Left Sidebar  -->
+        {% include 'sidebar.html' %}
+      
+        
 
         <div class="page-wrapper">
             <!-- Bread crumb -->

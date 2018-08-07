@@ -22,6 +22,7 @@
       
 {% endblock %}
 {% block content %}
+
     <div class="container">
         <form action="" method="post">{% csrf_token %}           
             <div class="form-group row">
@@ -40,6 +41,19 @@
                 </div>
             </div>
         </form>
+
+        <div class="row">
+                <div class="col-10" >
+                    
+                </div>
+                <div class="col-2">
+                        <a href="/timesheets/export/" >
+                            <button type="button" class="btn " style="background: #009900; color:#fff;">Download Excel <i class="far fa-file-excel" style="font-size:30px;"></i>
+                            </button>
+                        </a>
+                </div>
+            </div>
+        <br>
         {% if current_records %}
             <table style="width:100%;" class="table table-sm ">
                 <thead>
@@ -51,7 +65,9 @@
                     <tr>
                         <td>00.</td><td>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</td>
                         <td>{{ record.ts_effort}}</td><td>{{ record.ts_desc}}</td>
-                        <td> <span class="badge btn-info">{{ record.get_ts_status_display}}</span></td>
+                        <td>
+                            <span class="badge  badge-pill {% if record.ts_status == 'P' %}badge-secondary{% elif record.ts_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
+                           {{ record.get_ts_status_display}}</span></td>
                         <td>
                             <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
                             <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>

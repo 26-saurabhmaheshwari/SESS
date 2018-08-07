@@ -4,7 +4,7 @@
 {% endblock %}
 {% block formrd %}
 
-<main role="main" class="container">
+<main role="main " class="container .rd-grd">
         <div class="d-flex align-items-center  p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
                 <h3 class=" color-white display-6"> LMS </h3>
         </div>
@@ -25,7 +25,7 @@
                 
                 <div class="col-sm-10">
                         <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Request </button> -->
-                        <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target=".bd-example-modal-lg">Request</button>
+                        <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target="#LeaveModel">Request</button>
                         {{ lms_set.count }}
                 </div>
               
@@ -58,27 +58,87 @@
             
         {% endif %}
         <hr>
-        <div class="container">
+        
 
-                <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
-                        <div class="modal-dialog modal-lg">
+
+            
+<div class="container mt-3">
+        <h2>Modal Example</h2>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LeaveModel">
+          Open modal
+        </button>
+      
+        <!-- The Modal -->
+        <div class="modal fade" id="LeaveModel">
+          <div class="modal-dialog">
+            <div class="modal-content" >
+            
+              <!-- Modal Header -->
+              <div class="modal-header" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+                <h4 class="modal-title text-white">Modal Form</h4>
+                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal">× </button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                    <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-1">
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label  for="to">Member ID:	</label>
+                                    <input type="number" class="form-control"  name="emp_id" placeholder="Enter Employee ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="from"> Leave Date:	</label>
+                                    <input type="date" class="form-control" id="from2" name="ls_date" placeholder=" Date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="to">Reason for taking Leave:	</label>
+                                    <input type="text" class="form-control"  name="ls_reason" placeholder="ls_reason">
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                            </div>
+                        </div>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                            <button type="submit"  value="Create"  class="btn btn-outline-primary">Apply</button>
+                        </div>
+                    </form>
+              </div>
+              
+              <!-- Modal footer -->              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    <div class="container">      
+
+                <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+                        <div class="modal-dialog modal-lg" >
                         
                           <!-- Modal content-->
-                          <div class="modal-content">
+                          <div class="modal-content" >
                             <div class=" modal-title"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <h1 aria-hidden="true">&times;</h1>
                                 </button><br>
                             </div>
 
                           <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}
-                            <div class="modal-body">
-                                    <div class="card bg-primary text-center">
-                                            <h4 class="m-b-0 text-white">Leave Application Form</h4>
+                            <div class="modal-body"  >
+                                    <div class="bg-primary text-center">
+                                            <h4 class="m-b-0 text-white">LAFrm</h4>
                                     
                                     </div>
-                        
+                        <div class="row"><div class="col-sm-1"></div>
+                                <div class="col-sm-6">
                             <div class="form-group">
-                                <label  for="to">Employee ID:	</label>
+                                <label  for="to">Member ID:	</label>
                                 <input type="number" class="form-control"  name="emp_id" placeholder="Enter Employee ID">
                             </div>
                             <div class="form-group">
@@ -89,12 +149,12 @@
                                 <label for="to">Reason for taking Leave:	</label>
                                 <input type="text" class="form-control"  name="ls_reason" placeholder="ls_reason">
                             </div>
-                            </div>
+                            </div></div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                               <button type="submit"  value="Create"  class="btn btn-outline-primary">Apply</button>
                             </div>
-          
+                        
                           </form>
           
                         </div>

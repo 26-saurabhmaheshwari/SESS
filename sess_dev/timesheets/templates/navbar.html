@@ -1,0 +1,124 @@
+{% load static %}
+
+<nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <!-- Logo -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <!-- Logo icon -->
+                <b><img src="{% static 'images/logo.gif' %}" alt="homepage" class="dark-logo" height="48" width="100" /></b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span><img src="{% static 'images/logo2.png' %}" alt="logo2" class="dark-logo" height="48" width="132" /></span>
+            </a>
+        </div>
+        <!-- End Logo -->
+        <div class="navbar-collapse">
+            <!-- toggle and nav items -->
+            <ul class="navbar-nav mr-auto mt-md-0">
+                <!-- This is  -->
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+            </ul>
+            <ul class="navbar-nav ml-1 mt-md-0 ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                                   
+                    <li class="nav-item">
+                        <a class="nav-link {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'employee' %}">Member</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sheets
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'timeEntryCreate' %}" >Create Log</a>
+                            <a class="dropdown-item" href="{% url 'timeEntryList' %}">View Log</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Lms
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a>
+                            <a class="dropdown-item" href="{% url 'lmsList' %}">View</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            <!-- User profile and search -->
+            <ul class="navbar-nav  my-lg-0">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>
+                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">
+                        <ul>
+                            <li>
+                                <div class="drop-title">Notifications</div>
+                            </li>
+                            <li>
+                                <div class="message-center">
+                                    <!-- Message -->
+                                    <a href="#">
+                                        <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
+                                        <div class="mail-contnet">
+                                            <h5>This is title</h5> <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
+                                        </div>
+                                    </a>
+                                    <!-- Message -->
+                                    <a href="#">
+                                        <div class="btn btn-success btn-circle m-r-10"><i class="ti-calendar"></i></div>
+                                        <div class="mail-contnet">
+                                            <h5>This is another title</h5> <span class="mail-desc">Just a reminder that you have event</span> <span class="time">9:10 AM</span>
+                                        </div>
+                                    </a>
+                                    <!-- Message -->
+                                    <a href="#">
+                                        <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i></div>
+                                        <div class="mail-contnet">
+                                            <h5>This is title</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span>
+                                        </div>
+                                    </a>
+                                    <!-- Message -->
+                                    <a href="#">
+                                        <div class="btn btn-primary btn-circle m-r-10"><i class="ti-user"></i></div>
+                                        <div class="mail-contnet">
+                                            <h5>This is another title</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- End Comment -->
+              
+                <!-- End Messages -->
+                <!-- Profile -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
+                    <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                        <ul class="dropdown-user">
+                            <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
+                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+                            <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>

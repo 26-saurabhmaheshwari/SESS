@@ -1,0 +1,45 @@
+<div class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav"><!-- Sidebar navigation-->
+            {% block sidebar %}
+                <ul id="sidebarnav" class="in">
+                    <li class="nav-devider"></li>
+                        <li class="nav-label">Main</li>
+                        <li class="x">
+                            <a href="{% url 'dashboard' %}" ><i class="fas fa-home"></i><span class="hide-menu">Home </span></a>
+                        </li>
+                        <li class="x">
+                            <a href="{% url 'dashboard' %}"><i class="fas fa-book-open"></i><span class="hide-menu">All Books </span></a>
+                        </li>
+                        <li class="x"> 
+                            <a  href="{% url 'dashboard' %}" ><i class="fas fa-pencil-alt"></i><span class="hide-menu">All Authors </span></a>
+                        </li>
+                        <li class="x">
+                            <a href="#"><span class="hide-menu sweet-wrong">Wrong </span></a>
+                            <div class="card-content">
+                                <div class="sweetalert m-t-15">
+                                </div>  
+                            </div>
+                        </li>
+                        
+                    {% if user.is_authenticated %}
+                        <li class="nav-label">Users</li>
+                        <li class="x">
+                            <a href="{% url 'dashboard' %}"><i class="fas fa-hand-holding"></i><span class="hide-menu">My Borrowed </span> </a>
+                        </li>
+                    {% endif %} 
+
+                    {% if perms.catalog.can_mark_returned %}
+                        <li class="nav-label">Staff</li>
+                        <li class="x">
+                            <a href="{% url 'dashboard' %}">
+                                <i class="fas fa-hand-holding"></i><span class="hide-menu">All Borrowed </span>
+                            </a>
+                        </li>
+                    {% endif %} 
+                    </ul> 
+                {% endblock %} <!-- End of Side Bar Block -->
+            </nav>
+        </div>
+    </div>
