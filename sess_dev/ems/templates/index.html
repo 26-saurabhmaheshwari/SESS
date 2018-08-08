@@ -1,69 +1,143 @@
-{% extends "base_generic.html" %}
-{% block pgt %}
-<div class="row page-titles">
-        <div class="col-md-5 align-self-center"><h3 class="text-primary">Dashboard</h3> </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </div>
-    </div>
-    {% endblock %}
+{% extends "base.html" %}
+
 
 {% block dash_1 %}
 
 <div class="row">
-        <div class="col-6">
-          <div id="donutchart" style="width:450px; height:300px;"></div>
 
-        </div>
-       
-        
-        <div class="col-6">
-            <div class="card">
-                <div class="card-title">
-                    <h4>Todo</h4>
-                </div>
-                <div class="todo-list">
-                    <div class="tdl-holder">
-                        <div class="tdl-content">
-                            <ul>
-                                <li class="color-primary">
-                                    <label>
-                                    <input type="checkbox" checked=""><i class="bg-primary"></i><span>add links/dropdown for lms create/view
-                                        </span>
-                                    <a href="#" class="ti-close"></a>
-                                </label>
-                                </li>
-                                <li class="color-success">
-                                    <label>
-                                    <input type="checkbox" checked=""><i class="bg-success"></i><span>disable edit/delete in lms list based on status (enable only if status=pending)
-                                        </span>
-                                    <a href="#" class="ti-close"></a>
-                                </label>
-                                </li>
-                                <li class="color-warning">
-                                    <label>
-                                    <input type="checkbox" ><i class="bg-warning"></i><span>Some thing </span>
-                                    <a href="#" class="ti-close"></a>
-                                </label>
-                                </li>
-                                <li class="color-danger">
-                                    <label>
-                                    <input type="checkbox" ><i class="bg-danger"></i><span>Something</span>
-                                    <a href="#" class="ti-close"></a>
-                                </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="text" class="tdl-new form-control" placeholder="Type here">
-                    </div>
+  <div class="col-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">
+              <h4>LMS Off</h4>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+            <div id="donutchart" style="width:410px; height:250px; "></div> 
+
+            </div>
+            <div class="col-6" style=" border-left: 1px solid rgba(119, 105, 105, 0.144);">
+                <div class="table-responsive">
+                    <table class="table table-hover ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Some details</td>
+                              
+                                <td class="color-primary">$21.56</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Some details</td>
+                                <td><span class="badge badge-success">Tax</span></td>
+                              
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Some details</td>
+                                <td><span class="badge badge-danger">Extended</span></td>
+                            
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+          </div>
 
+  <button class="btn text-white rd-grd">some action</button>
+          </div>
+  </div>
+  </div>
+       
+        
+  <div class="col-4">
+      <div class="card">
+          <div class="card-title">
+            <h4>Message </h4>
+          </div>
+          <div class="recent-comment">
+            <div class="media">
+              <div class="media-left" style="border-radius: 50%;">
+                  <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">john doe</h4>
+                <p>Cras sit amet nibh libero, in gravida nulla. </p>
+                <p class="comment-date">October 21, 2018</p>
+              </div>
+            </div>
+        
+
+            <div class="media">
+              <div class="media-left">
+                  <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">john doe</h4>
+                <p>Cras sit amet nibh libero, in gravida nulla. </p>
+                <p class="comment-date">October 21, 2018</p>
+              </div>
+            </div>
+
+            <div class="media no-border">
+              <div class="media-left">
+                  <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i></div>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">Mr. Michael</h4>
+                <p>Cras sit amet nibh libero, in gravida nulla. </p>
+                <div class="comment-date">October 21, 2018</div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</div>
+<div class="row">
+
+              
+    <div class="col-12">
+        <div class="card ">
+            
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-3">
+                        <h2>Manage Employee :</h2>
+
+                    </div>
+                
+                  <div class="col-5">
+                      <form action="/employee/">                    
+                        <div class="input-group">
+                          
+                           <div class="input-group input-group-rounded">
+                                    <input type="text" placeholder="Enter Name" name="q" class="form-control">
+                                    <span class="input-group-btn"><button class="btn rd-grd text-white btn-group-right" type="submit"><i class="ti-search"></i></button></span>
+                                </div>
+                        </div>                   
+                </form>
+                    </div>
+                    <div class="col-1">
+                      </div>
+                </div>
+              
+                </div>
+        </div>
     </div>
+
+  </div>
 
 
 
@@ -71,88 +145,5 @@
 
 {% block content %}
 
-<div class="container-fluid">
-    <div class="row content">
-      <div class="col-sm-3 sidenav hidden-xs">
-        <h2>Logo</h2>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="active"><a href="#section1">Dashboard</a></li>
-          <li><a href="#section2">Age</a></li>
-          <li><a href="#section3">Gender</a></li>
-          <li><a href="#section3">Geo</a></li>
-        </ul><br>
-      </div>
-      <br>
-      
-      <div class="col-sm-9">
-        <div class="well">
-          <h4>Dashboard</h4>
-          <p>Some text..</p>
-        </div>
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="well">
-              <h4>Users</h4>
-              <p>1 Million</p> 
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="well">
-              <h4>Pages</h4>
-              <p>100 Million</p> 
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="well">
-              <h4>Sessions</h4>
-              <p>10 Million</p> 
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="well">
-              <h4>Bounce</h4>
-              <p>30%</p> 
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="well">
-              <p>Text</p> 
-              <p>Text</p> 
-              <p>Text</p> 
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="well">
-              <p>Text</p> 
-              <p>Text</p> 
-              <p>Text</p> 
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="well">
-              <p>Text</p> 
-              <p>Text</p> 
-              <p>Text</p> 
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="well">
-              <p>Text</p> 
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="well">
-              <p>Text</p> 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   
 {% endblock %}

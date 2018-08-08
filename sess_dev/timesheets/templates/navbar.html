@@ -10,10 +10,17 @@
                 <!-- Logo text -->
                 <span><img src="{% static 'images/logo2.png' %}" alt="logo2" class="dark-logo" height="48" width="132" /></span>
             </a>
-        </div>
+        </div><button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
         <!-- End Logo -->
         <div class="navbar-collapse">
             <!-- toggle and nav items -->
+            
             <ul class="navbar-nav mr-auto mt-md-0">
                 <!-- This is  -->
                 <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
@@ -107,15 +114,33 @@
               
                 <!-- End Messages -->
                 <!-- Profile -->
+                {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="{{ user.get_username }}" class="profile-pic" /></a>
                     <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                         <ul class="dropdown-user">
-                            <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                            
+                            <li><a href="{% url 'profile' %}"><i class="ti-user"></i> Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-power-off"></i> Logout</a></li>
+
+                              
+                        
+                        
+                                {% else %}
+                                <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="{% url 'login'%}?next={{request.path}}">
+                                             <i class="fa fa-sign-in"></i> Login
+                                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span></div>
+                                        </a>
+                                        
+                                    </li>
+                 
+                              {% endif %} 
+
+                           
                         </ul>
                     </div>
                 </li>

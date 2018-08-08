@@ -1,22 +1,190 @@
-<html> 
-    <head>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  {% block title %}<title>Dash</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <title>{% block title %}Time Sheets{% endblock %}</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script type="text/javascript" src="/static/jquery-1.2.6.min.js"></script>
+  <!-- Custom CSS -->
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+ 
+   <!-- <link rel="stylesheet" href="{% static 'css/argon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/argon.min.css' %}"> -->
 
-    </head>
-    <body>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+   <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
+ <link href="{% static 'css/lib/sweetalert/sweetalert.css'%}" rel="stylesheet"> 
+
+  <link rel="stylesheet" href="{% static 'css/lib/calendar2/semantic.ui.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lib/calendar2/pignose.calendar.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lib/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lib/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/spinners.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+  
+  <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
+  <style>
+        [data-toggle="collapse"] .fa:before {  
+            content: "\f139";
+          }
+          
+          [data-toggle="collapse"].collapsed .fa:before {
+            content: "\f13a";
+          }
+          div.chart_div table {
+            width: auto;
+            margin: 0 auto !important;
+        }
+        .rd-grd{ background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important; }  
+        .card{margin: 5px 0 !important;} 
+        .rd-bg1{ background:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'49\' viewBox=\'0 0 28 49\'%3E%3Cg fill-rule=\'evenodd\'%3E%3Cg id=\'hexagons\' fill=\'%23ff6576\' fill-opacity=\'1\' fill-rule=\'nonzero\'%3E%3Cpath d=\'M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); background-image: linear-gradient(45deg,#FF394F,#FF8090);}
         
-    <div class="container">
-    {% block content %}{% endblock %}
+        
+  </style> 
+</head>
+
+<body class="fix-header">
+    <div class="preloader" style="display: none;">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle> </svg>
     </div>
+    <div id="main-wrapper">
+        <div class="header">
+                {% include 'navbar.html' %}
+        </div>
+        {% include 'sidebar.html' %}
+        
+        <div class="page-wrapper"> 
+            <div class="container-fluid">
+                {% block dash_1 %}{% endblock %}
+                
+                
+            </div>
+            
+        </div>
+    </div>
+   <script>
+        $( function() {
+          var dateFormat = "mm/dd/yy",
+            from = $( "#from" )
+              .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1
+              })
+              .on( "change", function() {
+                to.datepicker( "option", "minDate", getDate( this ) );
+              }),
+            to = $( "#to" ).datepicker({
+              defaultDate: "+1w",
+              changeMonth: true,
+              numberOfMonths: 1
+            })
+            .on( "change", function() {
+              from.datepicker( "option", "maxDate", getDate( this ) );
+            });
+            
+       
+          function getDate( element ) {
+            var date;
+            try {
+              date = $.datepicker.parseDate( dateFormat, element.value );
+            } catch( error ) {
+              date = null;
+            }
+       
+            return date;
+          }
+          $("#dty").hide();
+          $("#dtc").change(function(){
+              if($(this).prop("checked")){
+                  $('#dty').show();
+                  $("#dtx").hide();
+              } else {
+                  $("#dty").hide();
+                  $('#dtx').show();
+              }
+          });
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    </body>
-</html>
+        
+        } );
+
+ // $("#dty").hide();
+
+//  $(document).ready(function(){
+//      $(document).on('click','#dtc input:checkbox',function(){
+//             $(this).closest('#dtc').next('#dty')[this.checked? 'show': 'hide'] ()
+//         });
+//  });
+        
+  
+
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Approved',     11],
+                ['Rejected',      2],
+                ['Pending',    7]
+              ]);
+      
+              var options = {
+                width: 400,
+                height: 220,
+               // title: 'LMS Off',
+                colors: ['#11ca11', '#f94d0c', '#f9e70c'],
+                pieHole: 0.4,
+                titleTextStyle: {
+                    color: ('#99b898'),    // any HTML string color ('red', '#cc00cc')
+                   // fontName: 'Times New Roman', // i.e. 'Times New Roman'
+                    fontSize: 18, 
+                    bold: false,    // true or false
+                    italic: false 
+                    }
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+              chart.draw(data, options);
+            }
 
 
+
+         
+                $(document).ready(function () {
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+                });
+           
+          </script>
+            
+
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+            {% comment %} <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> {% endcomment %}
+            <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+          
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            {% load static %}
+            <script src="{% static 'js/lib/sweetalert/sweetalert.init.js' %}"></script>
+            <script src="{% static 'js/sidebarmenu.js' %}"></script>
+            <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+            <script src="{% static 'js/custom.min.js' %}"></script>
+        </body>
+        </html>
