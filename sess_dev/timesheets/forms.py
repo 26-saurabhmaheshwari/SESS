@@ -19,3 +19,5 @@ class CreateTimeSheetForm(forms.ModelForm):
         'ts_effort' : forms.TextInput(attrs={'type':'number', 'class': "form-control"}),
         'ts_desc' : forms.TextInput(attrs={'class': "form-control"})
         }
+
+
