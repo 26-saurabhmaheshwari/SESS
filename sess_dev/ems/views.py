@@ -96,6 +96,24 @@ def Profile(request):
 
 
 
+class EmpInvoiceView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = "ems/employee_invoice.html"
+    login_url = '/login/'
+
+    def get_queryset(self):
+        if self.request.GET.get('q'):
+            try:
+                first_name = self.request.GET.get('q')
+            except :
+                first_name = ''
+            if (first_name != ''):
+                object_list = self.model.objects.filter(first_name__icontains = first_name)
+            else:
+                object_list = self.model.objects.all()
+        else:
+            object_list = self.model.objects.all().exclude(is_superuser = 1)
+        return object_list
 
 
 class EmpOrgnView(LoginRequiredMixin, generic.ListView):

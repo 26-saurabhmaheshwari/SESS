@@ -114,9 +114,15 @@ def timeEntryCreate(request):
         if form_no == 'one': 
             start_date=request.POST['start_date']
             end_date=request.POST['end_date']
-            start_date=datetime.datetime.strptime(start_date, '%m/%d/%Y').date()
-            end_date=datetime.datetime.strptime(end_date, '%m/%d/%Y').date()
-            date_gen=days_between_ends(start_date,end_date)
+            try:
+                start_date=datetime.datetime.strptime(start_date, '%m/%d/%Y').date()
+                end_date=datetime.datetime.strptime(end_date, '%m/%d/%Y').date()
+                date_gen=days_between_ends(start_date,end_date)
+                
+            except ValueError:
+                messages.warning(request, 'It Seems like Start and End date not entered in proper format or Empty .')
+
+
             date_list = list(date_gen)
             formset = CreateTimeSheetFormSet(initial=[{'ts_date': x } for x in date_list])
             return render(request, 'timesheets/create.html', {'formset': formset })
@@ -136,6 +142,12 @@ def timeEntryCreate(request):
                 return HttpResponseRedirect("/timesheets/view")
             else:
                 print("formset is invalid for form 2")
+
+        if form_no == 'three':
+            messages.info(request, 'This Feature is still under development')
+            return HttpResponseRedirect("/timesheets/create")
+
+           
     else:
         formset = CreateTimeSheetFormSet(initial=[{'ts_date': x } for x in date_list])
     return render(request, 'timesheets/create.html', {'formset': formset })

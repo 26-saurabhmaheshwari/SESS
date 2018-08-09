@@ -3,20 +3,14 @@
 <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <!-- Logo -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
                 <!-- Logo icon -->
-                <b><img src="{% static 'images/logo.gif' %}" alt="homepage" class="dark-logo" height="48" width="100" /></b>
+                <b><img src="{% static 'images/snp_lg.PNG' %}" alt="homepage" class="dark-logo" height="43" width="45" /></b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span><img src="{% static 'images/logo2.png' %}" alt="logo2" class="dark-logo" height="48" width="132" /></span>
+                <span><img src="{% static 'images/snp_lga.PNG' %}" alt="logo2" class="dark-logo" height="37" width="75" /></span>
             </a>
-        </div><button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
+        </div>
         <!-- End Logo -->
         <div class="navbar-collapse">
             <!-- toggle and nav items -->
@@ -116,7 +110,7 @@
                 <!-- Profile -->
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="{{ user.get_username }}" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static 'images/dp/3.PNG' %}" alt="{{ user.get_username }}" class="profile-pic" /></a>
                     <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                         <ul class="dropdown-user">
                             
