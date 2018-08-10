@@ -30,5 +30,3 @@ class lms_details(models.Model):
     def __unicode__(self):
         return self.ls_date
     
-    def __str__(self):
-        return self.emp_id

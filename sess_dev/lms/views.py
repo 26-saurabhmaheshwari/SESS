@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, TemplateView
 from .models import lms_details
-from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm
+from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm,lmsApproveForm
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
 from django.views import generic
 
@@ -31,3 +31,12 @@ class lmsDelete(DeleteView):
     model = lms_details
     template_name = "lms/lms_delete.html"
     success_url = reverse_lazy('lmsList')
+
+class lmsApprove(ListView):
+    model = lms_details
+    form_class = lmsApproveForm
+    template_name = "lms/lms_approve.html"
+    context_object_name = 'lms'
+    queryset = lms_details.objects.filter(ls_status = 'P')
+
+ 

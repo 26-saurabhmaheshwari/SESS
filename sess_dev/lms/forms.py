@@ -8,9 +8,14 @@ class lmsCreateForm(forms.ModelForm):
     exclude = ['ls_status']
     widgets = {
        'ls_date': forms.TextInput(attrs={'type' : 'date','class': "form-control "}),
-            'ls_reason' : forms.TextInput(attrs={ 'class': "form-control "}),
+       'ls_reason' : forms.TextInput(attrs={ 'class': "form-control "}),
         }
-        
+
+class lmsApproveForm(forms.ModelForm):
+      emp_name = forms.CharField( initial="sau")
+      class Meta:
+            model = lms_details
+            fields = '__all__'
 
 
 class lmsViewForm(forms.ModelForm):
@@ -25,5 +30,6 @@ class lmsUpdateForm(forms.ModelForm):
             widgets = {
                   'ls_reason' : forms.TextInput(attrs={ 'class': "form-control "})
         }
-                  
+
+
 

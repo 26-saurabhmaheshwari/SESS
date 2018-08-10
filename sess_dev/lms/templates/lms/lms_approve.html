@@ -1,0 +1,159 @@
+{% extends "base_generic.html" %}
+{% block title %}
+<title>Leaves</title>
+{% endblock %}
+{% block formrd %}
+
+
+         
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+        <h5 class="">  </h5>
+
+
+        
+        {% if lms  %}
+
+        <div class="row">
+                
+                <div class="col-sm-10">
+                        <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Request </button> -->
+                        <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target="#LeaveModel">Request</button>
+                        {{ lms_set.count }}
+                </div>
+              
+        </div>
+        <br>
+            <table style="width:100%;" class="table table-bordered">
+                <thead>
+                    <th><i class="far fa-calendar-alt"></i>Date</th> <th> Status</th><th>Reason </th>  <th> Action</th>
+                </thead>
+                {% for record in lms %}
+                
+                <tr>
+                    <td><i class="far fa-calendar-alt"></i>{{ record.ls_date|date:"SHORT_DATE_FORMAT"}}</td>
+                    <td>
+                        <span class="badge  badge-pill {% if record.ls_status == 'P' %}badge-secondary{% elif record.ls_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
+                            {{ record.get_ls_status_display}}
+                        </span>
+                    </td>
+                    <td>{{ record.ls_reason}}</td>
+                    <td>
+                        <a href="{{record.id}}/edit"> <button type="button"  {% if record.ls_status == 'P' %} class="btn btn-outline-info" {% else %}class="btn btn-outline-dark text-dark" disabled{% endif %}>Approve</button></a>
+                    </td>
+                </tr> 
+                {% endfor %}
+            </table>
+        {% else %}
+            <table style="width:100%;" class="table table-bordered">
+                <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
+                <tr></tr>  
+            </table>
+            
+        {% endif %}
+        <hr>
+        
+
+
+            
+<div class="container mt-3">
+       
+      
+        <!-- The Modal -->
+        <div class="modal fade" id="LeaveModel">
+          <div class="modal-dialog">
+            <div class="modal-content" >
+            
+              <!-- Modal Header -->
+              <div class="modal-header" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+                <h4 class="modal-title text-white">Modal Form</h4>
+                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal">× </button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                    <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-1">
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label  for="to">Member ID:	</label>
+                                    <input type="number" class="form-control"  name="emp_id" placeholder="Enter Employee ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="from"> Leave Date:	</label>
+                                    <input type="date" class="form-control" id="from2" name="ls_date" placeholder=" Date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="to">Reason for taking Leave:	</label>
+                                    <input type="text" class="form-control"  name="ls_reason" placeholder="ls_reason">
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                            </div>
+                        </div>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                            <button type="submit"  value="Create"  class="btn btn-outline-primary">Apply</button>
+                        </div>
+                    </form>
+              </div>
+              
+              <!-- Modal footer -->              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    <div class="container">      
+
+                <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+                        <div class="modal-dialog modal-lg" >
+                        
+                          <!-- Modal content-->
+                          <div class="modal-content" >
+                            <div class=" modal-title"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h1 aria-hidden="true">&times;</h1>
+                                </button><br>
+                            </div>
+
+                          <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}
+                            <div class="modal-body"  >
+                                    <div class="bg-primary text-center">
+                                            <h4 class="m-b-0 text-white">LAFrm</h4>
+                                    
+                                    </div>
+                        <div class="row"><div class="col-sm-1"></div>
+                                <div class="col-sm-6">
+                            <div class="form-group">
+                                <label  for="to">Member ID:	</label>
+                                <input type="number" class="form-control"  name="emp_id" placeholder="Enter Employee ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="from"> Leave Date:	</label>
+                                <input type="date" class="form-control" id="from2" name="ls_date" placeholder=" Date">
+                            </div>
+                            <div class="form-group">
+                                <label for="to">Reason for taking Leave:	</label>
+                                <input type="text" class="form-control"  name="ls_reason" placeholder="ls_reason">
+                            </div>
+                            </div></div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit"  value="Create"  class="btn btn-outline-primary">Apply</button>
+                            </div>
+                        
+                          </form>
+          
+                        </div>
+          
+                        </div>
+                      </div>
+        </div>
+
+{% endblock %}
