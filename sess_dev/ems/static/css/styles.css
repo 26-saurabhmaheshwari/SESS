@@ -84,7 +84,7 @@ color: #fff;
 }
 .header .top-navbar .navbar-header {
 text-align: left;
-padding: 0 0 0 15px;
+padding: 0 0 3px 5px;
 }
 .bg-wh1{
   background-color: #FFF;
@@ -100,7 +100,10 @@ padding: 0 0 0 15px;
   opacity: 0.4; color: #ffffff;
   fill: #26dad2;
 }
-
+.sidebar-nav ul li a {
+  /* background: rgba(0, 0, 0, 0.05); */
+  line-height: 20px !important;
+}
 .sidebar-nav ul li a:hover {
   /* background: rgba(0, 0, 0, 0.05); */
   background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
@@ -221,3 +224,88 @@ padding: 0 0 0 15px;
 
 .dropdown-menu {
   margin-top: .75rem;
+
+
+}
+
+/* ripple effect */
+
+.rd-ripple {
+  position: relative;
+  overflow: hidden;
+  padding: 16px 32px;
+}
+
+rd-ripple:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+  margin-top: -60px;
+  background: #3f51b5;
+  border-radius: 100%;
+  opacity: .6;
+
+  transform: scale(0);
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+rd-ripple:not(:active):after {
+  animation: ripple 1s ease-out;
+}
+
+/* fixes initial animation run, without user input, on page load.
+ */
+ rd-ripple:after {
+  visibility: hidden;
+}
+
+rd-ripple:focus:after {
+  visibility: visible;
+}
+
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .3;
+  transition: 0s;
+}

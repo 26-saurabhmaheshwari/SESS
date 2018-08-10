@@ -13,7 +13,6 @@ urlpatterns = [
     path('profile/', views.Profile, name='profile'),
     path('orgch/', views.EmpOrgnView.as_view(), name='orgchart'),
     path('invoice/', views.EmpInvoiceView.as_view(), name='invoice'),
-    
     path('<int:id>/edit/', views.EmployeeUpdateView, name='update'),
     path('<int:id>/delete/', views.EmployeeDeleteView, name='delete'),
 ]
