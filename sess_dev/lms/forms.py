@@ -12,7 +12,7 @@ class lmsCreateForm(forms.ModelForm):
         }
 
 class lmsApproveForm(forms.ModelForm):
-      emp_name = forms.CharField( initial="sau")
+      # emp_name = forms.CharField( initial="sau")
       class Meta:
             model = lms_details
             fields = '__all__'

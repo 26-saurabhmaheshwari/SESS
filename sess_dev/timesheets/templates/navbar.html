@@ -5,10 +5,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'dashboard' %}">
                 <!-- Logo icon -->
-                <b><img src="{% static 'images/sess5.PNG' %}" alt="homepage" class="dark-logo" height="48" width="70" /></b>
+                <b><img src="{% static 'images/sess5.PNG' %}" alt="homepage" class="dark-logo" height="50" width="75" /></b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span><img src="{% static 'images/snp_lga.PNG' %}" alt="logo2" class="dark-logo" height="37" width="75" /></span>
+                <span><img src="{% static 'images/snp_l ga.PNG' %}" alt="Logo(not-loading)" class="dark-logo" height="37" width="75" /></span>
             </a>
         </div>
         <!-- End Logo -->
@@ -47,6 +47,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a>
                             <a class="dropdown-item" href="{% url 'lmsList' %}">View</a>
+                            <a class="dropdown-item" href="{% url 'lmsApprove' %}">Approve (need to be removed)</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, TemplateView
 from .models import lms_details
 from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm,lmsApproveForm
@@ -32,6 +33,7 @@ class lmsDelete(DeleteView):
     template_name = "lms/lms_delete.html"
     success_url = reverse_lazy('lmsList')
 
+
 class lmsApprove(ListView):
     model = lms_details
     form_class = lmsApproveForm
@@ -39,4 +41,17 @@ class lmsApprove(ListView):
     context_object_name = 'lms'
     queryset = lms_details.objects.filter(ls_status = 'P')
 
- 
+    def post(self, request, *args, **kwargs):        
+            d =dict(request.POST.items())            
+            try:
+                ky = list(d.keys())[0]
+                d.pop(ky)
+                for key, value in d.items():  
+                    print ("Id is : " + key)
+                    print ("status is :" + value)
+                    self.model.objects.filter(id=key).update(ls_status=value)
+                
+                return  HttpResponseRedirect("/lms/approve/")
+
+            except ValueError:
+                print ("Value Eror")

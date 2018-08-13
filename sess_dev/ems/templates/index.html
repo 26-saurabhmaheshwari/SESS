@@ -4,18 +4,15 @@
 {% block dash_1 %}
 
 <div class="row">
-
   <div class="col-9">
       <div class="card">
         <div class="card-body">
           <div class="card-title">
               <h4>LMS Off</h4>
           </div>
-
           <div class="row">
             <div class="col-6">
-            <div id="donutchart" style="width:410px; height:250px; "></div> 
-
+                <div id="donutchart" style="width:410px; height:250px; "></div> 
             </div>
             <div class="col-6" style=" border-left: 1px solid rgba(119, 105, 105, 0.144);">
                 <div class="table-responsive">
@@ -25,131 +22,102 @@
                                 <th>#</th>
                                 <th>Date</th>
                                 <th>Details</th>
-                              
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">1</th>
                                 <td>09-08-2018</td>
-                              
                                 <td class="color-primary">Details</td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
                                 <td>S09-08-2018</td>
                                 <td>Details</td>
-                              
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
                                 <td>09-08-2018</td>
                                 <td><span class="badge badge-danger">Details</span></td>
-                            
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
           </div>
-
-  <button class="btn text-white rd-grd ripple">some action</button>
-          </div>
-  </div>
-  </div>
-       
-        
+          <button class="btn text-white rd-grd ripple">Some Actione</button>
+        </div>
+    </div>
+  </div>     
   <div class="col-3">
-      <div class="card card2">
+      <div class="card ">
           <div class="card-title">
             <h4>Settings </h4>
           </div>
           <div class="recent-comment">
-          
-        
-
-            <div class="media">
-            
-              <div class="media-body">
-                    <span class="switch">
-                            <input type="checkbox" class="switch" id="switch-id">
-                            <label for="switch-id">  </label>
-                          </span>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-        <div class="card card2 bg-primary ripple p-20">
-                <div class="media widget-ten">
-                    <div class="media-left meida media-middle">
-                        <span><i class="ti-bag f-s-40"></i></span>
-                    </div>
-                    <div class="media-body media-text-right rd-ripple">
-                        <h2 class="color-white">278</h2>
-                        <p class="m-b-0">New Posts</p>
+              <div class="media">
+                  <div class="media-body">
+                      <span class="switch">
+                          <input type="checkbox" class="switch" id="switch-id">
+                          <label for="switch-id">  </label>
+                        </span>
                     </div>
                 </div>
             </div>
-           <div style="background-image: linear-gradient(45deg,#FF394F,#FF8090);" class="card2">
-                    <div class="card  bg-danger1 p-20">
-                        <div class="media widget-ten">
-                            <div class="media-left meida media-middle">
-                                <span><i class="ti-location-pin f-s-40"></i></span>
-                            </div>
-                            <div class="media-body media-text-right">
-                                <h2 class="color-white">278</h2>
-                                <p class="m-b-0">Total Visitor</p>
-                            </div>
-                        </div>
+        </div>
+        <div class="card card2 bg-primary ripple p-20">
+            <div class="media widget-ten">
+                <div class="media-left meida media-middle">
+                    <span><i class="ti-bag f-s-40"></i></span>
+                </div>
+                <div class="media-body media-text-right ">
+                    <h2 class="color-white">278</h2>
+                    <p class="m-b-0">New Posts</p>
+                </div>
+            </div>
+        </div>
+        <div style="background-image: linear-gradient(45deg,#FF394F,#FF8090);" class="card2">
+            <div class="card ripple bg-danger1 p-20">
+                <div class="media widget-ten">
+                    <div class="media-left meida media-middle">
+                        <span><i class="ti-location-pin f-s-40"></i></span>
                     </div>
-                    </div> 
-             
-        
-</div>
+                    <div class="media-body media-text-right">
+                        <h2 class="color-white">278</h2>
+                        <p class="m-b-0">Total Visitor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
-
-              
     <div class="col-12">
         <div class="card ">
-            
-              <div class="card-body">
+            <div class="card-body">
                 <div class="row">
                     <div class="col-2">
-
                     </div>
                     <div class="col-3">
                         <h2>Manage Employee :</h2>
-
                     </div>
-                
-                  <div class="col-5">
-                      <form action="/employee/">                    
-                        <div class="input-group">
-                          
-                           <div class="input-group input-group-rounded">
+                    <div class="col-5">
+                        <form action="/employee/">
+                            <div class="input-group">
+                                <div class="input-group input-group-rounded">
                                     <input type="text" placeholder="Enter Name" name="q" class="form-control">
                                     <span class="input-group-btn"><button class="btn rd-grd text-white btn-group-right" type="submit"><i class="ti-search"></i></button></span>
                                 </div>
-                        </div>                   
-                </form>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-1">
-                      </div>
+                    </div>
                 </div>
-              
-                </div>
+            </div>
         </div>
     </div>
-
   </div>
-
-
-
 {% endblock %}
-
 {% block content %}
-
-  
 {% endblock %}
