@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+  <link rel="stylesheet" href="cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Custom CSS -->
@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{% static 'css/lib/calendar2/pignose.calendar.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/lib/owl.theme.default.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/lib/owl.carousel.min.css' %}">
+  
   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/spinners.css' %}">
@@ -53,9 +54,9 @@
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle> </svg>
     </div>
     <div id="main-wrapper">
-        <div class="header">
+        <!-- <div class="header">
                 {% include 'navbar.html' %}
-        </div>
+        </div> -->
         {% include 'sidebar.html' %}
         
         <div class="page-wrapper">
@@ -189,6 +190,13 @@
 
         </script>
 
+        <script type="text/javascript">
+
+          $(document).ready( function () {
+            $('.datatable').DataTable();
+          } );
+        </script>
+      
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);

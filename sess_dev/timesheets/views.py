@@ -38,9 +38,34 @@ def timeSheetMenu(request):
     context={'proj_name':proj_name,'time_menus':time_menus}
     return render(request,'timesheets/index.html', context)
 
-def timeEntryList(request):
+def timeEntryApprove(request):
     context = dict()
     time_records = TimeRecords.objects.all()
+    # emp_id = 2002
+    # time_records = TimeRecords.objects.all().filter(emp_id = emp_id)
+    current_week = timezone.now().isocalendar()[1]
+    current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
+    context['current_records'] = current_records
+
+    if request.method == 'POST':
+        emp_id = request.POST['eid']
+        time_records = TimeRecords.objects.all().filter(emp_id = emp_id)
+        current_week = timezone.now().isocalendar()[1]
+        current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
+        context['current_records'] = current_records
+        return render(request, 'timesheets/approve_list.html', context)
+   
+
+    return render(request, 'timesheets/approve_list.html', context)
+
+
+def timeEntryList(request):
+    context = dict()
+    # time_records = TimeRecords.objects.all()
+    
+
+    emp_id = 2002
+    time_records = TimeRecords.objects.all().filter(emp_id = emp_id)
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
     c_week = current_week
@@ -102,6 +127,8 @@ def timeEntryList(request):
     context['y_week'] = y_week
 
     return render(request, 'timesheets/list.html', context)
+
+    
 
 def timeEntryCreate(request):
     date_gen=daterange()
@@ -184,17 +211,17 @@ def timeEntryDelete(request, id):
     template = "timesheets/delete.html"
     return render(request, template, context )
 
-def timeEntryApprove(request, id):
-    obj = get_object_or_404(TimeRecords, id=id) 
-    if request.method == "POST":
-        obj.delete()
-        messages.success(request, "Time Entry Approve")
-        return HttpResponseRedirect("/timesheets/view")
-    context = {
-        "id" : obj,
-    }
-    template = "timesheets/approve.html"
-    return render(request, template, context )
+# def timeEntryApprove(request, id):
+#     obj = get_object_or_404(TimeRecords, id=id) 
+#     if request.method == "POST":
+#         obj.delete()
+#         messages.success(request, "Time Entry Approve")
+#         return HttpResponseRedirect("/timesheets/view")
+#     context = {
+#         "id" : obj,
+#     }
+#     template = "timesheets/approve.html"
+#     return render(request, template, context )
 
 def timeEntryExport(request):
     response = HttpResponse(content_type='application/ms-excel')
