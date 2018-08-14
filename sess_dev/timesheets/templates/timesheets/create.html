@@ -52,11 +52,11 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text">Hours</div>
                               </div>
-                              <input type="number" class="form-control"  name="task-description" placeholder="Hours Worked">
+                              <input type="number" class="form-control"  name="hours" placeholder="Hours Worked">
                             </div>
                           </div>
                         <div class="col-auto">
-                          <p class="text-muted m-b-15 f-s-12"> <input type="checkbox" id="dtc"  name="task-description" placeholder="Hours Worked"> Mark this checkbox <code>checked</code> to fill for Period time logging</p>
+                          <p class="text-muted m-b-15 f-s-12"> <input type="checkbox" id="dtc"  name="task-checked" placeholder="Hours Worked"> Mark this checkbox <code>checked</code> to fill for Period time logging</p>
                         </div>
                         <div class="col-auto" id="dtx">
                           <label class="sr-only" for="from"> Date</label>
@@ -110,7 +110,7 @@
             </div>
           </div>
             
-            <form action="" method="post">
+            <form action="/timesheets/create/" method="post">
                 {% csrf_token %}
 
                 <div class="form-row align-items-center">

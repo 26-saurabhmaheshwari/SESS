@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'timesheets',
     'ems',
     'lms',
+    'api',
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
