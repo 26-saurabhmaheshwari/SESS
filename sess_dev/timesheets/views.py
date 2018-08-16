@@ -184,7 +184,12 @@ def timeEntryExport(request):
     response['Content-Disposition'] = 'attachment; filename="timeEntryExport.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Current')
+
+    start_date=str(start_date.strftime('%d-%m-%y'))
+    end_date=str(end_date.strftime('%d-%m-%y'))
+    sheet_name=start_date+"_"+end_date
+    ws = wb.add_sheet(sheet_name)
+
 
     # Sheet header, first row
     row_num = 0
