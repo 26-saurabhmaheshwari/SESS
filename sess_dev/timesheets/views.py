@@ -13,9 +13,16 @@ from .models import ProjectName
 import datetime
 from datetime import timedelta
 proj_name = "Project Name"
+emp_id='2018'
 
 #proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 today = datetime.datetime.now()
+
+def days_between_ends(start_date,end_date):
+    delta = end_date - start_date         # timedelta
+    for i in range(delta.days + 1):
+        yield start_date + timedelta(i)
+
 
 def timeSheetMenu(request):
     time_menus=TimeMenus.objects.all()
@@ -46,9 +53,7 @@ def timeEntryApprove(request):
 def timeEntryList(request):
     context = dict()
     # time_records = TimeRecords.objects.all()
-    
 
-    emp_id = 2002
     time_records = TimeRecords.objects.all().filter(emp_id = emp_id)
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
@@ -62,6 +67,8 @@ def timeEntryList(request):
         if week == 'selected':
             week_sel = request.POST['week-selected']
             week_no = week_sel[6:8]
+            print(week_no)
+            
             week_no = int(week_no)
             current_records = [time_record for time_record in time_records if
                                time_record.get_week() == week_no ]
@@ -112,8 +119,6 @@ def timeEntryList(request):
 
     return render(request, 'timesheets/list.html', context)
 
-    
-
 def timeEntryCreate(request):
 
     if request.method == 'POST':
@@ -122,11 +127,18 @@ def timeEntryCreate(request):
         try :
             request.POST['task-checked']
             start_date=request.POST['start_date']
-            end_date=request.POST['end_date']         
+            end_date=request.POST['end_date']
+            start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+            end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+            date_list=list(days_between_ends(start_date,end_date))
+            for date_element in date_list:
+                tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
+                tms_create.save()             
         except:
             date =request.POST['date']
             print ("you didnot check period")
-            
+            tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
+            tms_create.save()
 
     return render(request, 'timesheets/list.html')
 
@@ -155,8 +167,19 @@ def timeEntryDelete(request, id):
     }
     template = "timesheets/delete.html"
     return render(request, template, context )
+    
+    ############################### export
 
 def timeEntryExport(request):
+    if request.method == 'GET':
+        exp_week=request.GET['exp_week']
+        start_date="2018 " + exp_week
+        start_date=datetime.datetime.strptime(start_date + ' 0', "%Y %W %w")
+        start_date=start_date + timedelta(1)
+        end_date=start_date + timedelta(7)
+        rows = TimeRecords.objects.all().filter(emp_id = emp_id,ts_date__range=(start_date, end_date)).values_list('ts_date', 'ts_effort', 'ts_desc')
+
+    # request.POST['ex_week']
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="timeEntryExport.xls"'
 
@@ -179,7 +202,7 @@ def timeEntryExport(request):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows=TimeRecords.objects.values_list('ts_date', 'ts_effort', 'ts_desc')
+    #rows=TimeRecords.objects.values_list('ts_date', 'ts_effort', 'ts_desc')
 
     for row in rows:
         row_num += 1

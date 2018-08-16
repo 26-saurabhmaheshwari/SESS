@@ -44,10 +44,15 @@
         </form>
 
         <div class="col-2">
-                <a href="/timesheets/export/" >
-                    <button type="button" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
-                    </button>
-                </a>
+                
+                    <form action="/timesheets/export/" method="GET">
+                        <input class="form-control " name="exp_week" type="hidden" value="{{ c_week|add:-1 }}" id="example-week-input">
+                        <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
+                        </button>
+                    
+                    </form>
+                   
+               
         </div>
         <div class="col-1">
                 <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Log time </button>
@@ -57,7 +62,7 @@
 
  
         {% if current_records %}
-            <table style="width:100%;" class="table datatable">
+            <table style="width:100%;" class="table ">
                 <thead>
                     <tr>
                         <th >#</th> <th >EMPID</th><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th>
@@ -66,7 +71,7 @@
                 {% for record in current_records %}
                     <tr>
                         <td>
-                            <label class="container">One
+                            <label class="container-chk">One
                                 <input type="checkbox">
                                 <span class="checkmark"></span>
                             </label>
