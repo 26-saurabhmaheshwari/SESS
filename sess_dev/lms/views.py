@@ -8,41 +8,49 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMi
 from django.views import generic
 
 
-class lmsList(ListView):
+
+class lmsList(LoginRequiredMixin, ListView):
     model = lms_details
+    login_url = '/login/'
     template_name = "lms/lms_list.html"
     context_object_name = 'lms'  
-   # queryset = lms_details.objects.filter(emp_id = "2001") 
-   # if not commented it will return only Leaves of specifi user
+    
+    def get_queryset(self):
+        emp_id = self.request.session.get('emp_id')
+        queryset = self.model.objects.filter(emp_id = emp_id) 
+        return queryset
 
-
-class lmsCreate(CreateView):
+class lmsCreate(LoginRequiredMixin, CreateView):
     model = lms_details
+    login_url = '/login/'
     form_class = lmsCreateForm
     success_url = reverse_lazy('lmsList')
     template_name = "lms/lms_create.html"
 
-class lmsUpdate(UpdateView):
+class lmsUpdate(LoginRequiredMixin, UpdateView):
     model = lms_details
+    login_url = '/login/' 
     form_class = lmsUpdateForm
     template_name = "lms/lms_update.html"
     success_url = reverse_lazy('lmsList')
 
-class lmsDelete(DeleteView):
+class lmsDelete(LoginRequiredMixin, DeleteView):
     model = lms_details
+    login_url = '/login/' 
     template_name = "lms/lms_delete.html"
     success_url = reverse_lazy('lmsList')
 
 
-class lmsApprove(ListView):
+class lmsApprove(LoginRequiredMixin, ListView):
     model = lms_details
+    login_url = '/login/' 
     form_class = lmsApproveForm
     template_name = "lms/lms_approve.html"
     context_object_name = 'lms'
     queryset = lms_details.objects.filter(ls_status = 'P')
 
     def post(self, request, *args, **kwargs):        
-            d =dict(request.POST.items())            
+            d = dict(request.POST.items())            
             try:
                 ky = list(d.keys())[0]
                 d.pop(ky)

@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -5,18 +6,27 @@ from django.shortcuts import get_object_or_404, render
 from .forms import CreateTimeSheetForm
 from django.forms import formset_factory
 from django.contrib import messages
-import xlwt
+import xlwt, xlrd, os
+from xlrd import open_workbook
+from openpyxl import load_workbook
+from openpyxl import Workbook
+from shutil import copyfile
+from xlutils.copy import copy
 from django.utils import timezone
 # Create your views here. from sess_dev.timesheets.models import TimeRecords,TimeMenus
 from .models import TimeRecords,TimeMenus
 from .models import ProjectName
 import datetime
 from datetime import timedelta
+from django.contrib.auth.signals import user_logged_in
+
 proj_name = "Project Name"
-emp_id='2018'
 
 #proj_name=ProjectName.objects.values_list('project_name', flat=True).get(pk=1)
 today = datetime.datetime.now()
+
+
+
 
 def days_between_ends(start_date,end_date):
     delta = end_date - start_date         # timedelta
@@ -30,6 +40,7 @@ def timeSheetMenu(request):
     return render(request,'timesheets/index.html', context)
 
 def timeEntryApprove(request):
+    emp_id = request.session.get('emp_id')
     context = dict()
     time_records = TimeRecords.objects.all()
     # emp_id = 2002
@@ -51,9 +62,11 @@ def timeEntryApprove(request):
 
 
 def timeEntryList(request):
+    emp_id = request.session.get('emp_id')
     context = dict()
+    
+   
     # time_records = TimeRecords.objects.all()
-
     time_records = TimeRecords.objects.all().filter(emp_id = emp_id)
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
@@ -120,7 +133,7 @@ def timeEntryList(request):
     return render(request, 'timesheets/list.html', context)
 
 def timeEntryCreate(request):
-
+    emp_id = request.session.get('emp_id')
     if request.method == 'POST':
         hours=request.POST['hours']
         task_description=request.POST['task-description']
@@ -143,6 +156,7 @@ def timeEntryCreate(request):
     return render(request, 'timesheets/list.html')
 
 def timeEntryUpdate(request, id):
+    emp_id = request.session.get('emp_id')
     obj = get_object_or_404(TimeRecords, id=id)
     form = CreateTimeSheetForm(request.POST or None, instance=obj)
     context = {
@@ -152,11 +166,12 @@ def timeEntryUpdate(request, id):
         obj = form.save(commit=False)
         obj.save()
         messages.success(request, "Time Entry Updated")
-        return HttpResponseRedirect("/timesheets/view")
+        return HttpResponseRedirect("/timesheets/")
     template = "timesheets/update.html"
     return render(request, template, context )
 
 def timeEntryDelete(request, id):
+    emp_id = request.session.get('emp_id')
     obj = get_object_or_404(TimeRecords, id=id) 
     if request.method == "POST":
         obj.delete()
@@ -171,6 +186,7 @@ def timeEntryDelete(request, id):
     ############################### export
 
 def timeEntryExport(request):
+    emp_id = request.session.get('emp_id')
     if request.method == 'GET':
         exp_week=request.GET['exp_week']
         start_date="2018 " + exp_week
@@ -178,44 +194,38 @@ def timeEntryExport(request):
         start_date=start_date + timedelta(1)
         end_date=start_date + timedelta(7)
         rows = TimeRecords.objects.all().filter(emp_id = emp_id,ts_date__range=(start_date, end_date)).values_list('ts_date', 'ts_effort', 'ts_desc')
+  
+        src = os.path.dirname(os.path.realpath(__file__)) + '/static/ts.xls'
+        dst=  os.path.dirname(os.path.realpath(__file__)) + '/temp/ts.xls'
+        copyfile(src, dst)
 
-    # request.POST['ex_week']
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="timeEntryExport.xls"'
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename= "' + dst + '"'
 
-    wb = xlwt.Workbook(encoding='utf-8')
+        # start_date=str(start_date.strftime('%d-%m-%y'))
+        # end_date=str(end_date.strftime('%d-%m-%y'))
+        # sheet_name=start_date+"_"+end_date
 
-    start_date=str(start_date.strftime('%d-%m-%y'))
-    end_date=str(end_date.strftime('%d-%m-%y'))
-    sheet_name=start_date+"_"+end_date
-    ws = wb.add_sheet(sheet_name)
+        rb = xlrd.open_workbook(dst)
+        wb = copy(rb)
+        ws = wb.get_sheet(0)
+        
+        # xf_index = wb.cell_xf_index(0, 0)
+        # saved_style = wb[xf_index]
 
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        date_style = xlwt.easyxf(num_format_str='DD-MM-YYYY')
+        font_style = xlwt.XFStyle()
 
-    # Sheet header, first row
-    row_num = 0
+        row_num=20
+        for row in rows:
+            row_num += 1
+            for col_num in range(len(row)):
+                if isinstance(row[col_num], datetime.date):
+                    ws.write(row_num, 1, row[col_num], date_style)
+                else:
+                    ws.write(row_num, 1, row[col_num], font_style)
 
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
-    date_style = xlwt.easyxf(num_format_str='YYYY/MM/DD')
-
-
-    columns = ['Date', 'Efforts', 'Description', ]
-
-    for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
-
-    # Sheet body, remaining rows
-    font_style = xlwt.XFStyle()
-
-    #rows=TimeRecords.objects.values_list('ts_date', 'ts_effort', 'ts_desc')
-
-    for row in rows:
-        row_num += 1
-        for col_num in range(len(row)):
-            if isinstance(row[col_num], datetime.date):
-                ws.write(row_num, col_num, row[col_num], date_style)
-            else:
-                ws.write(row_num, col_num, row[col_num], font_style)
-
-    wb.save(response)
-    return response
+        wb.save(response)        
+        return response

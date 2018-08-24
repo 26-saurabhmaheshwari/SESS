@@ -16,20 +16,13 @@ urlpatterns = [
     path('dashboard/', views.Dashboard, name='dashboard'),
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, {'template_name': 'logged_out.html'},  name='logout'),
+    path('error/', views.error, name='error'),
+
+    # path('api/', include('api.urls'), name='api'),  
     # path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-## For API
-
-from django.conf import settings
-from django.conf.urls import url, include
-from django.contrib import admin
-
-urlpatterns += [
-    path('api/', include('api.urls'), name='api'),
-]
 
 # if settings.DEBUG:
 #     from django.conf.urls.static import static

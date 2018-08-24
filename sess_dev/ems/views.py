@@ -17,6 +17,7 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
     template_name = "ems/employee_list.html"
     login_url = '/login/'
 
+
     def get_queryset(self):
         if self.request.GET.get('q'):
             try:

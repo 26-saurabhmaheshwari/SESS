@@ -45,7 +45,7 @@
 
         <div class="col-2">
                 
-                    <form action="/timesheets/export/" method="GET">
+                    <form action="{% url 'timeEntryExport' %}" method="GET">
                         <input class="form-control " name="exp_week" type="hidden" value="{{ c_week|add:-1 }}" id="example-week-input">
                         <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
                         </button>
@@ -83,8 +83,8 @@
                             <span class="badge  badge-pill {% if record.ts_status == 'P' %}badge-secondary{% elif record.ts_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
                            {{ record.get_ts_status_display}}</span></td>
                         <td>
-                            <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
-                            <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                            <a href="{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
+                            <a href="{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
                         </td>
                     </tr> 
                 {% endfor %}

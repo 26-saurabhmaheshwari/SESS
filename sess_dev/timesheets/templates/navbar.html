@@ -5,10 +5,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="{% url 'dashboard' %}">
                 <!-- Logo icon -->
-                <b><img src="{% static 'images/ses s5.PNG' %}" alt="homepage" class="dark-logo" height="50" width="75" /></b>
+                <b><img src="{% static 'images/Xsess5.PNG' %}" alt="homepage" class="dark-logo" height="50" width="75" /></b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span><img src="{% static 'images/snp_l ga.PNG' %}" alt="Logo(not-loading)" class="dark-logo" height="37" width="75" /></span>
+                <span><img src="{% static 'images/Xsnp_lga.PNG' %}" alt="Logo(not-loading)" class="dark-logo" height="37" width="75" /></span>
             </a>
         </div>
         <!-- End Logo -->
@@ -34,10 +34,9 @@
                             Sheets
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'timeEntryCreate' %}" >Create Log</a>
                             <a class="dropdown-item" href="{% url 'timeEntryList' %}">View Log</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            {% comment %} <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -45,16 +44,14 @@
                             Lms
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a>
                             <a class="dropdown-item" href="{% url 'lmsList' %}">View</a>
-                            <a class="dropdown-item" href="{% url 'lmsApprove' %}">Approve (need to be removed)</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            {% comment %} <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                         </div>
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
             <!-- User profile and search -->
             <ul class="navbar-nav  my-lg-0">

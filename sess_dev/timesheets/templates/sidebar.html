@@ -8,7 +8,7 @@
                     <a href="{% url 'dashboard' %}" ><i class="fas fa-home"></i><span class="hide-menu">Dashbord </span></a>
                 </li>
                 <li class="ripple"> 
-                        <a  href="{% url 'dashboard' %}" ><i class="fas fa-envelope"></i><span class="hide-menu">Inbox </span></a>
+                        <a  href="{% url 'error' %}" ><i class="fas fa-envelope"></i><span class="hide-menu">Inbox </span></a>
                 </li>
                 <li>
                     <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ripple">
@@ -21,7 +21,7 @@
                         <li class="ripple"><a href="#">Setting</a></li>
                     </ul>                                
                 </li>
-                <li class="ripple">
+                {% comment %} <li class="ripple">
                     <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fas fa-building"></i><span class="hide-menu">Administration </span>
                     </a>
@@ -30,7 +30,7 @@
                         <li class="ripple"><a href="#">Holiday Schedule </a></li>
                         <li class="ripple"><a href="#">Setting</a></li>
                     </ul>
-                </li>
+                </li> {% endcomment %}
                 <li class="ripple">
                     <a href="#salSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fas fa-wallet"></i><span class="hide-menu">Salary </span>
@@ -42,77 +42,60 @@
                     </ul>
                 </li>
                 <li class="ripple">
-                    <a href="{% url 'dashboard' %}"><i class="fas fa-chart-line"></i><span class="hide-menu">Performance  </span></a>
+                    <a href="{% url 'error' %}"><i class="fas fa-chart-line"></i><span class="hide-menu">Performance  </span></a>
                 </li>
                 <li class="ripple"> 
-                    <a  href="{% url 'dashboard' %}" ><i class="fas fa-sliders-h"></i></i><span class="hide-menu">Settings </span></a>
+                    <a  href="{% url 'error' %}" ><i class="fas fa-sliders-h"></i></i><span class="hide-menu">Settings </span></a>
                 </li>
-                <li class="ripple sweetalert">
+                {% comment %} <li class="ripple sweetalert">
                     <a href="#"><span class="hide-menu sweet-wrong ">Wrong </span></a>
                     <div class="card-content">
                         <div class="sweetalert m-t-15">
                         </div>  
                     </div>
-                </li>
+                </li> {% endcomment %}
+                {% if user.is_staff %}
+                <li class="nav-label">Admin</li>
                 <li class="ripple">
                         <a href="#navSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <i class="fas fa-wallet"></i><span class="hide-menu">Naigation </span>
+                            <i class="fas fa-building"></i><span class="hide-menu">Administration </span>
                         </a>
                         <ul class="collapse list-unstyled" id="navSubmenu">
-                                <li class="nav-item active ">
-                                    <a class="nav-link" href="{% url 'dashboard' %}">Home <span class="sr-only">(current)</span></a>
-                                </li>
-                                               
-                                <li class="nav-item">
-                                    <a class="nav-link {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'employee' %}">Member</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a href="#tmsSub" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                        <span class="hide-menu">Sheets </span>
-                                    </a>
-                                    <ul class="collapse list-unstyled" id="tmsSub">
-                                        <li><a class=" -item" href="{% url 'timeEntryCreate' %}" >Create Log</a></li>
-                                        <li><a class=" -item" href="{% url 'timeEntryList' %}">View Log</a></li>
-                                    </ul>
-                                   
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#lmsSub" data-toggle="collapse" aria-expanded="false">
-                                        Lms
-                                    </a>
-                                    <ul class="collapse list-unstyled" id="lmsSub">
-                                        <li><a class="" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a></li>
-                                            <li><a class="" href="{% url 'lmsList' %}">View</a></li>
-                                            <li> <a class="-" href="{% url 'lmsApprove' %}">Approve (need to be removed)</a></li>
-                                    </ul>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
-                                        <a class="" href="#" data-toggle="modal" data-target=".bd-example-modal-lg">Create</a>
-                                        <a class="" href="{% url 'lmsList' %}">View</a>
-                                        <a class="-" href="{% url 'lmsApprove' %}">Approve (need to be removed)</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="-" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
+                                
+                                
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="#lmsSub" data-toggle="collapse" aria-expanded="false">
+                                    Approve
+                                </a>
+                                <ul class="collapse list-unstyled" id="lmsSub">
+                                        <li> <a class="-" href="{% url 'lmsApprove' %}">Leaves Approve </a></li>
+                                        <li> <a class="-" href="{% url 'timeEntryApprove' %}">Timesheet Approve </a></li>
+
+                                </ul>
+                                
+                            </li>
+                                {% comment %} <li class="nav-item">
                                     <a class="nav-link disabled" href="#">Disabled</a>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                 </li>
-                
+                {% endif %}
+{% comment %}                 
             {% if user.is_authenticated %}
                 <li class="nav-label ">Users</li>
                 <li class="ripple">
                     <a href="{% url 'dashboard' %}"><i class="fas fa-hand-holding"></i><span class="hide-menu">My Borrowed </span> </a>
                 </li>
             {% endif %}
-            {% if perms.catalog.can_mark_returned %}
+            {{user.is_staff}}
+            {% if user.is_staff %}
                 <li class="nav-label">Staff</li>
                 <li class="ripple">
                     <a href="{% url 'dashboard' %}">
                         <i class="fas fa-hand-holding"></i><span class="hide-menu">All Borrowed </span>
                     </a>
                 </li>
-            {% endif %}
+            {% endif %} {% endcomment %}
             </ul>
         </nav>
     </div>
