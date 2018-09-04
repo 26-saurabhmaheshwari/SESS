@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in
 from ems.models import EmpProfile
+from lms.models import lms_details
 
 
 
@@ -46,10 +47,15 @@ def Dashboard(request):
 
     emp_id = request.session.get('emp_id')
     username = request.session.get('username')
-    emp = get_object_or_404(User, username=username) 
-    context = { "emp" : emp }
+    emp = get_object_or_404(User, username=username)
+    lms=lms_details.objects.all().filter(emp_id = emp_id)
+   # lms = get_object_or_404(lms_details, emp_id = emp_id)  
+    context = { "emp" : emp, "lms" : lms }
     return render(request, template, context )
-
+# def get_context_data(self, **kwargs):
+#         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
+#         context['tags'] = TimeRecords.objects.all().filter(emp_id = 2001)
+#         return context
 
 def error(request):
     template = "error.html"

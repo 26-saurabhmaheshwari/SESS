@@ -8,7 +8,7 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-              <h4>LMS Off</h4>
+              <h4>LMS Off of {{ emp.first_name}} {{ emp.last_name}}  {{ lms.count }}</h4>
           </div>
           <div class="row">
             <div class="col-6">
@@ -16,36 +16,30 @@
             </div>
             <div class="col-6" style=" border-left: 1px solid rgba(119, 105, 105, 0.144);">
                 <div class="table-responsive">
-                    <table class="table table-hover ">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Date</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>09-08-2018</td>
-                                <td class="color-primary">Details</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>S09-08-2018</td>
-                                <td>Details</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>09-08-2018</td>
-                                <td><span class="badge badge-danger">Details</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table style="width:100%;" class="table table-hover">
+                                <thead>
+                                   <th>#</th> <th>Date</th> <th> Status</th><th>Reason </th> 
+                                </thead> 
+                             
+                                {% for record in lms %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ record.ls_date|date:"SHORT_DATE_FORMAT"}}</td>
+                                    <td>
+                                        <span class="badge  badge-pill {% if record.ls_status == 'P' %}badge-secondary{% elif record.ls_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
+                                            {{ record.get_ls_status_display}}
+                                        </span>
+                                    </td>
+                                    <td>{{ record.ls_reason}}</td>
+                                   
+                                </tr> 
+                                {% endfor %}
+                            </table>
                 </div>
             </div>
           </div>
-          <button class="btn text-white rd-grd ripple">Some Actione</button>
+          <a  href="{% url 'lmsList' %}"><button class="btn text-white rd-grd ripple">Load Details</button></a>
+        
         </div>
     </div>
   </div>     
@@ -76,8 +70,8 @@
                 </div>
             </div>
         </div>
-        <div style="background-image: linear-gradient(45deg,#FF394F,#FF8090);" class="card2">
-            <div class="card ripple bg-danger1 p-20">
+        <div style="background-image: linear-gradient(45deg,#FF394F,#FF8090); border-radius:5px" class="card2 ">
+            <div class=" ripple bg-danger1 p-20">
                 <div class="media widget-ten">
                     <div class="media-left meida media-middle">
                         <span><i class="ti-location-pin f-s-40"></i></span>
@@ -118,6 +112,21 @@
         </div>
     </div>
   </div>
+
+  <div class="row">
+        <div class="col-12">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-6"></div>
+                        <div class="col-3"></div>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 {% endblock %}
 {% block content %}
 {% endblock %}

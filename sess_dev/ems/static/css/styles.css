@@ -356,6 +356,9 @@ rd-ripple:focus:after {
 .rd_red input:checked ~ .checkmark {
   background-color: #f44336;
 }
+.rd_yellow input:checked ~ .checkmark {
+  background-color: #f5a107;
+}
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .checkmark:after {
@@ -379,6 +382,7 @@ border-radius: 50%;
 background: white;
 }
 
+.alert-success { background-color: #ffffff;  border-color: #47b71a;  color: #559c20;}
 
 /* Hide the browser's default checkbox */
 .container-chk input {

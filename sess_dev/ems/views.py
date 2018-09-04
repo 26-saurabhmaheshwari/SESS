@@ -7,6 +7,8 @@ from django.views import generic,View
 from django.views.generic import TemplateView
 from .forms import UserForm
 from timesheets.models import TimeRecords
+from ems.models import EmpProfile
+from lms.models import lms_details
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
 
 
@@ -91,9 +93,15 @@ def EmployeeDeleteView(request, id=None):
 @login_required(login_url='/login/')
 def Profile(request):
     template = "ems/profile.html"
-    emp = get_object_or_404(User, username='rparihar') 
-    context = { "emp" : emp }
+    emp_id = request.session.get('emp_id')
+    username = request.session.get('username')
+    emp = get_object_or_404(User, username=username)
+    lms=lms_details.objects.all().filter(emp_id = emp_id)
+    context = { "emp" : emp, "lms" : lms }
     return render(request, template, context )
+
+
+
 
 
 

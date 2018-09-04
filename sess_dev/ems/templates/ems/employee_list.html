@@ -4,27 +4,15 @@
 <title>Members</title>
 {% endblock %}
 
-{% block pgt %}
-<div class="row page-titles">
-        <div class="col-md-5 align-self-center"><h3 class="text-primary">list of Members</h3> </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">EMS</li>
-                <li class="breadcrumb-item active">MeMembersnber</li>
-            </ol>
-        </div>
-    </div>
-    {% endblock %}
-
-
-{% block content %}
-<div class="container">
-                {% if perms.ems.can_mark_returned %}
-                
-        {% if user_list %}
+{% block dash_1 %}
+{% if perms.ems.can_mark_returned %}
+<div class="row"> 
+        
+    <div class="col-12">
+        <div class="card ">
+            <div class="card-body">
                 <div class="row">
-                        <div class="col-sm-6">
+                         <div class="col-sm-6">
                                 <form action="/employee/">                    
                                         <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -38,54 +26,59 @@
                         <div class="col-sm-4">
                         </div>
                         <div class="col-sm-2">
-                                <a href="create/" ><button type="button" class="btn btn-outline-info">Create New</button></a>
-
-                                
+                                <a href="create/" ><button type="button" class="btn btn-outline-info">Create New</button></a>                                
                         </div>
                 </div>
-                <br>
-                <table style="width:100%;" class="table table-sm datatable">
-                        <tr><th >No</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Edit</th> <th> Delete</th> </tr>
-                        
-                        {% for emp in user_list %}
-                        <tr>
-                        <td>{{ emp.id}}</td>
-                        <td>{{ emp.id}}</td>
-                        <td >{{ emp.username}}</td>
-                        <td > <a href='{{emp.id}}'>{{ emp.first_name}} {{ emp.last_name}}  </a></td>
-                        <td >{{ emp.email}}</td>
-                        <td >{{ emp.date_joined}}</td>
-                        <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
-                        
-                        
-                        <td ><a href="{{emp.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a>
-                        </td><td>
-                        <a href="{{emp.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
-                        </td>
-                        <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
-                        </tr> 
-                                <!--{% if perms %} perms test      {% endif %} -->
-
-                        {% endfor  %}
-                </table>
-        {% else %}
-                <p>There are no employee.</p>
-        {% endif %} 
-        {% else %}
-
-    <div class="alert alert-danger alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
+            </div>
         </div>
-        <div class="card bg-danger text-center">
-            <h4 class="m-b-0 text-white">Not Authorised <i class="fas fa-exclamation-triangle"></i></h4>
-        </div>
-    {% endif %} 
+    </div>
+  </div>
+  {% endif %} 
+{% endblock %}
+
+{% block content %}
+        <div class="container">
+                {% if perms.ems.can_mark_returned %}
+                        {% if user_list %}
+                        <table style="width:100%;" class="table table-sm datatable">
+                                <tr><th >#</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Edit</th> <th> Delete</th> </tr>
+                                
+                                {% for emp in user_list %}
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ emp.id}}</td>
+                                        <td >{{ emp.username}}</td>
+                                        <td > <a href='{{emp.id}}'>{{ emp.first_name}} {{ emp.last_name}}  </a></td>
+                                        <td >{{ emp.email}}</td>
+                                        <td >{{ emp.date_joined}}</td>
+                                        <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
+                                        
+                                        
+                                        <td ><a href="{{emp.id}}/edit"> <button class="btn btn-outline-primary">Edit</button></a>
+                                        </td><td>
+                                        <a href="{{emp.id}}/delete/"><button class="btn btn-outline-danger">Delete</button></a>
+                                        </td>
+                                        <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
+                                        </tr> 
+                                                <!--{% if perms %} perms test      {% endif %} -->
+                                {% endfor  %}
+                        </table>
+                        {% else %}
+                                <p>There are no employee.</p>
+                        {% endif %} 
+                {% else %}
+                        <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
+                        </div>
+                        <div class="card bg-danger text-center">
+                                <h4 class="m-b-0 text-white">Not Authorised <i class="fas fa-exclamation-triangle"></i></h4>
+                        </div>
+                {% endif %} 
 
 
             
         
     </div>  
-</div>  
 
 {% endblock %}

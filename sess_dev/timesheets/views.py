@@ -19,6 +19,9 @@ from .models import ProjectName
 import datetime
 from datetime import timedelta
 from django.contrib.auth.signals import user_logged_in
+from django.db import IntegrityError
+import traceback
+
 
 proj_name = "Project Name"
 
@@ -75,56 +78,60 @@ def timeEntryList(request):
     y_week = current_week
 
     if request.method == 'POST':
-        week = request.POST['week']
+        try:
+            week = request.POST['week']
 
-        if week == 'selected':
-            week_sel = request.POST['week-selected']
-            week_no = week_sel[6:8]
-            print(week_no)
-            
-            week_no = int(week_no)
-            current_records = [time_record for time_record in time_records if
-                               time_record.get_week() == week_no ]
-            try:
-                gotdata = current_records[0]                
-                c_week = current_records[0].get_week()
-                x_week = current_records[0].get_week()
-            except IndexError:
-                gotdata = 'null'
-                c_week = week_no 
-                x_week = ''
-
-        if week == 'next-week':
-            week_no = request.POST.get('week_no')
-            week_no = int(week_no)
-            current_records = [time_record for time_record in time_records if
-                               time_record.get_week() == week_no + 1]
-            try:
-                gotdata = current_records[0]
+            if week == 'selected':
+                week_sel = request.POST['week-selected']
+                week_no = week_sel[6:8]
+                print(week_no)
                 
-                c_week = current_records[0].get_week()
-                x_week = current_records[0].get_week()
-            except IndexError:
-                gotdata = 'null'
-                c_week = week_no 
-                x_week = ''
-        
-        if week == 'last-week':
-            week_no = request.POST.get('week_no')
-            week_no = int(week_no)
-            if not c_week:
-                c_week = week_no
-            current_records = [time_record for time_record in time_records if
-                               time_record.get_week() == week_no - 1]
-            try:
-                gotdata = current_records[0]
-                c_week = current_records[0].get_week()
-                y_week = current_records[0].get_week()
-            except IndexError:
-                gotdata = 'null'
-                c_week = week_no 
-                y_week = ''
+                week_no = int(week_no)
+                current_records = [time_record for time_record in time_records if
+                                    time_record.get_week() == week_no ]
+                try:
+                    gotdata = current_records[0]                
+                    c_week = current_records[0].get_week()
+                    x_week = current_records[0].get_week()
+                except IndexError:
+                    gotdata = 'null'
+                    c_week = week_no 
+                    x_week = ''
 
+            if week == 'next-week':
+                week_no = request.POST.get('week_no')
+                week_no = int(week_no)
+                current_records = [time_record for time_record in time_records if
+                                    time_record.get_week() == week_no + 1]
+                try:
+                    gotdata = current_records[0]
+                    
+                    c_week = current_records[0].get_week()
+                    x_week = current_records[0].get_week()
+                except IndexError:
+                    gotdata = 'null'
+                    c_week = week_no 
+                    x_week = ''
+            
+            if week == 'last-week':
+                week_no = request.POST.get('week_no')
+                week_no = int(week_no)
+                if not c_week:
+                    c_week = week_no
+                current_records = [time_record for time_record in time_records if
+                                    time_record.get_week() == week_no - 1]
+                try:
+                    gotdata = current_records[0]
+                    c_week = current_records[0].get_week()
+                    y_week = current_records[0].get_week()
+                except IndexError:
+                    gotdata = 'null'
+                    c_week = week_no 
+                    y_week = ''
+        except :
+            request.method = 'GET'
+            return timeEntryList(request)
+            
     context['current_records'] = current_records
     context['c_week'] = c_week
     context['x_week'] = x_week
@@ -134,24 +141,50 @@ def timeEntryList(request):
 
 def timeEntryCreate(request):
     emp_id = request.session.get('emp_id')
+    
     if request.method == 'POST':
         hours=request.POST['hours']
         task_description=request.POST['task-description']
         try :
-            request.POST['task-checked']
-            start_date=request.POST['start_date']
-            end_date=request.POST['end_date']
-            start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
-            end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
-            date_list=list(days_between_ends(start_date,end_date))
-            for date_element in date_list:
-                tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
-                tms_create.save()             
-        except:
-            date =request.POST['date']
-            print ("you didnot check period")
-            tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
-            tms_create.save()
+            if request.POST['task-checked']:
+
+                start_date=request.POST['start_date']
+                end_date=request.POST['end_date']
+                start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+                end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+                date_list=list(days_between_ends(start_date,end_date))
+                for date_element in date_list:
+                    tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
+                    tms_create.save() 
+                print("try if is workin g")
+                messages.success(request, "Submitted")
+                return render(request, 'timesheets/list.html')
+            else :
+                date = request.POST['date']
+                print ("you didnot check period")
+                tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
+                tms_create.save()
+                print("try else is workin g")
+                messages.success(request, "Submitted") 
+                return render(request, 'timesheets/list.html')
+# one if duplicate insertaion 
+        except Exception:
+            traceback.print_exc()
+        #except:
+            
+            # date =request.POST['date']
+            # print ("you didnot check period")
+            # tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
+            # tms_create.save()
+            # messages.success(request, "Submitted") 
+            # return timeEntryList(request)  
+            messages.warning(request, "Something went wrong") 
+            return render(request, 'timesheets/list.html')
+       
+# this is working for the GET request
+    else:
+        print("failed")
+        return timeEntryList(request)
 
     return render(request, 'timesheets/list.html')
 
@@ -176,7 +209,7 @@ def timeEntryDelete(request, id):
     if request.method == "POST":
         obj.delete()
         messages.success(request, "Time Entry Deleted")
-        return HttpResponseRedirect("/timesheets/view")
+        return HttpResponseRedirect("/timesheets/")
     context = {
         "id" : obj,
     }
