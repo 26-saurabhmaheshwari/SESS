@@ -56,6 +56,7 @@ class lmsApprove(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['EmpUser_list'] = EmpProfile.objects.all()
+        context['User_detail'] = User.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):        
