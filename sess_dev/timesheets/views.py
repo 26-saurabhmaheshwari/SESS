@@ -89,45 +89,44 @@ def timeEntryList(request):
                 week_no = int(week_no)
                 current_records = [time_record for time_record in time_records if
                                     time_record.get_week() == week_no ]
-                try:
-                    gotdata = current_records[0]                
-                    c_week = current_records[0].get_week()
-                    x_week = current_records[0].get_week()
-                except IndexError:
-                    gotdata = 'null'
-                    c_week = week_no 
-                    x_week = ''
+                # try:
+                #     gotdata = current_records[0]                
+                #     c_week = current_records[0].get_week()
+                #     x_week = current_records[0].get_week()
+                # except IndexError:
+                #     gotdata = 'null'
+                #     c_week = week_no 
 
-            if week == 'next-week':
-                week_no = request.POST.get('week_no')
-                week_no = int(week_no)
-                current_records = [time_record for time_record in time_records if
-                                    time_record.get_week() == week_no + 1]
-                try:
-                    gotdata = current_records[0]
+            # if week == 'next-week':
+            #     week_no = request.POST.get('week_no')
+            #     week_no = int(week_no)
+            #     current_records = [time_record for time_record in time_records if
+            #                         time_record.get_week() == week_no + 1]
+            #     try:
+            #         gotdata = current_records[0]
                     
-                    c_week = current_records[0].get_week()
-                    x_week = current_records[0].get_week()
-                except IndexError:
-                    gotdata = 'null'
-                    c_week = week_no 
-                    x_week = ''
+            #         c_week = current_records[0].get_week()
+            #         x_week = current_records[0].get_week()
+            #     except IndexError:
+            #         gotdata = 'null'
+            #         c_week = week_no 
+            #         x_week = ''
             
-            if week == 'last-week':
-                week_no = request.POST.get('week_no')
-                week_no = int(week_no)
-                if not c_week:
-                    c_week = week_no
-                current_records = [time_record for time_record in time_records if
-                                    time_record.get_week() == week_no - 1]
-                try:
-                    gotdata = current_records[0]
-                    c_week = current_records[0].get_week()
-                    y_week = current_records[0].get_week()
-                except IndexError:
-                    gotdata = 'null'
-                    c_week = week_no 
-                    y_week = ''
+            # if week == 'last-week':
+            #     week_no = request.POST.get('week_no')
+            #     week_no = int(week_no)
+            #     if not c_week:
+            #         c_week = week_no
+            #     current_records = [time_record for time_record in time_records if
+            #                         time_record.get_week() == week_no - 1]
+            #     try:
+            #         gotdata = current_records[0]
+            #         c_week = current_records[0].get_week()
+            #         y_week = current_records[0].get_week()
+            #     except IndexError:
+            #         gotdata = 'null'
+            #         c_week = week_no 
+            #         y_week = ''
         except :
             request.method = 'GET'
             return timeEntryList(request)

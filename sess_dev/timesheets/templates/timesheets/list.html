@@ -31,7 +31,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"> Week</div>
                                         </div>
-                                        <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                                        <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week }}" id="example-week-input">
                                     </div>
                             </div>
                             <div class="col-3">
@@ -42,7 +42,7 @@
                 
                             <div class="col-2">
                                 <form action="{% url 'timeEntryExport' %}" method="GET">
-                                    <input class="form-control " name="exp_week" type="hidden" value="{{ c_week|add:-1 }}" id="example-week-input">
+                                    <input class="form-control " name="exp_week" type="hidden" value="{{ c_week }}" id="example-week-input">
                                     <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
                                     </button>
                                 </form>
@@ -102,59 +102,8 @@
             </div>
         </div>
 </div>
-<div class="row">   
-        <div class="col-12">
-            <div class="card ">
-                <div class="card-body">                    
-                        <div class="row">
-                                <div class="col-sm">
-                                    <form action="" method="post">{% csrf_token %}
-                                        <input type="hidden" name="week" value="last-week">
-                                        {% if   x_week and y_week  %}
-                                            <input type="hidden" name="week_no" value="{{ c_week }}">                    
-                                            <button class="btn btn-outline-info" type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
-                                                Previous week
-                                            </button>
-                                        {% endif %}
-                                            {% if  not y_week and  x_week  %}
-                                                <input type="hidden" name="week" value="next-week">
-                                                <input type="hidden" name="week_no" value="{{ c_week|add:-1 }}">    
-                                                <button class="btn btn-outline-info" type="submit">
-                                                    Next Week <i class="far fa-arrow-alt-circle-right"></i>
-                                                </button>                    
-                                        {% endif %}
-                                    </form>
-                                </div>
-                                <div class="col-sm">
-                                </div>
-                                <div class="col-sm ">
-                                    <form action="" method="post">{% csrf_token %}
-                                        <input type="hidden" name="week" value="next-week">
-                                        {% if  not x_week and  y_week  %}
-                                            <p>No Further Records Available</p>
-                                                    <input type="hidden" name="week" value="last-week">
-                                                    <input type="hidden" name="week_no" value="{{ c_week|add:1 }}">    
-                                                    <button class="btn btn-outline-info " type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
-                                                        Previous week
-                                                    </button>
-                                        {% endif %}
-                                        {% if   y_week and x_week     %}
-                                            <input type="hidden" name="week_no" value="{{ c_week }}">                    
-                                            <button type="submit" class="btn btn-outline-info">Next Week <i class="far fa-arrow-alt-circle-right"></i>
-                                            </button>           
-                                        {% endif %}                    
-                                    </form>
-                                </div>
-                        </div>
-                   
-                        
-                        
-                </div>
-            </div>
-        </div>
 
-
-        <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+<div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
                 <div class="modal-dialog modal-lg">
                   <!-- Modal content-->
                   <div class="modal-content">
