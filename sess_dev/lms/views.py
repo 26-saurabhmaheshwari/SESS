@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, TemplateView
 from .models import lms_details
+from django.contrib.auth.models import User
+from ems.models import EmpProfile
 from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm,lmsApproveForm
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
 from django.views import generic
@@ -48,6 +50,13 @@ class lmsApprove(LoginRequiredMixin, ListView):
     template_name = "lms/lms_approve.html"
     context_object_name = 'lms'
     queryset = lms_details.objects.filter(ls_status = 'P')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['EmpUser_list'] = EmpProfile.objects.all()
+        return context
 
     def post(self, request, *args, **kwargs):        
             d = dict(request.POST.items())            

@@ -1,27 +1,20 @@
-{% extends "base_generic.html" %}
+{% extends "base.html" %}
 {% block title %}
 <title>Update EMS</title>
 {% endblock %}
-{% block pgt %}
-<div class="row page-titles">
-        <div class="col-md-5 align-self-center"><h3 class="text-primary">Update Members</h3> </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">EMS</li>
-                <li class="breadcrumb-item active">Update</li>
-            </ol>
-        </div>
-    </div>
-    {% endblock %}
-{% block formrd %}
 
+{% block dash_1 %}
 
-<div class="col-3">
-                <button class="btn btn-outline-dark " type="button"> <i class="far fa-arrow-alt-circle-left"></i>
-                        Back to List </button>
+<div class="row ">
+                
+        <div class="col-3 rd-mar-tp-5">
+                <a href="{% url 'employee' %}">
+                        <button class="btn btn-outline-dark " type="button">
+                                <i class="far fa-arrow-alt-circle-left"></i>Back to List 
+                        </button>
+                </a>
         </div>
-        <div class="col-6 ">
+        <div class="col-6 rd-mar-tp-5">
                 <div class="card card-outline-primary">
                         <div class="card-header">
                                 <h4 class="m-b-0 text-white">Update the Employee</h4>
@@ -36,9 +29,9 @@
                                         <button type="submit"  value="Create"  class="btn btn-outline-primary">Update</button></a>
                                 </form>
                         </div>
-                        </div>
                 </div>
         </div>
+</div>
         
 
 {% endblock %}

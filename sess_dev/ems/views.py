@@ -18,7 +18,14 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = "ems/employee_list.html"
     login_url = '/login/'
-
+     
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['EmpProfile_list'] = EmpProfile.objects.all()
+        return context
 
     def get_queryset(self):
         if self.request.GET.get('q'):
@@ -76,7 +83,7 @@ def EmployeeUpdateView(request, id):
         obj.save()
         return HttpResponseRedirect("/employee/{num}".format(num=obj.id))
 
-    template = "ems/update-view.html"
+    template = "ems/employee_update.html"
     return render(request, template, context )
 
 # Delete the Employee from the table
