@@ -9,6 +9,7 @@
   <!-- Custom CSS -->
   <!-- Add additional CSS in static file -->
   {% load static %}
+  {% load mathfilters %}
  
    <!-- <link rel="stylesheet" href="{% static 'css/argon.css' %}">
   <link rel="stylesheet" href="{% static 'css/argon.min.css' %}"> -->
@@ -116,9 +117,8 @@
             function drawChart() {
               var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Approved',     11],
-                ['Rejected {{ lms.count }}',      2],
-                ['Pending', {{ lms.count }}         ]
+                ['Availed {{lms_approved.count }}',     {{lms_approved.count }}],
+                ['Available {{ 10|sub:lms_approved.count}}',  {{ 10|sub:lms_approved.count}}],
               ]);
       
               var options = {

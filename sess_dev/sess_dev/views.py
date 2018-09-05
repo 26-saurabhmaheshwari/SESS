@@ -49,8 +49,9 @@ def Dashboard(request):
     username = request.session.get('username')
     emp = get_object_or_404(User, username=username)
     lms=lms_details.objects.all().filter(emp_id = emp_id)
+    lms_approved=lms_details.objects.all().filter(emp_id = emp_id,ls_status = 'A')
    # lms = get_object_or_404(lms_details, emp_id = emp_id)  
-    context = { "emp" : emp, "lms" : lms }
+    context = { "emp" : emp, "lms" : lms , "lms_approved" : lms_approved,}
     return render(request, template, context )
 # def get_context_data(self, **kwargs):
 #         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
