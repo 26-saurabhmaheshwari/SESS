@@ -111,16 +111,22 @@
 
         </script>
 
+
+
+
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
+              {% if lms_approved %}
+                      
               var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
                 ['Availed {{lms_approved.count }}',     {{lms_approved.count }}],
                 ['Available {{ 10|sub:lms_approved.count}}',  {{ 10|sub:lms_approved.count}}],
               ]);
-      
+              {%  endif %}
+
               var options = {
                 width: 400,
                 height: 220,
