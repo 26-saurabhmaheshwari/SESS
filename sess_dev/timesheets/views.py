@@ -147,41 +147,47 @@ def timeEntryCreate(request):
     if request.method == 'POST':
         hours=request.POST['hours']
         task_description=request.POST['task-description']
-        print(request.POST['task-period'])
         try :
-            if request.POST['task-period']:
-                start_date=request.POST['start_date']
-                end_date=request.POST['end_date']
-                start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
-                end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
-                date_list=list(days_between_ends(start_date, end_date))
-                for date_element in date_list:
+            request.POST['task-period']
+            start_date=request.POST['start_date']
+            end_date=request.POST['end_date']
+            start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+            end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+            date_list=list(days_between_ends(start_date, end_date))
+            for date_element in date_list:
+                try:
                     tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
-                    tms_create.save() 
-                print("try if is workin g")
-                messages.success(request, "Submitted")
-                return render(request, 'timesheets/list.html')
-            else :
-                date = request.POST['date']
-                print ("you didnot check period")
+                    tms_create.save()
+                except IntegrityError:
+                    dup_msg="The Time Sheet for "+ str(date_element) + " is already present"
+                    messages.warning(request, dup_msg)
+            messages.success(request, "Submitted")
+            return timeEntryList(request)
+        except Exception:            
+            date = request.POST['date']
+            print ("you didnot check period")
+            try:
                 tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
-                tms_create.save()
-                print("try else is workin g")
-                messages.success(request, "Submitted") 
-                return render(request, 'timesheets/list.html')
-# one if duplicate insertaion 
-        except Exception:
-            traceback.print_exc()
-        #except:
+                tms_create.save() 
+                messages.success(request, "Submitted Successfully")
+                return timeEntryList(request)
+            except IntegrityError:
+                dup_msg="The Time Sheet for "+ date + " is already present"
+                messages.warning(request, dup_msg)
+                return timeEntryList(request)
             
-            # date =request.POST['date']
-            # print ("you didnot check period")
-            # tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
-            # tms_create.save()
-            # messages.success(request, "Submitted") 
-            # return timeEntryList(request)  
-            messages.warning(request, "Something went wrong") 
-            return render(request, 'timesheets/list.html')
+# # one if duplicate insertaion 
+#             traceback.print_exc()
+#         #except:
+            
+#             # date =request.POST['date']
+#             # print ("you didnot check period")
+#             # tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
+#             # tms_create.save()
+#             # messages.success(request, "Submitted") 
+#             # return timeEntryList(request)  
+#             # messages.warning(request, "Something went wrong") 
+#             return render(request, 'timesheets/list.html')
        
 # this is working for the GET request
     else:
