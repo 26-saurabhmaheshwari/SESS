@@ -27,6 +27,14 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   background-size: cover;
   background-position: center;
 }
+#rdb2
+{
+  background-color: #1797ff;
+  background-image: url('../images/bg2.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
 
 background: rgba(0, 0, 0, 0.05)
 
@@ -89,6 +97,10 @@ padding: 0 0 3px 5px;
 .bg-wh1{
   background-color: #FFF;
     background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\'…v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+.bg-wh2{
+  background-color: #FFF;
+    background-image: url('../images/bg2.jpg');
 }
 .bg-danger1 {
   /* background: #26dad2 !important; */

@@ -147,14 +147,14 @@ def timeEntryCreate(request):
     if request.method == 'POST':
         hours=request.POST['hours']
         task_description=request.POST['task-description']
+        print(request.POST['task-period'])
         try :
-            if request.POST['task-checked']:
-
+            if request.POST['task-period']:
                 start_date=request.POST['start_date']
                 end_date=request.POST['end_date']
                 start_date=datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
                 end_date=datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
-                date_list=list(days_between_ends(start_date,end_date))
+                date_list=list(days_between_ends(start_date, end_date))
                 for date_element in date_list:
                     tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
                     tms_create.save() 

@@ -25,7 +25,7 @@
                     {% endif %}
                     <div class="form-group row">
                             <div class="col-5" >
-                                <form action="" method="post">{% csrf_token %}
+                                <form action="{% url 'timeEntryList' %}" method="post">{% csrf_token %}
                                     <label class="sr-only" for="from"> Week</label>
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
@@ -126,7 +126,7 @@
               </div>
 
             <div class="col-auto">
-              <p class="text-muted m-b-15 f-s-12"> <input type="checkbox" id="dtc"  name="task-checked" placeholder="Hours Worked"> Mark this checkbox <code>checked</code> to fill for Period time logging</p>
+              <p class="text-muted m-b-15 f-s-12"> <input type="checkbox" id="dtc"  name="task-period" value="1" placeholder="Hours Worked"> Mark this checkbox <code>checked</code> to fill for Period time logging</p>
             </div>
 
             <div class="col-auto" id="dtx">
