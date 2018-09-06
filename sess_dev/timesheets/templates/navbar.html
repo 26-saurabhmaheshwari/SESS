@@ -40,7 +40,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'lmsList' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% if user.is_anonymous %} disabled  {% endif %}" href="{% url 'lmsList' %}" id="navbarDropdown" role="button" data-toggle="dropdownX" aria-haspopup="true" aria-expanded="false">
                             Lms
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -118,11 +118,7 @@
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
                             <li><a href="{% url 'logout'%}?next={{request.path}}"><i class="fa fa-power-off"></i> Logout</a></li>
-
-                              
-                        
-                        
-                                {% else %}
+                            {% else %}
                                 <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="{% url 'login'%}?next={{request.path}}">
                                              <i class="fa fa-sign-in"></i> Login

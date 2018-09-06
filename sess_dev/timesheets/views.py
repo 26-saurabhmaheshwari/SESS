@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
+
 from .forms import CreateTimeSheetForm
 from django.forms import formset_factory
 from django.contrib import messages
@@ -51,6 +53,7 @@ def timeEntryApprove(request):
     current_week = timezone.now().isocalendar()[1]
     current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
     context['current_records'] = current_records
+    context['c_week'] = current_week
 
     if request.method == 'POST':
         emp_id = request.POST['eid']
@@ -58,12 +61,12 @@ def timeEntryApprove(request):
         current_week = timezone.now().isocalendar()[1]
         current_records = [time_record for time_record in time_records if time_record.get_week() == current_week]
         context['current_records'] = current_records
-        return render(request, 'timesheets/approve_list.html', context)
+        return render(request, 'timesheets/timesheets_approve.html', context)
    
 
-    return render(request, 'timesheets/approve_list.html', context)
+    return render(request, 'timesheets/timesheets_approve.html', context)
 
-
+@login_required(login_url='/login/')
 def timeEntryList(request):
     emp_id = request.session.get('emp_id')
     context = dict()
@@ -187,6 +190,7 @@ def timeEntryCreate(request):
 
     return render(request, 'timesheets/list.html')
 
+@login_required(login_url='/login/')
 def timeEntryUpdate(request, id):
     emp_id = request.session.get('emp_id')
     obj = get_object_or_404(TimeRecords, id=id)
@@ -202,6 +206,7 @@ def timeEntryUpdate(request, id):
     template = "timesheets/update.html"
     return render(request, template, context )
 
+@login_required(login_url='/login/')
 def timeEntryDelete(request, id):
     emp_id = request.session.get('emp_id')
     obj = get_object_or_404(TimeRecords, id=id) 

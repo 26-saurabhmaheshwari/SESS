@@ -1,0 +1,229 @@
+{% extends "base_generic.html" %}
+
+
+{% block title %}
+<title>Members</title>
+{% endblock %}
+{% block pgt %}
+<div class="row page-titles">
+        <div class="col-md-5 align-self-center"><h3 class="text-primary">Time Records</h3> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">TSM</li>
+                <li class="breadcrumb-item active">View</li>
+            </ol>
+        </div>
+    </div>
+    {% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <form action="" method="post">{% csrf_token %}           
+            <div class="form-group row">
+                <div class="col-7" >
+                    <label class="sr-only" for="from"> Week</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"> Week</div>
+                        </div>
+                        <input class="form-control " name="week-selected" type="week" value="2018-W{{ c_week|add:-1 }}" id="example-week-input">
+                    </div>
+                </div>
+                <div class="col-3">
+                        <input type="hidden" name="week" value="selected">
+                    <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                    <form action="" method="post">{% csrf_token %}           
+                            <div class="form-group row">
+                                <div class="col-7" >
+                                    <label class="sr-only" for="from"> Week</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"> EID</div>
+                                        </div>
+                                        <input class="form-control " name="eid" type="input"  id="example-week-input">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-info" type="submit"> Load  <i class="fas fa-search"> </i></button>   
+                                </div>
+                            </div>
+                        </form>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">HTML</a></li>
+                          <li><a href="#">CSS</a></li>
+                          <li><a href="#">JavaScript</a></li>
+                        </ul>
+                
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col-8" >
+                    
+                </div>
+                <div class="col-2">
+                        <a href="{% url 'timeEntryExport' %}" >
+                            <button type="button" class="btn " style="background: #009900; color:#fff;">Download Excel <i class="far fa-file-excel" style="font-size:30px;"></i>
+                            </button>
+                        </a>
+                </div>
+                <div class="col-2">
+                    <form action="{% url 'timeEntryExport' %}" method="GET">
+                        <input class="form-control " name="exp_week" type="hidden" value="{{ c_week }}" id="example-week-input">
+                        <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        <br>
+        {% if current_records %}
+            <table style="width:100%;" class="table table-sm datatable " id="myTable">
+                <thead>
+                    <tr>
+                            <th >#</th> <th >EMPID</th><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th>
+                    </tr>
+                </thead>
+                {% for record in current_records %}
+                    <tr>
+                            <td><div class="checkbox">
+                                    <label><input type="checkbox" value=""></label>
+                                  </div></td>
+                        <td>{{ record.emp_id}} </td>
+                        <td>{{ record.ts_date|date:"SHORT_DATE_FORMAT"}}</td>
+                        <td>{{ record.ts_effort}}</td><td>{{ record.ts_desc}}</td>
+                        <td>
+                            <span class="badge  badge-pill {% if record.ts_status == 'P' %}badge-secondary{% elif record.ts_status == 'R' %}badge-danger{% else %}badge-success{% endif %}">
+                           {{ record.get_ts_status_display}}</span></td>
+                        <td>
+                            <a href="../{{record.id}}/edit"> <button type="button" class="btn btn-outline-primary">Edit</button></a> -
+                            <a href="../{{record.id}}/delete/"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+                        </td>
+                    </tr> 
+                {% endfor %}
+            </table>
+        {% else %}
+            <table style="width:100%;" class="table table-bordered">
+                <tr><th >Date</th><th >Hours </th><th > Description</th><th > Status</th> <th > Action</th> </tr>
+                <tr></tr>  
+            </table>
+            
+        {% endif %}
+        <hr>
+<!-- this for next week -->
+        <div class="row">
+            <div class="col-sm">
+                <form action="" method="post">{% csrf_token %}
+                    <input type="hidden" name="week" value="last-week">
+                    {% if   x_week and y_week  %}
+                        <input type="hidden" name="week_no" value="{{ c_week }}">                    
+                        <button class="btn btn-outline-info" type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
+                            Previous week
+                        </button>
+                    {% endif %}
+                        {% if  not y_week and  x_week  %}
+                            <input type="hidden" name="week" value="next-week">
+                            <input type="hidden" name="week_no" value="{{ c_week|add:-1 }}">    
+                            <button class="btn btn-outline-info" type="submit">
+                                Next Week <i class="far fa-arrow-alt-circle-right"></i>
+                            </button>                    
+                    {% endif %}
+                </form>
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm ">
+                <form action="" method="post">{% csrf_token %}
+                    <input type="hidden" name="week" value="next-week">
+                    {% if  not x_week and  y_week  %}
+                        <p>No Further Records Available</p>
+                                <input type="hidden" name="week" value="last-week">
+                                <input type="hidden" name="week_no" value="{{ c_week|add:1 }}">    
+                                <button class="btn btn-outline-info " type="submit"> <i class="far fa-arrow-alt-circle-left"></i>
+                                    Previous week
+                                </button>
+                    {% endif %}
+                    {% if   y_week and x_week     %}
+                        <input type="hidden" name="week_no" value="{{ c_week }}">                    
+                        <button type="submit" class="btn btn-outline-info">Next Week <i class="far fa-arrow-alt-circle-right"></i>
+                        </button>           
+                    {% endif %}                    
+                </form>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>yq
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"><a class="navbar-brand" href="#">Navbar</a> <div class="collapse navbar-collapse" > <div class="navbar-nav"><a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a><a class="nav-item nav-link " href="/employee/">Employee <span class="sr-only">(current)</span></a> <a class="nav-item nav-link "href="/timesheets/">Sheets <span class="sr-only">(current)</span></a></div></div></nav>
+
+  <div class="container" style="margin:2%">
+    
+<h2>Time Records for the Current Month</h2>
+
+<a href="/timesheets/export/" >
+    <button type="button" class="btn btn-outline-primary">
+    <img alt="Export to Excel" src="{% static "timesheets/exportexcel.png" %}" >
+    </button>
+</a>
+<p></p>
+<!-- <table style="width:100%;" class="table table-bordered">
+                <tr> <th > Date</th> <th> Efforts</th> <th> Description</th> <th> Action</th> </tr>
+
+                {% for time_record in time_records %} 
+                <tr>
+                    <td >{{ time_record.ts_date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td>{{ time_record.ts_effort }}</td>
+                    <td>{{ time_record.ts_desc }}</td>
+                    <td ><a href="../{{time_record.id}}/edit">Edit</a> <a href="../{{time_record.id}}/delete/">Delete</a></td>                  
+                </tr> 
+                {% endfor  %}
+              </table>   
+
+            </div>  
+        -->
+            
+</body>
+</html>
+
+
+

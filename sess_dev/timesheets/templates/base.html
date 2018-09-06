@@ -44,7 +44,7 @@
         </div>
         {% include 'sidebar.html' %}
         
-        <div class="page-wrapper"> 
+        <div class="page-wrapper" > 
             <div class="container-fluid">
                 {% block dash_1 %}{% endblock %}
                 
@@ -122,8 +122,8 @@
                       
               var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Availed {{lms_approved.count }}',     {{lms_approved.count }}],
                 ['Available {{ 10|sub:lms_approved.count}}',  {{ 10|sub:lms_approved.count}}],
+                ['Availed {{lms_approved.count }}',     {{lms_approved.count }}],
               ]);
               {%  endif %}
 
