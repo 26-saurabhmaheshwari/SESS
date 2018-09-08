@@ -2,7 +2,7 @@
 {% block title %}<title>{{ user.get_username }}'s Profile </title>{% endblock %}
 {% block formrd %}
 <main role="main" class="container">
-  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+  <!-- <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
     <h3 class=" color-white">{{ emp.first_name }} {{ emp.last_name }}</h3>
   </div>
   <div class="nav-scroller bg-white shadow-sm">
@@ -15,7 +15,7 @@
       </a>
       <a class="nav-link" href="#">Link</a>
     </nav>
-  </div>
+  </div> -->
   <div class="row ">
     <div class="col-lg-3">
       <div class="card bg-dark">
@@ -24,14 +24,12 @@
             <div class="owl-item active">
               <div class="item">
                 <div class="testimonial-content">
-                  <img class="testimonial-author-img class="avatar"" width="50px" height="50px" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
-                  <div class="testimonial-author">{{ emp.first_name }} {{ emp.last_name }}</div>
-                  <div class="testimonial-author-position">Member from : {{ emp.date_joined}} </div>
-                  <div class="testimonial-author-position">Works at SNAP SYSTEMS </div>
-                  <br/>
+                  <img class="testimonial-author-img avatar"  style="border-radius: 100px;height: 150px !important; width: 160px !important;" src="https://www.w3schools.com/howto/img_avatar.png" alt="">
+                  <br>
                   <div class="testimonial-text">
-                    <i class="fa fa-quote-left"></i> Some details 
-                    <i class="fa fa-quote-right"></i>
+                    <h3 class="text-white">
+                    <i class="fa fa-quote-left"></i> {{ emp.first_name }} {{ emp.last_name }}
+                    <i class="fa fa-quote-right"></i></h3>
                   </div>
                 </div>
               </div>

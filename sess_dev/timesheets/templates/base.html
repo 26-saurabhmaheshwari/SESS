@@ -122,17 +122,19 @@
                       
               var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Available {{ 10|sub:lms_approved.count}}',  {{ 10|sub:lms_approved.count}}],
-                ['Availed {{lms_approved.count }}',     {{lms_approved.count }}],
+                ['Available',  {{ 10|sub:lms_approved.count}}],
+                ['Availed ',     {{lms_approved.count }}],
               ]);
-              {%  endif %}
+              
 
               var options = {
-                width: 400,
+                width: 450,
                 height: 220,
+                pieSliceText: 'value',
                // title: 'LMS Off',
                 colors: ['#11ca11', '#f94d0c', '#f9e70c'],
                 pieHole: 0.4,
+                
                 titleTextStyle: {
                     color: ('#99b898'),    // any HTML string color ('red', '#cc00cc')
                    // fontName: 'Times New Roman', // i.e. 'Times New Roman'
@@ -141,7 +143,7 @@
                     italic: false 
                     }
               };
-      
+      {%  endif %}
               var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
               chart.draw(data, options);
             }

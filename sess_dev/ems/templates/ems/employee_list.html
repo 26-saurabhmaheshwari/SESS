@@ -40,7 +40,8 @@
         <div class="container">
                 {% if perms.ems.can_mark_returned %}
                         {% if user_list %}
-                        <table style="width:100%;" class="table table-sm datatable">
+
+                        <table style="width:100%;" class="table table-sm datatable"  id="myTable">
                                 <tr><th >#</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th><th> Edit</th> <th> Delete</th> </tr>
                                 
                                 {% for emp in user_list %}
@@ -67,38 +68,46 @@
                                 <p>There are no employee.</p>
                         {% endif %} 
                 {% else %}
-                        <div class="alert alert-danger alert-dismissible fade show">
+                        <!-- <div class="alert alert-danger alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <strong>Hey  {{ user.get_username }} !</strong> You are not authorised to view this page.
-                        </div>
-                        <table style="width:100%;" class="table table-sm datatable">
+                        </div> -->
+                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+<br>
+                        <table  class="table table-sm datatable"  id="myTable">
+                                <thead>
+
+                                </thead>
                                         <tr><th >#</th><th >Employee ID</th><th >User Name</th><th >Employee Full Name</th><th > email</th><th > Hire Date</th><th> Status</th> </tr>
-                                       
-                                        {% for emp in user_list %}
-                                                <tr>
+                                        <tbody id="myTable">
+                                                        {% for emp in user_list %}
+
+                                                        <tr>
+                                                               
+        
+        
+        
+                                                                              
+                                                              
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>  {% for profile in EmpProfile_list %}                                                                        
+                                                                        {% if profile.username_id == emp.id %}
+                                                                                {{ profile.emp_id }}
+                                                                        {% endif %}
+                                                                {% endfor %} </td>
+                                                        <td >{{ emp.username}}</td>
+                                                        <td > {{ emp.first_name}} {{ emp.last_name}} </td>
+                                                        <td >{{ emp.email}}</td>
+                                                        <td >{{ emp.date_joined}}</td>
+                                                        <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
+                                                        
                                                        
-
-
-
-                                                                      
-                                                      
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>  {% for profile in EmpProfile_list %}                                                                        
-                                                                {% if profile.username_id == emp.id %}
-                                                                        {{ profile.emp_id }}
-                                                                {% endif %}
-                                                        {% endfor %} </td>
-                                                <td >{{ emp.username}}</td>
-                                                <td > {{ emp.first_name}} {{ emp.last_name}} </td>
-                                                <td >{{ emp.email}}</td>
-                                                <td >{{ emp.date_joined}}</td>
-                                                <td ><span class="badge btn-info">{{ emp.is_active}}</span></td>
-                                                
-                                               
-                                                <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
-                                                </tr> 
-                                                        <!--{% if perms %} perms test      {% endif %} -->
-                                        {% endfor  %}
+                                                        <!-- <td ><a href="{{emp.id}}/edit"><button type="button" class="btn btn-outline-dark">Edit</button></a> or <a href="{{emp.id}}/delete/">Delete</a></td> -->
+                                                        </tr> 
+                                                                <!--{% if perms %} perms test      {% endif %} -->
+                                                {% endfor  %}
+                                        </tbody>      
+                                        
                                 </table>
                 {% endif %} 
 

@@ -19,8 +19,16 @@
                     <div class="col-2">
                          
                             <div class="card bg-dark rd-grd">
-                                    <div class="testimonial-author">
-                                            <h4 class="color-white">Year : 2018</h4>
+                                    <div class="testimonial-author"> {% if year %} 
+                                            <h4 class="color-white"> 
+                                                
+                                                Year : {{ year }} 
+                                               
+                                            </h4>
+
+                                            {% else %}
+                                               <h4 class="color-white">Year : All</h4>
+                                            {% endif %} 
                           
                                         </div>
                                   </div>
@@ -34,7 +42,7 @@
                         <div class="card  bg-success ripple p-20">
                                 <div class="media widget-ten">
                                     <div class="media-left meida media-middle">
-                                        <h4 class="color-white">Available: {{ lms.count }}</h4>
+                                        <h4 class="color-white">Available: {{ 10|sub:lms_approved.count}}</h4>
 
                                     </div>
                                    
@@ -45,7 +53,7 @@
                             <div class="card  bg-danger ripple p-20">
                                     <div class="media widget-ten">
                                         <div class="media-left meida media-middle">
-                                            <h4 class="color-white">Availed : {{ lms.count }}</h4>
+                                            <h4 class="color-white">Availed :{{ lms_approved.count }} </h4>
                                         </div>
                                        
                                     </div>
@@ -74,8 +82,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">
-                        <div class=" p-20">
-                            <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target="#LeaveModel">Request New</button>
+                        <div class=" p-5">
+                            <button type="button" class="btn btn-dark  btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target="#LeaveModel">Request New</button>
                         </div>
                     </div>
                     <div class="col-2 ">
@@ -83,28 +91,31 @@
                     <div class="col-1" style="   border-right: 1px solid rgba(119, 105, 105, 0.244);">
                         </div>
                     <div class="col-6">
-                        <div class=" p-20">
+                        <div class=" p-5 p-r-20">
                             <div class="row">
                                 <div class="col-10">
-                                        <form action="" method="post"><input type="hidden" name="csrfmiddlewaretoken" value="UsPeEvVAmpzl8OBGtXdB19FbthTkpr4OcBywlzzAncU4d9Ls7GrTEzRf3SxANAoa">
+                                        <form action="" method="get">
+                                                {% csrf_token %}
                                             <label class="sr-only" for="from"> Year</label>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"> Year</div>
                                                 </div>
-                                                <select class="form-control" id="sel1" >
-                                                        <option>2014</option>
-                                                        <option>2015</option>
-                                                        <option>2016</option>
-                                                        <option>2017</option>
-                                                        <option>2018</option>
-                                                        <option>2019</option>
+                                                <select class="form-control" id="sel1" name="q" >
+                                                        <option value="0">All</option>
+                                                        {% for i in loop_times %}
+                                                            <option value={{ i }}>{{ i }}</option>
+                                                        {% endfor %}
+                                                        <!-- <option>{% now "Y" %}</option> -->
+                                                                                                            
+                    <!-- <option>2014</option> -->
+                                                       
                                                 </select>
                                                                         
                                             </div>
                                 </div>
                                 <div class="col-2">
-                                        <input type="hidden" name="week" value="selected">
+                                        <!-- <input type="hidden" name="week" value="selected"> -->
                                         <button class="btn rd-grd text-white " type="submit"> Load  <i class="fas fa-search"> </i></button>   
                                 </form>
                                     </div>
@@ -160,13 +171,12 @@
                 <div class="col-sm-12">
 
                         <div class="alert alert-warning alert-dismissible fade show">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <button type="button" class="close btn btn-dark btn-outline-danger text-white" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span></button>
-                                <strong>Hi {{ user.get_username }}:</strong> No Leave record found for your account. To submit new please fill Leave Request Form by clicking below"request" button .
+                                <strong>Hi {{ user.get_username }}:</strong> No Leave record found {% if year %} for the year - {{ year }} {% endif %}.
                                </div> 
                         <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Request </button> -->
-                        <button type="button" class="btn btn-dark btn-outline-danger btn-rounded m-b-10 m-l-5"  data-toggle="modal" data-target="#LeaveModel">Request</button>
-                        {{ lms_set.count }} 
+                       
                         
                 </div> 
         </div>
@@ -186,11 +196,17 @@
             <div class="modal-content" >
             
               <!-- Modal Header -->
-              <div class="modal-header" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+              <!-- <div class="modal-header" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
                 <h4 class="modal-title text-white">Leave Request Form </h4>
                 <button type="button" class="close btn btn-outline-danger" data-dismiss="modal">× </button>
-              </div>
-              
+              </div> -->
+              <div class="rd-grd">
+                    <div class=" modal-header bg-danger1">
+                        <h4 class="modal-title p-20 text-white">Leave Request Form </h4>
+                        <button type="button" class="close btn  btn-dark text-white" data-dismiss="modal" aria-label="Close">
+                        <h1 aria-hidden="true">&times;</h1>
+                        </button>
+                    </div></div>
               <!-- Modal body -->
               <div class="modal-body">
                     <form action="{% url 'lmsCreate' %}" method="POST" >{% csrf_token %}

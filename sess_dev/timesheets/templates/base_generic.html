@@ -177,7 +177,22 @@
               }
           });
 
-        
+          $('input[type="checkbox"]').change(function() {
+
+            if ($('.rd-dt').attr('required')) {
+                $('.rd-dt').removeAttr('required');
+                $('.rd-dt1').attr('required','required');
+            } 
+    
+            else {
+                $('.rd-dt').attr('required','required');
+            }
+    
+        });
+
+
+
+
         } );
 
  // $("#dty").hide();
@@ -192,6 +207,16 @@
 
         </script>
 
+        <script>
+            $(document).ready(function(){
+              $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+            </script>
         <script type="text/javascript">
 
           $(document).ready( function () {

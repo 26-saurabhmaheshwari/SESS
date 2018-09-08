@@ -8,6 +8,7 @@ from ems.models import EmpProfile
 from .forms import lmsCreateForm,lmsViewForm,lmsUpdateForm,lmsApproveForm
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
 from django.views import generic
+import datetime
 
 
 
@@ -17,10 +18,34 @@ class lmsList(LoginRequiredMixin, ListView):
     template_name = "lms/lms_list.html"
     context_object_name = 'lms'  
     
-    def get_queryset(self):
-        emp_id = self.request.session.get('emp_id')
-        queryset = self.model.objects.filter(emp_id = emp_id) 
-        return queryset
+   
+
+    def get_context_data(self, **kwargs):
+            # Call the base implementation first to get a context
+            context = super().get_context_data(**kwargs)
+            emp_id = self.request.session.get('emp_id')
+            # Add in a QuerySet of all the books
+            context['EmpUser_list'] = EmpProfile.objects.all()
+            context['User_detail'] = User.objects.all()
+            context['lms'] = lms_details.objects.filter(emp_id = emp_id)
+            context['lms_approved']=lms_details.objects.all().filter(emp_id = emp_id,ls_status = 'A')
+            now = datetime.datetime.now() 
+            y=now.year
+            context['loop_times'] = range(2015, y+2)
+
+            if self.request.GET.get('q'):
+                q = self.request.GET.get('q')
+                emp_id = self.request.session.get('emp_id')
+                print(emp_id)
+                
+                context['lms'] = self.model.objects.filter(emp_id = emp_id).filter(ls_date__icontains = q)
+                if q is '0':
+                    context['year'] = 'All'
+                    return context
+
+                context['year'] = q
+                return context
+            return context
 
 class lmsCreate(LoginRequiredMixin, CreateView):
     model = lms_details

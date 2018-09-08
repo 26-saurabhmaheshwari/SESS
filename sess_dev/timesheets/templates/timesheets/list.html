@@ -104,15 +104,19 @@
 </div>
 
 <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog  modal-dialog-centered">
                   <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class=" modal-title">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <div class="modal-content ">
+                    <div class="rd-grd">
+                    <div class=" modal-header bg-danger1">
+                        <h4 class="modal-title p-20 text-white">Log Time</h4>
+                        <button type="button" class="close btn  btn-dark text-white" data-dismiss="modal" aria-label="Close">
                         <h1 aria-hidden="true">&times;</h1>
                         </button>
                         <br>
-                    </div>
+                    </div></div>
+                    
+             
                     <form action="/timesheets/create/" method="post">{% csrf_token %}
                       <div class="modal-body">
                         
@@ -126,7 +130,7 @@
                                 <div class="input-group-prepend">
                                   <div class="input-group-text">Hours</div>
                                 </div>
-                                <input type="number" class="form-control"  name="hours" placeholder="Hours Worked">
+                                <input type="number" class="form-control"  name="hours" placeholder="Hours Worked" required>
                               </div>
                             </div>
 
@@ -140,7 +144,7 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text"> Date</div>
                               </div>
-                              <input type="date" class="form-control" id="from2" name="date" placeholder=" Date">
+                              <input type="date" class="form-control rd-dt" id="from2" name="date" placeholder=" Date" required>
                             </div>
                           </div>
 
@@ -152,7 +156,7 @@
                                   <div class="input-group-prepend">
                                     <div class="input-group-text">Start Date</div>
                                   </div>
-                                  <input type="date" class="form-control" id="from2" name="start_date" placeholder="Start Date">
+                                  <input type="date" class="form-control rd-dt1" id="from2" name="start_date" placeholder="Start Date">
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -161,7 +165,7 @@
                               <div class="input-group-prepend">
                                 <div class="input-group-text">End Date</div>
                               </div>
-                              <input type="date" class="form-control" id="to2" name="end_date" placeholder="28-07-018">
+                              <input type="date" class="form-control rd-dt1" id="to2" name="end_date" placeholder="28-07-018">
                             </div>
                           </div>
                         </div>
@@ -173,7 +177,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Description</div>
                           </div>
-                          <input type="text" class="form-control"  name="task-description" placeholder="task-description">
+                          <input type="text" class="form-control"  name="task-description" placeholder="task-description" required>
                         </div>
                       </div>
 

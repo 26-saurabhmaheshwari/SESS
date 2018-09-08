@@ -24,13 +24,14 @@
 
 <body  id="rdb2">
 
+
     <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4 mt-lg-5 "">
                 <div class="card">
                         <a class="navbar-brand" style="text-align: center"; href="{% url 'dashboard' %}">
                                 <!-- Logo icon -->
-                                <b><img src="{% static 'images/Xsess1.PNG' %}" alt="Log in" class="dark-logo" height="75" width="115" /></b>
+                                <b><img src="{% static 'images/sess1.PNG' %}" alt="Log in" class="dark-logo" height="75" width="115" /></b>
                                 <!--End Logo icon -->
                                 <!-- Logo text -->
                                 <!-- <span><img src="{% static 'images/Xsnp_lga.PNG' %}" alt="Logo(not-loading)" class="dark-logo" height="50" width="75" /></span> -->
@@ -41,7 +42,7 @@
                                 {% csrf_token %}
                                 <div class=" form-group input-group">
                                     <div class="input-group input-group-rounded">
-                                        <input type="text" placeholder="Enter {{ form.username.html_name }}" id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}"   class="form-control" field_signature="1012080445">
+                                        <input type="text" placeholder="Enter {{ form.username.html_name }}" id="{{ form.username.id_for_label }}"  name="{{ form.username.html_name }}" required  class="form-control" field_signature="1012080445">
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
@@ -50,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30 ripple rd-grd">Sign in</button>
+                                    <button type="submit" class="btn btn-rounded btn-primary btn-flat m-b-30 m-t-30 ripple rd-grd">Sign in</button>
                                     <input type="hidden" name="next" value="{{ next }}" />
                                 </div>
                             </form>
@@ -58,7 +59,7 @@
                     </div>
                 </div>
         </div>
-        <div class="col-sm-3"></div>
+        <div class="col-sm-4"></div>
 
     </div>
 
