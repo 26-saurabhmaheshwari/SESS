@@ -77,6 +77,10 @@ div.chart_div table {
   margin: 0 auto !important;
 }
 .rd-grd{ background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important; }  
+.rd-grd-purple{ background: linear-gradient(40deg,#ff6ec4,#7873f5)!important;}
+.rd-grd-blue{ background: linear-gradient(40deg,#45cafc,#303f9f)!important;}
+.rd-grd-peach{ background: linear-gradient(40deg,#ffd86f,#fc6262)!important;}
+.rd-grd-aqua{ background: linear-gradient(40deg,#2096ff,#05ffa3)!important;}
 .card{margin: 5px 0 !important;} 
 .card2{margin: 10px 10px !important; transition: all .25s ease;} .card2:hover{transform: scale(1.1,1.1);} 
 

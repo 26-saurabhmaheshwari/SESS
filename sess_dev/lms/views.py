@@ -31,7 +31,7 @@ class lmsList(LoginRequiredMixin, ListView):
             context['lms_approved']=lms_details.objects.all().filter(emp_id = emp_id,ls_status = 'A')
             now = datetime.datetime.now() 
             y=now.year
-            context['loop_times'] = range(2015, y+2)
+            context['year_range'] = range(y-3, y+2)
 
             if self.request.GET.get('q'):
                 q = self.request.GET.get('q')

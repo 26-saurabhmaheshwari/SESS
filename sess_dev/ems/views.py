@@ -50,7 +50,9 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
   
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
-        context['tags'] = TimeRecords.objects.all().filter(emp_id = 2001)
+        emp_id = self.request.session.get('emp_id')
+  
+        context['tags'] = TimeRecords.objects.all().filter(emp_id = emp_id)
         return context
     # def test_func(self):
     #     return self.request.user.email.endswith('@example.com')
@@ -111,27 +113,21 @@ def Profile(request):
 
 
 
-
+# #Envoice
 class EmpInvoiceView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = "ems/employee_invoice.html"
     login_url = '/login/'
+    context_object_name = 'user'    
 
-    def get_queryset(self):
-        if self.request.GET.get('q'):
-            try:
-                first_name = self.request.GET.get('q')
-            except :
-                first_name = ''
-            if (first_name != ''):
-                object_list = self.model.objects.filter(first_name__icontains = first_name)
-            else:
-                object_list = self.model.objects.all()
-        else:
-            object_list = self.model.objects.all().exclude(is_superuser = 1)
-        return object_list
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         emp_id = self.request.session.get('emp_id')
+#         print(emp_id)
+#         context['user_empprofile'] = EmpProfile.objects.all().filter(emp_id = emp_id)
+#         return context
 
-
+  
 class EmpOrgnView(LoginRequiredMixin, generic.ListView):
     model = User
     template_name = "ems/employee_chart.html"

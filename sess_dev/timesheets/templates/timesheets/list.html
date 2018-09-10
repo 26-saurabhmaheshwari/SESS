@@ -43,12 +43,17 @@
                             <div class="col-2">
                                 <form action="{% url 'timeEntryExport' %}" method="GET">
                                     <input class="form-control " name="exp_week" type="hidden" value="{{ c_week }}" id="example-week-input">
-                                    <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i>
+                                    <!-- <button type="submit" class="btn ripple" style="background-color: transparent; color: #009900; border-color: #009900;">Download Excel <i class="far fa-file-excel" style="font-size:auto;"></i> -->
                                     </button>
+
+                                    
+                                      <button type="submit" class="btn " style="background: #009900; color:#fff;">Download Excel <i class="far fa-file-excel" style="font-size:30px;"></i>
+                                      </button>
+                                  
                                 </form>
                             </div>
                             <div class="col-1">
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Log time </button>
+                                <button type="button" class="btn rd-grd-blue btn text-white rd-grd ripple btn btn-dark btn-outline-danger btn-rounded" data-toggle="modal" data-target=".bd-example-modal-lg">Log time </button>
                             </div>
                         </div>
                 
@@ -104,13 +109,13 @@
 </div>
 
 <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
-                <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 584px;"   >
                   <!-- Modal content-->
                   <div class="modal-content ">
                     <div class="rd-grd">
                     <div class=" modal-header bg-danger1">
                         <h4 class="modal-title p-20 text-white">Log Time</h4>
-                        <button type="button" class="close btn  btn-dark text-white" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close btn rd-grd-blue  btn-dark text-white" data-dismiss="modal" aria-label="Close">
                         <h1 aria-hidden="true">&times;</h1>
                         </button>
                         <br>
