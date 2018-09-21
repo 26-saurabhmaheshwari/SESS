@@ -12,6 +12,7 @@ urlpatterns = [
     path('timesheets/', include('timesheets.urls')),
     path('lms/', include('lms.urls')),
     path('employee/', include('ems.urls'), name="em"),
+    path('inbox/', include('inbox.urls')),
     path('', views.Dashboard, name='home'),
     path('dashboard/', views.Dashboard, name='dashboard'),
     path('login/', auth_views.login, name='login'),

@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Details</title>
+{% endblock %}
+{% block formrd %}
+<main role="main" class="container">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <h3 class=" color-white"> {{ object.first_name }} {{ object.last_name }} </h3>
+        </div>
+        </main>
+{% endblock %}
+{% block content %}
+<div class="container" >
+ <p>
+     {{ object.msg_body |safe }} <br> and 
+  {{ object.msg_body |safe  }}
+ </p> 
+       
+        
+        </div>
+        {% endblock %}

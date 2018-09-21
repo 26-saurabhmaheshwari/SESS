@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <!-- Custom CSS -->
+  <!-- Add additional CSS in static file -->
+  {% load mathfilters %}
+  {% load static %}
+  <link rel="icon" href="{% static 'images/snp_192x192.png' %}" sizes="192x192" />
+
+  <link href="{% static 'css/lib/sweetalert/sweetalert.css'%}" rel="stylesheet"> 
+   <!-- <link rel="stylesheet" href="{% static 'css/argon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/argon.min.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/spinners.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
+  <style>
+        [data-toggle="collapse"] .fa:before {  
+            content: "\f139";
+          }
+          
+          [data-toggle="collapse"].collapsed .fa:before {
+            content: "\f13a";
+          }
+        .rd-grd{ background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important; }   
+  </style> 
+</head>
+
+<body class="fix-header">
+
+
+
+    <div class="preloader" style="display: none;">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle> </svg>
+    </div>
+    <div id="main-wrapper">
+        <div class="header">
+                {% include 'navbar.html' %}
+        </div> 
+        {% include 'sidebar.html' %}
+        
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            {% block pgt %}{% endblock %}
+  
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                        {% block formrd %}{% endblock %}
+                     <div class="col-12">
+                            
+                            {% block dash_1 %}{% endblock %}
+                        <div class="card">
+                            <div class="card-body"> 
+
+                                    {% block content %}{% endblock %}
+                                    {% block pagination %}
+                                      {% if is_paginated %}
+                                      <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                              <li class="page-item ">
+                                                    {% if page_obj.has_previous %}
+                                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="page-link" href="#" tabindex="-1">Previous</a>
+                                                {% endif %}
+                                              </li>
+                                              {% for pg in page_obj.paginator.page_range %}
+                                              {% if page_obj.number == pg %}
+                                                 <li class="page-item active"><a class="page-link active" href="?page={{ pg }}">{{ pg }}</a></li>
+                                             {% else %}
+                                                <li class="page-item "><a class="page-link" href="?page={{ pg }}">{{ pg }}</a></li>
+                                                
+                                                {% endif %}
+                                              {% endfor %}
+                                              
+
+                                              {% if page_obj.has_next %}
+                                                <li class="page-item">
+                                                   <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                                </li>
+                                                {% else %}
+                                                <li class="page-item disabled">
+                                                    <a class="page-link">next</a>
+                                                </li> 
+                                            {% endif %}
+                                            </ul>
+                                        </nav>
+
+                                          <div class="pagination">
+                                              <span class="page-links">
+                                                  {% if page_obj.has_previous %}
+                                                      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                                                  {% endif %}
+                                                  <span class="page-current">
+                                                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                  </span>
+                                                  {% if page_obj.has_next %}
+                                                      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                                  {% endif %}
+                                              </span>
+                                          </div>
+                                      {% endif %}
+                                    {% endblock %}  
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+   
+
+     
+        
+            {% load static %}
+            <script src="{% static 'js/sidebarmenu.js' %}"></script>
+            <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>                   
+            <script>
+              $('#summernote').summernote({
+                placeholder: 'Write here ...  ',
+                tabsize: 2,
+                height: 100
+              });
+          </script>
+                      
+        </body>
+        </html>

@@ -1,0 +1,265 @@
+{% extends "compose_base.html" %}
+{% load mathfilters %}
+{% load inbox_custom_filters %}
+{% block title %}
+<title>Inbox</title>
+{% endblock %}
+{% block formrd %}   
+      
+{% endblock %}
+{% block dash_1 %}
+
+<div class="row ">
+    <div class="col-12 ">
+        <div class="card">
+                <div class="card-body">
+         
+
+
+
+
+                    <button type="button" class="btn-hover color-10" data-toggle="modal" data-target="#LeaveModel">Compose</button>
+                    <button class="btn-hover color-8">Sent</button>
+                    <button class="btn-hover color-9">Archived</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Start Page Content -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-content">
+                        <!-- Left sidebar -->
+                   
+                        <!-- End Left sidebar -->
+
+
+                            <div role="toolbar" class="">
+                                <div class="btn-group">
+                                    <button class="btn btn-light waves-effect" type="button"><i class="mdi mdi-archive font-18 vertical-middle"></i></button>
+                                    <button class="btn btn-light waves-effect" type="button"><i class="mdi mdi-alert-octagon font-18 vertical-middle"></i></button>
+                                    <button class="btn btn-light waves-effect" type="button"><i class="mdi mdi-delete-variant font-18 vertical-middle"></i></button>
+                                </div>
+                                <div class="btn-group">
+                                    <button aria-expanded="false" data-toggle="dropdown" class="btn btn-light dropdown-toggle waves-effect" type="button">
+                                                                        <i class="mdi mdi-folder font-18 vertical-middle"></i>
+                                                                        <b class="caret m-l-5"></b>
+                                                                    </button>
+                                    <div class="dropdown-menu">
+                                        <span class="dropdown-header">Move to</span>
+                                        <a href="javascript: void(0);" class="dropdown-item">Social</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Promotions</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Updates</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Forums</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button aria-expanded="false" data-toggle="dropdown" class="btn btn-light dropdown-toggle waves-effect" type="button">
+                                                                        <i class="mdi mdi-label font-18 vertical-middle"></i>
+                                                                        <b class="caret m-l-5"></b>
+                                                                    </button>
+                                    <div class="dropdown-menu">
+                                        <span class="dropdown-header">Label as:</span>
+                                        <a href="javascript: void(0);" class="dropdown-item">Updates</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Social</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Promotions</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Forums</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button aria-expanded="false" data-toggle="dropdown" class="btn btn-light dropdown-toggle waves-effect" type="button">
+                                                                        More
+                                                                        <span class="caret m-l-5"></span>
+                                                                    </button>
+                                    <div class="dropdown-menu">
+                                        <span class="dropdown-header">More Option :</span>
+                                        <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Add Star</a>
+                                        <a href="javascript: void(0);" class="dropdown-item">Mute</a>
+                                    </div>
+                                </div>
+
+                                <!-- <button class="btn-hover color-10">BUTTON</button> -->
+                            </div>
+
+                            <div class="">
+                                <div class="mt-4">
+                                    <div class="">
+                                        <ul class="message-list">
+    {% for record in Inbox_list %}   
+   
+                                            <li  {% if record.status == 'U' %} class="unread" {% endif %}>
+                                                <a href="{{record.msg_id.msg_id}}">
+                                                    <div class="col-mail col-mail-1">
+                                                        <div class="checkbox-wrapper-mail">
+                                                            <input type="checkbox" id="chk1">
+                                                            <label class="toggle" for="chk1"></label>
+                                                        </div>
+                                                <p class="title">
+
+                        {% with x=Employee_list|get_emp_dtl:record.msg_id.from_id %}
+                                {{ x.0.first_name }} {{ x.0.last_name }}     
+                        {% endwith %}                        
+                                                </p> 
+                                                        
+                                                
+                                            <span class="star-toggle fa fa-star-o"></span>                                                </div>
+                                                    <div class="col-mail col-mail-2">
+
+                                                            
+
+
+                                                        <div class="subject"><a href='{{record.msg_id.msg_id}}'> {{ record.msg_id.subject}} </a> 
+                                                        </div>
+                                                      <div class="date">{{ record.msg_id.sent_date|date:"SHORT_DATE_FORMAT" }}
+
+                                                            </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+
+                                            
+
+                                           
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <!-- panel body -->
+                            </div>
+                            <!-- panel -->
+
+                            <div class="row">
+                                <div class="col-7">
+                                    Showing 1 - 20 of 289
+                                </div>
+                                <div class="col-5">
+                                    <div class="btn-group float-right">
+                                        <button class="btn btn-gradient waves-effect" type="button"><i class="fa fa-chevron-left"></i></button>
+                                        <button class="btn btn-gradient waves-effect" type="button"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End PAge Content -->
+
+    
+{% endblock %}
+{% block content %}
+
+
+
+            
+<div class="container mt-3">
+       
+      
+        <!-- The Modal -->
+        <div class="modal fade" id="LeaveModel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+            
+              <!-- Modal Header -->
+              <!-- <div class="modal-header" style="background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;">
+                <h4 class="modal-title text-white">Leave Request Form </h4>
+                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal">× </button>
+              </div> -->
+              <div class="rd-grd ">
+                    <div class=" modal-header ">
+                     
+                        <button type="button" class="close btn btn-hover text-white" data-dismiss="modal" aria-label="Close">
+                      &times;
+                        </button>
+                    </div>
+                </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                    <form action="{% url 'lmsCreate' %}" method="GET" >
+                        <div class="row">
+                            
+                            <div class="col-sm-12">
+                              
+
+
+                                    <div class="form-group">
+                                    
+                                            <input type="hidden" class="form-control"  name="emp_id" placeholder="Enter Employee ID" value="{{request.session.emp_id}}" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="from"> Leave Date:	</label>
+                                            <input type="date" class="form-control" id="from2" name="ls_date" placeholder=" Date">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="to">Reason for taking Leave:	</label>
+                                            <input type="text" class="form-control" id="summernote"  name="ls_reason" placeholder="Reason">
+                                        </div>
+                                        <select class="form-control" id="sel1" name="q" >
+                                                <option value="0">All</option>
+                                                {% for i in "xxxxxxxxxxxxxxxxxxxx" %}
+                                                        {{ forloop.counter0 }}
+                                                        <option value={{ i }}>{{ i }}</option>
+                                                    {% endfor %}
+                                                                   
+                    
+                                                <!-- <option>{% now "Y" %}</option> -->
+                                                                                                    
+            <!-- <option>2014</option> -->
+                                               
+                                        </select>
+
+
+                                <div id="summerXnote"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                           
+                        </div>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                            <button type="submit"  value="Create"  class="btn btn-outline-primary">Send</button>
+                        </div>
+                    </form>
+              </div>
+              
+              <!-- Modal footer -->              
+            </div>
+          </div>
+        </div>
+        
+</div>
+      
+  
+
+{% endblock %}

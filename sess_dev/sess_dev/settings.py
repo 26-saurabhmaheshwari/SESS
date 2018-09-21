@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'timesheets',
     'ems',
     'lms',
+    'inbox',
     'api',
     'rest_framework',
     'mathfilters',
