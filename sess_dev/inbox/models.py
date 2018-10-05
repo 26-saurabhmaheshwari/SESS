@@ -1,9 +1,9 @@
 from django.db import models
 
 class InboxHeader(models.Model):
-    msg_id  = models.PositiveIntegerField(verbose_name = 'Message ID', help_text="")
+    msg_id  = models.AutoField(verbose_name = 'Message ID', help_text="", primary_key=True)
     from_id = models.PositiveIntegerField(verbose_name = 'From ID', help_text="")
-    sent_date = models.DateField(verbose_name = 'sent Date')
+    sent_date = models.DateField(auto_now_add=True, verbose_name = 'sent Date')
     parent_msg_id = models.PositiveIntegerField(verbose_name = 'Parent ID', help_text="")
     subject = models.CharField(max_length=200, verbose_name = 'Message Subject')
 

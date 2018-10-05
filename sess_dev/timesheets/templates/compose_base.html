@@ -23,10 +23,11 @@
 
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
         [data-toggle="collapse"] .fa:before {  
             content: "\f139";
@@ -36,7 +37,9 @@
             content: "\f13a";
           }
         .rd-grd{ background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important; }   
-  </style> 
+  </style>
+  
+  
 </head>
 
 <body class="fix-header">
@@ -62,8 +65,7 @@
                 <div class="row">
                         {% block formrd %}{% endblock %}
                      <div class="col-12">
-                            
-                            {% block dash_1 %}{% endblock %}
+                         {% block dash_1 %}{% endblock %}
                         <div class="card">
                             <div class="card-body"> 
 
@@ -136,14 +138,83 @@
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+            <script src="{% static 'js/jquery.mentionsInput.js' %}"></script>
+
+            
             <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>                   
+
             <script>
-              $('#summernote').summernote({
+              $('.summernote').summernote({
                 placeholder: 'Write here ...  ',
                 tabsize: 2,
                 height: 100
               });
+
+              $(".hXint2mention").summernote({
+                height: 30,
+                toolbar: false,
+                hint: {
+                    mentions:[
+                    {% for user in User_list %}
+                    ' {{user.first_name}} ',
+                    {% endfor %}
+                    ],
+                   
+               
+                  <!-- mentions: ['jayden', 'sam', 'alvin', 'david'], -->
+                  match: /\B@(\w*)$/,
+                  search: function (keyword, callback) {
+                    callback($.grep(this.mentions, function (item) {
+                      return item.indexOf(keyword) == 0;
+                    }));
+                  },
+                  content: function (item) {
+                    return item;
+                  }    
+                }
+              });
+            </script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+            <script>
+              var datalist = jQuery('datalist');
+              var options = jQuery('datalist option');
+              var optionsarray = jQuery.map(options ,function(option) {
+                  return option.value;
+              });
+              var input = jQuery('input[list]');
+              var inputcommas = (input.val().match(/,/g)||[]).length;
+              var separator = ',';
+                  
+              function filldatalist(prefix) {
+                if (input.val().indexOf(separator) > -1 && options.length > 0) {
+                  datalist.empty();
+                  for (i=0; i < optionsarray.length; i++ ) {
+                    if (prefix.indexOf(optionsarray[i]) < 0 ) {
+                      datalist.append('<option value="'+prefix+optionsarray[i]+'">');
+                    }
+                  }
+                }
+              }
+              input.bind("change paste keyup",function() {
+                var inputtrim = input.val().replace(/^\s+|\s+$/g, "");
+                //console.log(inputtrim);
+                var currentcommas = (input.val().match(/,/g)||[]).length;
+                //console.log(currentcommas);
+                if (inputtrim != input.val()) {
+                  if (inputcommas != currentcommas) {
+                    var lsIndex = inputtrim.lastIndexOf(separator);
+                    var str = (lsIndex != -1) ? inputtrim.substr(0, lsIndex)+", " : "";
+                    filldatalist(str);
+                    inputcommas = currentcommas;
+                  }
+                  input.val(inputtrim);
+                }
+              });
           </script>
+
+          
+          
                       
         </body>
         </html>

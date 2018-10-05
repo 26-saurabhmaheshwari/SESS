@@ -19,7 +19,7 @@ class InboxList(LoginRequiredMixin, ListView):
     context_object_name = 'inbox'  
     
    
-
+# 
     def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             emp_id = self.request.session.get('emp_id')
@@ -31,6 +31,50 @@ class InboxList(LoginRequiredMixin, ListView):
             context['User_list'] = User.objects.all()
             context['Employee_list'] = EmpProfile.objects.all()
             return context
+
+    def post(self, request, *args, **kwargs):        
+            # d = dict(request.POST.items())    
+            # 
+            emp_id = request.session.get('emp_id')
+            try :
+                to=request.POST['inbox_to']
+                to_list = to.split(",")
+                print (to_list)
+                from_id = request.session.get('emp_id')
+                #sent_date= 2018-09-12
+                for to_element in to_list:
+                    try:
+                        print (to_element)
+                        emp_id1 = EmpProfile.objects.all()select_related('to_element').get(emp_id)
+                        print (emp_id1)
+                    except IntegrityError:
+                        pass
+                        
+               # return timeEntryList(request) 
+                
+               
+                # date_list=list(days_between_ends(start_date, end_date))
+                # for date_element in date_list:
+                #     try:
+                #         tms_create = TimeRecords(emp_id=emp_id,ts_date=date_element,ts_effort=hours,ts_desc=task_description,ts_status='P')
+                #         tms_create.save()
+                #     except IntegrityError:
+                #         dup_msg="The Time Sheet for "+ str(date_element) + " is already present"
+                #         messages.warning(request, dup_msg)
+                # messages.success(request, "Submitted")
+                return timeEntryList(request)
+            except Exception:            
+                date = request.POST['date']
+                print ("you didnot check period")
+                try:
+                    tms_create = TimeRecords(emp_id=emp_id,ts_date=date,ts_effort=hours,ts_desc=task_description,ts_status='P')
+                    tms_create.save() 
+                    messages.success(request, "Submitted Successfully")
+                    return timeEntryList(request)
+                except IntegrityError:
+                    dup_msg="The Time Sheet for "+ date + " is already present"
+                    messages.warning(request, dup_msg)
+                    return timeEntryList(request)
 
 class InboxDetail(LoginRequiredMixin, generic.DetailView):
     model = InboxBody

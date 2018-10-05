@@ -81,6 +81,8 @@ div.chart_div table {
 .rd-grd-blue{ background: linear-gradient(40deg,#45cafc,#303f9f)!important;}
 .rd-grd-peach{ background: linear-gradient(40deg,#ffd86f,#fc6262)!important;}
 .rd-grd-aqua{ background: linear-gradient(40deg,#2096ff,#05ffa3)!important;}
+.rd-grd-blrd{background-image: linear-gradient(-39deg, #ff6b6b 0%, #2b90d9 100%);}
+.rd-grd-grbl{background-image: linear-gradient(-39deg, #39B27B 0%, #118AB2 100%);}
 .card{margin: 5px 0 !important;} 
 .card2{margin: 10px 10px !important; transition: all .25s ease;} .card2:hover{transform: scale(1.1,1.1);} 
 
@@ -469,17 +471,17 @@ background: white;
 
 .btn-hover {
   width: 200px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: auto;
+  font-weight: auto;
   color: #fff;
   cursor: pointer;
-  margin: 20px;
-  height: 55px;
+  margin: 5px;
+  height: 35px;
   text-align:center;
   border: none;
   background-size: 300% 100%;
 
-  border-radius: 50px;
+  border-radius: 25px;
   moz-transition: all .4s ease-in-out;
   -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;
@@ -543,4 +545,57 @@ background: white;
 }
 
 
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
 

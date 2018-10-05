@@ -54,6 +54,9 @@ class lmsCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('lmsList')
     template_name = "lms/lms_create.html"
 
+
+
+
 class lmsUpdate(LoginRequiredMixin, UpdateView):
     model = lms_details
     login_url = '/login/' 
