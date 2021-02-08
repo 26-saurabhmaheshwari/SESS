@@ -9,7 +9,7 @@ djangorestframework==3.8.2
 djangorestframework-jsonapi==2.5.0
 et-xmlfile==1.0.1
 google-api-python-client==1.6.7
-httplib2==0.11.3
+httplib2==0.19.0
 idna==2.6
 inflection==0.3.1
 isort==4.3.4
