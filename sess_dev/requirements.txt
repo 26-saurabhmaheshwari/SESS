@@ -30,7 +30,7 @@ pytz==2018.3
 rcssmin==1.0.6
 requests==2.18.4
 rjsmin==1.0.12
-rsa==3.4.2
+rsa==4.1
 six==1.11.0
 stevedore==1.28.0
 uritemplate==3.0.0
