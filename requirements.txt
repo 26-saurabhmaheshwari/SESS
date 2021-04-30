@@ -22,7 +22,7 @@ pylint==1.8.3
 PyPDF2==1.26.0
 pytz==2018.3
 requests==2.18.4
-rsa==3.4.2
+rsa==4.7
 six==1.11.0
 stevedore==1.28.0
 uritemplate==3.0.0
